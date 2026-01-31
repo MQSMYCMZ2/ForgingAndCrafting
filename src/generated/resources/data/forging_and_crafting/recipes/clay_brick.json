@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "A": {
+      "item": "minecraft:bricks"
+    },
+    "X": {
+      "item": "minecraft:clay_ball"
+    },
+    "Y": {
+      "item": "minecraft:sand"
+    },
+    "Z": {
+      "item": "minecraft:charcoal"
+    }
+  },
+  "pattern": [
+    "XZX",
+    "YAY",
+    "XZX"
+  ],
+  "result": {
+    "item": "forging_and_crafting:clay_brick"
+  },
+  "show_notification": true
+}

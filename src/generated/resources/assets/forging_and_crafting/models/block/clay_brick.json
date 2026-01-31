@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "forging_and_crafting:block/clay_brick"
+  }
+}
