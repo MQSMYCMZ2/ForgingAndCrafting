@@ -2,9 +2,12 @@ package com.mqsmycmz.forging_and_crafting;
 
 import com.mojang.logging.LogUtils;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.tab.ForgingAndCraftingCreativeModeTabs;
-import net.minecraft.client.Minecraft;
+import com.mqsmycmz.forging_and_crafting.world.menu.ForgingAndCraftingMenuTypes;
+import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +23,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(ForgingAndCrafting.MOD_ID)
 public class ForgingAndCrafting
 {
@@ -37,6 +39,9 @@ public class ForgingAndCrafting
         ForgingAndCraftingCreativeModeTabs.register(modEventBus);
         ForgingAndCraftingBlocks.register(modEventBus);
         ForgingAndCraftingItems.register(modEventBus);
+
+        ForgingAndCraftingBlockEntities.register(modEventBus);
+        ForgingAndCraftingMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 
@@ -76,9 +81,7 @@ public class ForgingAndCrafting
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            MenuScreens.register(ForgingAndCraftingMenuTypes.ROCK_CRUSHER_MENU.get(), RockCrusherScreen::new);
         }
     }
 }

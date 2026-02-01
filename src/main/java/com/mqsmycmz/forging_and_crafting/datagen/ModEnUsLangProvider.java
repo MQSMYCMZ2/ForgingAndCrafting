@@ -15,8 +15,11 @@ public class ModEnUsLangProvider extends LanguageProvider {
     protected void addTranslations() {
         add(ForgingAndCraftingItems.DUST_PARTICLES.get(), "Dust Particles");
 
+        add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "Rock Crusher");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "Clay Brick");
 
         add("itemGroup.forging_and_crafting_tab", "Forging And Crafting");
+
+        add("entity.forging_and_crafting.rock_crusher", "Rock Crusher");
     }
 }

@@ -16,6 +16,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.dropSelf(ForgingAndCraftingBlocks.CLAY_BRICK.get());
+        this.dropSelf(ForgingAndCraftingBlocks.ROCK_CRUSHER.get());
     }
 
     @Override

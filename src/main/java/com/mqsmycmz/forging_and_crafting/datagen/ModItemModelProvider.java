@@ -1,10 +1,15 @@
 package com.mqsmycmz.forging_and_crafting.datagen;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
+import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -13,6 +18,13 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        basicItem(ForgingAndCraftingItems.DUST_PARTICLES.get());
+        simpleItem(ForgingAndCraftingItems.DUST_PARTICLES);
+    }
+
+    @SuppressWarnings("removal")
+    private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(ForgingAndCrafting.MOD_ID, "item/" + item.getId().getPath()));
     }
 }
