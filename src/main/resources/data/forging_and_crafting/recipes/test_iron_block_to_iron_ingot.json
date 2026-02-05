@@ -1,0 +1,12 @@
+{
+  "type": "forging_and_crafting:rock_crusher",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_block"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "item": "minecraft:iron_ingot"
+  }
+}

@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
+import com.mqsmycmz.forging_and_crafting.recipe.ForgingAndCraftingRecipes;
 import com.mqsmycmz.forging_and_crafting.tab.ForgingAndCraftingCreativeModeTabs;
 import com.mqsmycmz.forging_and_crafting.world.menu.ForgingAndCraftingMenuTypes;
 import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
@@ -42,6 +43,7 @@ public class ForgingAndCrafting
 
         ForgingAndCraftingBlockEntities.register(modEventBus);
         ForgingAndCraftingMenuTypes.register(modEventBus);
+        ForgingAndCraftingRecipes.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 

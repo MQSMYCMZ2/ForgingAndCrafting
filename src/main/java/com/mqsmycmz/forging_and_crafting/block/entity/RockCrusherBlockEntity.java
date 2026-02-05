@@ -1,5 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.block.entity;
 
+import com.mqsmycmz.forging_and_crafting.recipe.RockCrusherRecipe;
 import com.mqsmycmz.forging_and_crafting.world.menu.RockCrusherMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +27,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(2);
@@ -147,10 +150,23 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     private boolean hasRecipe() {
-        boolean hasCraftingItem = this.itemStackHandler.getStackInSlot(INPUT_SLOT).getItem() == Items.IRON_BLOCK;
-        ItemStack result = new ItemStack(Items.IRON_INGOT);
+        Optional<RockCrusherRecipe> recipe = getCurrentRecipe();
 
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        if (recipe.isEmpty()) {
+            return false;
+        }
+        ItemStack result = recipe.get().getResultItem(null);
+
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+    }
+
+    private Optional<RockCrusherRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemStackHandler.getSlots());
+        for (int i = 0; i < itemStackHandler.getSlots(); i ++) {
+            inventory.setItem(i, this.itemStackHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(RockCrusherRecipe.Type.INSTANCE, inventory, level);
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
@@ -162,7 +178,9 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     private void craftItem() {
-        ItemStack result = new ItemStack(Items.IRON_INGOT, 1);
+        Optional<RockCrusherRecipe> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().getResultItem(null);
+
         this.itemStackHandler.extractItem(INPUT_SLOT, 1, false);
 
         this.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
