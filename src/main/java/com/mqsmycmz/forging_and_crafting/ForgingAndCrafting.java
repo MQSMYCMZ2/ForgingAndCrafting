@@ -3,6 +3,7 @@ package com.mqsmycmz.forging_and_crafting;
 import com.mojang.logging.LogUtils;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
+import com.mqsmycmz.forging_and_crafting.block.entity.renderer.RockCrusherBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.ForgingAndCraftingRecipes;
 import com.mqsmycmz.forging_and_crafting.tab.ForgingAndCraftingCreativeModeTabs;
@@ -11,6 +12,7 @@ import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -84,6 +86,11 @@ public class ForgingAndCrafting
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             MenuScreens.register(ForgingAndCraftingMenuTypes.ROCK_CRUSHER_MENU.get(), RockCrusherScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherBlockEntityRenderer::new);
         }
     }
 }
