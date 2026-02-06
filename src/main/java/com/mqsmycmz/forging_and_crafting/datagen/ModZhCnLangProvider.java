@@ -21,5 +21,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add("itemGroup.forging_and_crafting_tab", "锻造和创造");
 
         add("entity.forging_and_crafting.rock_crusher", "碎石机");
+
+        add("jei.forging_and_crafting.rock_crusher", "碎石机");
     }
 }

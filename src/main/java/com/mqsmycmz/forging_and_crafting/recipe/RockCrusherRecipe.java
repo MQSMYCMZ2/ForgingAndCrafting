@@ -56,6 +56,11 @@ public class RockCrusherRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return inputItems;
+    }
+
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }

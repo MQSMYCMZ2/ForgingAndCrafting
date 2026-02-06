@@ -21,5 +21,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add("itemGroup.forging_and_crafting_tab", "Forging And Crafting");
 
         add("entity.forging_and_crafting.rock_crusher", "Rock Crusher");
+
+        add("jei.forging_and_crafting.rock_crusher", "Rock Crusher");
     }
 }
