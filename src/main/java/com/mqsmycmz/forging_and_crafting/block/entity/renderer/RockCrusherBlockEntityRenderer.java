@@ -28,28 +28,40 @@ public class RockCrusherBlockEntityRenderer implements BlockEntityRenderer<RockC
         Level level = pBlockEntity.getLevel();
         if (level == null) return;
 
-        ItemStack inputStack = pBlockEntity.itemStackHandler.getStackInSlot(0);
-        if (inputStack.isEmpty()) return;
-
         Direction facing = pBlockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
 
-        Direction left = facing.getClockWise();
-        Direction right = facing.getCounterClockWise();
+        // 渲染输入物品（左右两侧）
+        ItemStack inputStack = pBlockEntity.itemStackHandler.getStackInSlot(0);
+        if (!inputStack.isEmpty()) {
+            Direction left = facing.getClockWise();
+            Direction right = facing.getCounterClockWise();
 
-        pPoseStack.pushPose();
-        pPoseStack.translate(0.5f, 0.5f, 0.5f);
+            pPoseStack.pushPose();
+            pPoseStack.translate(0.5f, 0.5f, 0.5f);
 
-        pPoseStack.pushPose();
-        offsetToFace(pPoseStack, left);
-        renderItem(inputStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
-        pPoseStack.popPose();
+            pPoseStack.pushPose();
+            offsetToFace(pPoseStack, left, true);
+            renderItem(inputStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
+            pPoseStack.popPose();
 
-        pPoseStack.pushPose();
-        offsetToFace(pPoseStack, right);
-        renderItem(inputStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
-        pPoseStack.popPose();
+            pPoseStack.pushPose();
+            offsetToFace(pPoseStack, right, false);
+            renderItem(inputStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
+            pPoseStack.popPose();
 
-        pPoseStack.popPose();
+            pPoseStack.popPose();
+        }
+
+        ItemStack recipeResultStack = pBlockEntity.getResultItemForDisplay();
+        if (!recipeResultStack.isEmpty()) {
+            pPoseStack.pushPose();
+            pPoseStack.translate(0.5f, 0.5f, 0.5f);
+            offsetToTop(pPoseStack, facing);
+
+            renderRecipeResultItem(recipeResultStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
+
+            pPoseStack.popPose();
+        }
     }
 
     private void renderItem(ItemStack stack, PoseStack poseStack,
@@ -64,18 +76,54 @@ public class RockCrusherBlockEntityRenderer implements BlockEntityRenderer<RockC
                 light, overlay, poseStack, bufferSource, level, 0);
     }
 
-    /* 把坐标系原点移到某个面的中心，并旋转到面朝玩家 */
-    private static void offsetToFace(PoseStack poseStack, Direction face) {
-        float offset = 0.51f;   // 稍微离墙一点，防止 z-fight
+    private void renderRecipeResultItem(ItemStack stack, PoseStack poseStack,
+                                        MultiBufferSource bufferSource, Level level,
+                                        int light, int overlay) {
+        float scale = 14 / 16f;
+        poseStack.scale(scale, scale, scale);
+
+        float time = level.getGameTime() + Minecraft.getInstance().getFrameTime();
+        poseStack.mulPose(Axis.ZP.rotationDegrees(time * 4));
+
+        poseStack.mulPose(Axis.XP.rotationDegrees(180));
+
+        itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED,
+                light, overlay, poseStack, bufferSource, level, 0);
+    }
+
+    private static void offsetToFace(PoseStack poseStack, Direction face, boolean isLeft) {
+        float baseOffset = 0.35f;
         switch (face) {
-            case EAST  -> { poseStack.translate( offset, 0, 0);
-                            poseStack.mulPose(Axis.YP.rotationDegrees(-90)); }
-            case WEST  -> { poseStack.translate(-offset, 0, 0);
-                            poseStack.mulPose(Axis.YP.rotationDegrees( 90)); }
-            case SOUTH -> { poseStack.translate(0, 0,  offset);
-                            poseStack.mulPose(Axis.YP.rotationDegrees(180)); }
-            case NORTH -> { poseStack.translate(0, 0, -offset); /* 0° */ }
-            default    -> {}
+            case EAST  -> {
+                poseStack.translate( baseOffset, 0, 0);
+                poseStack.mulPose(Axis.YP.rotationDegrees(90));
+            }
+            case WEST  -> {
+                poseStack.translate(-baseOffset, 0, 0);
+                poseStack.mulPose(Axis.YP.rotationDegrees( 270));
+            }
+            case SOUTH -> {
+                poseStack.translate(0, 0,  baseOffset);
+                poseStack.mulPose(Axis.YP.rotationDegrees(180));
+            }
+            case NORTH -> {
+                poseStack.translate(0, 0, -baseOffset);
+            }
+            default    -> {
+
+            }
+        }
+    }
+
+    private static void offsetToTop(PoseStack ms, Direction facing) {
+        ms.translate(0, 0.51, 0);
+        ms.mulPose(Axis.XP.rotationDegrees(-90));
+        switch (facing) {
+            case EAST -> ms.mulPose(Axis.ZP.rotationDegrees(-90));
+            case WEST -> ms.mulPose(Axis.ZP.rotationDegrees(90));
+            case SOUTH -> ms.mulPose(Axis.ZP.rotationDegrees(180));
+            case NORTH -> ms.mulPose(Axis.ZP.rotationDegrees(0));
+            default -> {}
         }
     }
 }

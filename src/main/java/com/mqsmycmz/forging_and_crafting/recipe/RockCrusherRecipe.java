@@ -3,7 +3,6 @@ package com.mqsmycmz.forging_and_crafting.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
-import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -28,10 +27,6 @@ public class RockCrusherRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if (pLevel.isClientSide) {
-            return false;
-        }
-
         return inputItems.get(0).test(pContainer.getItem(0));
     }
 

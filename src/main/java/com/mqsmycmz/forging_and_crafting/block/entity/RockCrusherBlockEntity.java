@@ -36,14 +36,20 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (!level.isClientSide()) {
+            // 关键：物品变化时立即更新缓存并同步
+            if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            } else if (level != null && level.isClientSide()) {
+                // 客户端立即更新缓存
+                updateClientResultCache();
             }
         }
     };
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
+
+    private ItemStack clientResultCache = ItemStack.EMPTY;
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
@@ -78,14 +84,6 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
         };
     }
 
-    public ItemStack getRenderStack() {
-        if (itemStackHandler.getStackInSlot(OUTPUT_SLOT).isEmpty()) {
-            return itemStackHandler.getStackInSlot(INPUT_SLOT);
-        } else {
-            return itemStackHandler.getStackInSlot(OUTPUT_SLOT);
-        }
-    }
-
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemStackHandler.getSlots());
         for (int i = 0; i < itemStackHandler.getSlots(); i ++) {
@@ -107,6 +105,10 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemStackHandler);
+        // 确保客户端加载时更新缓存
+        if (level != null && level.isClientSide()) {
+            updateClientResultCache();
+        }
     }
 
     @Override
@@ -129,7 +131,6 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemStackHandler.serializeNBT());
         pTag.putInt("rock_crusher.progress", progress);
-
         super.saveAdditional(pTag);
     }
 
@@ -138,6 +139,15 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
         super.load(pTag);
         itemStackHandler.deserializeNBT(pTag.getCompound("inventory"));
         progress = pTag.getInt("rock_crusher.progress");
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
+        // 接收同步数据后立即更新缓存
+        if (level != null && level.isClientSide()) {
+            updateClientResultCache();
+        }
     }
 
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
@@ -168,18 +178,18 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
 
     private boolean hasRecipe() {
         Optional<RockCrusherRecipe> recipe = getCurrentRecipe();
-
         if (recipe.isEmpty()) {
             return false;
         }
         ItemStack result = recipe.get().getResultItem(null);
-
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
     private Optional<RockCrusherRecipe> getCurrentRecipe() {
+        if (level == null) return Optional.empty();
+
         SimpleContainer inventory = new SimpleContainer(this.itemStackHandler.getSlots());
-        for (int i = 0; i < itemStackHandler.getSlots(); i ++) {
+        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
             inventory.setItem(i, this.itemStackHandler.getStackInSlot(i));
         }
 
@@ -196,10 +206,10 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
 
     private void craftItem() {
         Optional<RockCrusherRecipe> recipe = getCurrentRecipe();
+        if (recipe.isEmpty()) return;
+
         ItemStack result = recipe.get().getResultItem(null);
-
         this.itemStackHandler.extractItem(INPUT_SLOT, 1, false);
-
         this.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
                 this.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
     }
@@ -214,5 +224,44 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
         return saveWithoutMetadata();
     }
 
+    public void updateClientResultCache() {
+        if (level == null || !level.isClientSide()) return;
 
+        ItemStack input = itemStackHandler.getStackInSlot(INPUT_SLOT);
+
+        if (input.isEmpty()) {
+            clientResultCache = ItemStack.EMPTY;
+            return;
+        }
+
+        Optional<RockCrusherRecipe> recipe = getCurrentRecipe();
+        if (recipe.isPresent()) {
+            clientResultCache = recipe.get().getResultItem(null);
+        }
+    }
+
+    public ItemStack getResultItemForDisplay() {
+        if (level == null) return ItemStack.EMPTY;
+
+        // 客户端使用缓存
+        if (level.isClientSide()) {
+            // 如果缓存为空但输入不为空，尝试更新
+            ItemStack input = itemStackHandler.getStackInSlot(INPUT_SLOT);
+            if (!input.isEmpty() && clientResultCache.isEmpty()) {
+                updateClientResultCache();
+            }
+            return clientResultCache;
+        }
+
+        // 服务端实时计算
+        ItemStack input = itemStackHandler.getStackInSlot(INPUT_SLOT);
+        if (input.isEmpty()) return ItemStack.EMPTY;
+
+        Optional<RockCrusherRecipe> recipe = getCurrentRecipe();
+        return recipe.map(r -> r.getResultItem(null)).orElse(ItemStack.EMPTY);
+    }
+
+    public boolean hasValidRecipe() {
+        return getCurrentRecipe().isPresent();
+    }
 }
