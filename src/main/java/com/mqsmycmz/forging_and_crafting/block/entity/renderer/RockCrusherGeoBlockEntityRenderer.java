@@ -63,12 +63,12 @@ public class RockCrusherGeoBlockEntityRenderer extends GeoBlockRenderer<RockCrus
             poseStack.translate(0, 0.5f, 0);
 
             poseStack.pushPose();
-            offsetToFace(poseStack, left, true);
+            offsetToFace(poseStack, left);
             renderItem(inputStack, poseStack, bufferSource, level, packedLight, packedOverlay);
             poseStack.popPose();
 
             poseStack.pushPose();
-            offsetToFace(poseStack, right, false);
+            offsetToFace(poseStack, right);
             renderItem(inputStack, poseStack, bufferSource, level, packedLight, packedOverlay);
             poseStack.popPose();
 
@@ -113,7 +113,7 @@ public class RockCrusherGeoBlockEntityRenderer extends GeoBlockRenderer<RockCrus
                 light, overlay, poseStack, bufferSource, level, 0);
     }
 
-    private static void offsetToFace(PoseStack poseStack, Direction face, boolean isLeft) {
+    private static void offsetToFace(PoseStack poseStack, Direction face) {
         float baseOffset = 0.35f;
         switch (face) {
             case EAST  -> {
@@ -141,8 +141,8 @@ public class RockCrusherGeoBlockEntityRenderer extends GeoBlockRenderer<RockCrus
         ms.translate(0, 0.51, 0);
         ms.mulPose(Axis.XP.rotationDegrees(-90));
         switch (facing) {
-            case EAST -> ms.mulPose(Axis.ZP.rotationDegrees(-90));
-            case WEST -> ms.mulPose(Axis.ZP.rotationDegrees(90));
+            case EAST -> ms.mulPose(Axis.ZP.rotationDegrees(90));
+            case WEST -> ms.mulPose(Axis.ZP.rotationDegrees(270));
             case SOUTH -> ms.mulPose(Axis.ZP.rotationDegrees(180));
             case NORTH -> ms.mulPose(Axis.ZP.rotationDegrees(0));
             default -> {}
