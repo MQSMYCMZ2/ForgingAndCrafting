@@ -4,12 +4,14 @@ import com.mojang.logging.LogUtils;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import com.mqsmycmz.forging_and_crafting.block.entity.renderer.RockCrusherBlockEntityRenderer;
+import com.mqsmycmz.forging_and_crafting.block.entity.renderer.RockCrusherGeoBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.ForgingAndCraftingRecipes;
 import com.mqsmycmz.forging_and_crafting.tab.ForgingAndCraftingCreativeModeTabs;
 import com.mqsmycmz.forging_and_crafting.world.menu.ForgingAndCraftingMenuTypes;
 import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -25,6 +27,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 @Mod(ForgingAndCrafting.MOD_ID)
 public class ForgingAndCrafting
@@ -38,6 +41,8 @@ public class ForgingAndCrafting
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
+
+        GeckoLib.initialize();
 
         ForgingAndCraftingCreativeModeTabs.register(modEventBus);
         ForgingAndCraftingBlocks.register(modEventBus);
@@ -86,11 +91,7 @@ public class ForgingAndCrafting
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             MenuScreens.register(ForgingAndCraftingMenuTypes.ROCK_CRUSHER_MENU.get(), RockCrusherScreen::new);
-        }
-
-        @SubscribeEvent
-        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerBlockEntityRenderer(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherGeoBlockEntityRenderer::new);
         }
     }
 }

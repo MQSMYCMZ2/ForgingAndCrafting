@@ -1,0 +1,48 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"rock_crusher.working.1": {
+			"loop": true,
+			"animation_length": 5,
+			"bones": {
+				"gear1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"5.0": {
+							"vector": [0, 0, 720]
+						}
+					}
+				},
+				"gear2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"5.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"rock_crusher.working.2": {
+			"loop": true,
+			"animation_length": 5,
+			"bones": {
+				"gear2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"5.0": {
+							"vector": [0, 0, -720]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

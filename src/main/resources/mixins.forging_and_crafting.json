@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mqsmycmz.forging_and_crafting.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
+  "clients": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -22,12 +22,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlockWithItem(ForgingAndCraftingBlocks.CLAY_BRICK.get(), cubeAll(ForgingAndCraftingBlocks.CLAY_BRICK.get()));
-
-        horizontalBlock(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/rock_crusher")));
-
-        simpleBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/rock_crusher")));
     }
 
 //    public void horizontalBlock(Block block, ModelFile model) {

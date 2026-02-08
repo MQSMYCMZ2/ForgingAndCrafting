@@ -72,7 +72,7 @@ public class RockCrusherBlock extends BaseEntityBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL;
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class RockCrusherBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if (entity instanceof  RockCrusherBlockEntity) {
+            if (entity instanceof RockCrusherBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer) pPlayer), (RockCrusherBlockEntity) entity, pPos);
             } else {
                 throw new IllegalStateException("Our container provider is missing -- from RockCrusherBlock");
@@ -103,10 +103,6 @@ public class RockCrusherBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if (pLevel.isClientSide()) {
-            return null;
-        }
-
         return createTickerHelper(pBlockEntityType, ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(),
                 (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1));
     }

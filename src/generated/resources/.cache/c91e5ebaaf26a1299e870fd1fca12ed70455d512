@@ -1,6 +1,4 @@
-// 1.20.1	2026-02-05T19:56:24.252905	Block States: forging_and_crafting
+// 1.20.1	2026-02-07T23:06:25.749952	Block States: forging_and_crafting
 0442fd93d5c0b433c5004a174080ed5c501bdf09 assets/forging_and_crafting/blockstates/clay_brick.json
-9106d3c20bb0b24611c3c47a0eced0394e34eb79 assets/forging_and_crafting/blockstates/rock_crusher.json
 04dfad3f5a117abe330abb97234e59bcd519c1d3 assets/forging_and_crafting/models/block/clay_brick.json
 7b84cdf20cb0820f3f6e776c79a3a3283cb2fe7e assets/forging_and_crafting/models/item/clay_brick.json
-67b826b936f4095806a86b6613cfe28e552bc195 assets/forging_and_crafting/models/item/rock_crusher.json

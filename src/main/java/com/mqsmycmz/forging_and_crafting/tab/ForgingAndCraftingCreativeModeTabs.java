@@ -21,9 +21,9 @@ public class ForgingAndCraftingCreativeModeTabs {
                     .title(Component.translatable("itemGroup.forging_and_crafting_tab"))
                     .displayItems((pParameters, pOutput) -> {
                 pOutput.accept(ForgingAndCraftingBlocks.CLAY_BRICK.get());
-                pOutput.accept(ForgingAndCraftingBlocks.ROCK_CRUSHER.get());
 
                 pOutput.accept(ForgingAndCraftingItems.DUST_PARTICLES.get());
+                pOutput.accept(ForgingAndCraftingItems.ROCK_CRUSHER_BLOCK_ITEM.get());
     }).build());
 
     public static void register(IEventBus bus) {

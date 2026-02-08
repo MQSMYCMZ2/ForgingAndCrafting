@@ -1,6 +1,7 @@
 package com.mqsmycmz.forging_and_crafting.item;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
+import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,6 +14,9 @@ public class ForgingAndCraftingItems {
 
 public static final RegistryObject<Item> DUST_PARTICLES = ITEMS.register("dust_particles", () ->
         new Item(new Item.Properties()));
+
+public static final RegistryObject<Item> ROCK_CRUSHER_BLOCK_ITEM = ITEMS.register("rock_crusher",
+        () -> new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties()));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);

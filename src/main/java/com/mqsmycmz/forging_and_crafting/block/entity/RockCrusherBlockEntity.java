@@ -28,10 +28,21 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.RenderUtils;
 
 import java.util.Optional;
 
-public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider {
+public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
+    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+
+    private boolean isWorking = false;
+
     public final ItemStackHandler itemStackHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -131,6 +142,7 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemStackHandler.serializeNBT());
         pTag.putInt("rock_crusher.progress", progress);
+        pTag.putBoolean("rock_crusher.working", isWorking);
         super.saveAdditional(pTag);
     }
 
@@ -139,6 +151,7 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
         super.load(pTag);
         itemStackHandler.deserializeNBT(pTag.getCompound("inventory"));
         progress = pTag.getInt("rock_crusher.progress");
+        isWorking = pTag.getBoolean("rock_crusher.working");
     }
 
     @Override
@@ -151,7 +164,10 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
+        boolean wasWorking = this.isWorking;
+
         if (hasRecipe()) {
+            this.isWorking = true;
             increaseCraftingProgress();
             setChanged(pLevel, pPos, pState);
 
@@ -160,7 +176,15 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
                 resetProgress();
             }
         } else {
+            this.isWorking = false;
             resetProgress();
+        }
+
+        if (wasWorking != this.isWorking) {
+            setChanged();
+            if (!pLevel.isClientSide()) {
+                pLevel.sendBlockUpdated(pPos, pState, pState, 3);
+            }
         }
     }
 
@@ -261,7 +285,38 @@ public class RockCrusherBlockEntity extends BlockEntity implements MenuProvider 
         return recipe.map(r -> r.getResultItem(null)).orElse(ItemStack.EMPTY);
     }
 
-    public boolean hasValidRecipe() {
-        return getCurrentRecipe().isPresent();
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "gear1_controller",
+                0, this::gear1Predicate));
+
+        controllerRegistrar.add(new AnimationController<>(this, "gear2_controller",
+                0, this::gear2Predicate));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    private <T extends GeoAnimatable> PlayState gear1Predicate(AnimationState<T> state) {
+        if (this.isWorking) {
+            state.getController().setAnimation(RawAnimation.begin().then("rock_crusher.working.1", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
+
+    private <T extends GeoAnimatable> PlayState gear2Predicate(AnimationState<T> state) {
+        if (this.isWorking) {
+            state.getController().setAnimation(RawAnimation.begin().then("rock_crusher.working.2", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
+
+    @Override
+    public double getTick(Object blockEntity) {
+        return RenderUtils.getCurrentTick();
     }
 }
