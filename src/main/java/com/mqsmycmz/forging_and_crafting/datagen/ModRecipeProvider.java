@@ -1,17 +1,12 @@
 package com.mqsmycmz.forging_and_crafting.datagen;
 
-import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -28,7 +23,24 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("XZX")
                 .pattern("YAY")
                 .pattern("XZX")
-                .define('X', Items.CLAY_BALL).define('Y', Items.SAND).define('Z', Items.CHARCOAL).define('A', Items.BRICKS).unlockedBy(getHasName(Items.CLAY_BALL), has(Items.CLAY_BALL))
+                .define('X', Items.CLAY_BALL).define('Y', Items.SAND).define('Z', Items.CHARCOAL).define('A', Items.BRICKS)
+                .unlockedBy(getHasName(Items.CLAY_BALL), has(Items.CLAY_BALL))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ForgingAndCraftingBlocks.ROCK_CRUSHER.get())
+                .pattern("XYZ")
+                .pattern("ABA")
+                .pattern("ZYX")
+                .define('X', Items.POLISHED_DEEPSLATE).define('Y', Items.COAL).define('Z', Items.POLISHED_BLACKSTONE).define('A', Items.REDSTONE_BLOCK).define('B', ForgingAndCraftingItems.GEAR.get())
+                .unlockedBy(getHasName(ForgingAndCraftingItems.GEAR.get()), has(ForgingAndCraftingItems.GEAR.get()))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgingAndCraftingItems.GEAR.get())
+                .pattern("XXX")
+                .pattern("XYX")
+                .pattern("XXX")
+                .define('X', Items.REDSTONE).define('Y', Items.IRON_INGOT)
+                .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
                 .save(pWriter);
 
         //熔炉：

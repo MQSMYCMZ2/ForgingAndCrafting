@@ -19,6 +19,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         simpleItem(ForgingAndCraftingItems.DUST_PARTICLES);
+        simpleItem(ForgingAndCraftingItems.GEAR);
     }
 
     @SuppressWarnings("removal")

@@ -12,11 +12,14 @@ public class ForgingAndCraftingItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, ForgingAndCrafting.MOD_ID);
 
-public static final RegistryObject<Item> DUST_PARTICLES = ITEMS.register("dust_particles", () ->
-        new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DUST_PARTICLES = ITEMS.register("dust_particles", () ->
+            new Item(new Item.Properties()));
 
-public static final RegistryObject<Item> ROCK_CRUSHER_BLOCK_ITEM = ITEMS.register("rock_crusher",
-        () -> new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties()));
+    public static final RegistryObject<Item> GEAR = ITEMS.register("gear", () ->
+            new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ROCK_CRUSHER_BLOCK_ITEM = ITEMS.register("rock_crusher", () ->
+            new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties()));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);

@@ -24,6 +24,7 @@ public class ForgingAndCraftingCreativeModeTabs {
 
                 pOutput.accept(ForgingAndCraftingItems.DUST_PARTICLES.get());
                 pOutput.accept(ForgingAndCraftingItems.ROCK_CRUSHER_BLOCK_ITEM.get());
+                pOutput.accept(ForgingAndCraftingItems.GEAR.get());
     }).build());
 
     public static void register(IEventBus bus) {
