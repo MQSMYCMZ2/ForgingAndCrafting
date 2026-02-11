@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "forging_and_crafting:block/carrier_dish",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "forging_and_crafting:block/carrier_dish"
+    },
+    "facing=south": {
+      "model": "forging_and_crafting:block/carrier_dish",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "forging_and_crafting:block/carrier_dish",
+      "y": 270
+    }
+  }
+}

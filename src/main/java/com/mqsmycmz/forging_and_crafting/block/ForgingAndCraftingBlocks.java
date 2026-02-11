@@ -46,6 +46,13 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> CARRIER_DISH =
+            registerBlock("carrier_dish", () -> new CarrierDishBlock(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> ROCK_CRUSHER = BLOCKS.register("rock_crusher",
             () -> new RockCrusherBlock(BlockBehaviour.Properties.of().noOcclusion()));
 

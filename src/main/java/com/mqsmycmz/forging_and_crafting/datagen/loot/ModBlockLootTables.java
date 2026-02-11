@@ -20,6 +20,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get());
         this.dropSelf(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get());
         this.dropSelf(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
+        this.dropSelf(ForgingAndCraftingBlocks.CARRIER_DISH.get());
     }
 
     @Override

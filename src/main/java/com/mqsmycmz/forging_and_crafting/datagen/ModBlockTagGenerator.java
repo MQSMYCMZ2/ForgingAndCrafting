@@ -22,7 +22,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ForgingAndCraftingBlocks.CLAY_BRICK.get())
                 .add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get())
                 .add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get())
-                .add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
+                .add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get())
+                .add(ForgingAndCraftingBlocks.CARRIER_DISH.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ForgingAndCraftingBlocks.CLAY_BRICK.get())
@@ -30,6 +31,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get())
-                .add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get());
+                .add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get())
+                .add(ForgingAndCraftingBlocks.CARRIER_DISH.get());
     }
 }

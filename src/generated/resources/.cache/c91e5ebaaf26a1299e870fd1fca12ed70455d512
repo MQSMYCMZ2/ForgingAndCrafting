@@ -1,9 +1,11 @@
-// 1.20.1	2026-02-11T10:14:02.288097	Block States: forging_and_crafting
+// 1.20.1	2026-02-11T17:35:58.712819	Block States: forging_and_crafting
+af09e240be2afb01ee56b68ddbd35f315af1c686 assets/forging_and_crafting/blockstates/carrier_dish.json
 0442fd93d5c0b433c5004a174080ed5c501bdf09 assets/forging_and_crafting/blockstates/clay_brick.json
 d0548492c7d1d0d18946cbf6abb60a38309966a8 assets/forging_and_crafting/blockstates/copper_ore_granules.json
 6902367f317177fa2eb57b55a4fa730bbc91b285 assets/forging_and_crafting/blockstates/gold_ore_granules.json
 3924c9bff871d53b01bd019ca0d9b7b4e00b6b67 assets/forging_and_crafting/blockstates/iron_ore_granules.json
 04dfad3f5a117abe330abb97234e59bcd519c1d3 assets/forging_and_crafting/models/block/clay_brick.json
+a80c2bbf2eb65f9f9cb58739cdb81d3cd6ee8d44 assets/forging_and_crafting/models/item/carrier_dish.json
 7b84cdf20cb0820f3f6e776c79a3a3283cb2fe7e assets/forging_and_crafting/models/item/clay_brick.json
 bd5d0b59244d229651b550056159b8f08ba872ce assets/forging_and_crafting/models/item/copper_ore_granules.json
 f7a2fffa44369cad622c3ce4da76af6f23a1ab99 assets/forging_and_crafting/models/item/gold_ore_granules.json

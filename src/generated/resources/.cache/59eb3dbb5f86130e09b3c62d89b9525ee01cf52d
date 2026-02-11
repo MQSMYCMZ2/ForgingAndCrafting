@@ -1,4 +1,5 @@
-// 1.20.1	2026-02-11T10:14:02.287954	Loot Tables
+// 1.20.1	2026-02-11T17:35:58.712626	Loot Tables
+5e732ac499e17546b5b0b179f4944a8d1247605c data/forging_and_crafting/loot_tables/blocks/carrier_dish.json
 ff0f3c50acbfe0f103b4b0c8b20fba859e01bdda data/forging_and_crafting/loot_tables/blocks/clay_brick.json
 9fee97acd8967592d542ed393306c00217d22b5e data/forging_and_crafting/loot_tables/blocks/copper_ore_granules.json
 8b870a46847b0c56071d58c80e2cc932e0714de5 data/forging_and_crafting/loot_tables/blocks/gold_ore_granules.json

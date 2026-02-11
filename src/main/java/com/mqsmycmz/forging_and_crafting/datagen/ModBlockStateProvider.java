@@ -33,6 +33,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/gold_ore_granules")));
 
+        horizontalBlock(ForgingAndCraftingBlocks.CARRIER_DISH.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/carrier_dish")));
+        simpleBlockItem(ForgingAndCraftingBlocks.CARRIER_DISH.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/carrier_dish")));
+
     }
 
 //    public void horizontalBlock(Block block, ModelFile model) {
