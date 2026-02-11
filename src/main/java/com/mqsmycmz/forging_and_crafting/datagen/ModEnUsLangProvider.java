@@ -15,6 +15,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
     protected void addTranslations() {
         add(ForgingAndCraftingItems.DUST_PARTICLES.get(), "Dust Particles");
         add(ForgingAndCraftingItems.GEAR.get(), "Gear");
+        add(ForgingAndCraftingItems.CHISEL.get(), "Chisel");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "Rock Crusher");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "Clay Brick");

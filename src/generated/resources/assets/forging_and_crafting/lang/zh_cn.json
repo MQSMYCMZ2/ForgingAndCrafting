@@ -5,6 +5,7 @@
   "block.forging_and_crafting.iron_ore_granules": "铁矿碎粒",
   "block.forging_and_crafting.rock_crusher": "碎石机",
   "entity.forging_and_crafting.rock_crusher": "碎石机",
+  "item.forging_and_crafting.chisel": "凿子",
   "item.forging_and_crafting.dust_particles": "灰尘颗粒",
   "item.forging_and_crafting.gear": "齿轮",
   "itemGroup.forging_and_crafting_tab": "锻造和创造",

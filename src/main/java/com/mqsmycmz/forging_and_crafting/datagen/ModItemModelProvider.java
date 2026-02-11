@@ -20,6 +20,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         simpleItem(ForgingAndCraftingItems.DUST_PARTICLES);
         simpleItem(ForgingAndCraftingItems.GEAR);
+        simpleItem(ForgingAndCraftingItems.CHISEL);
     }
 
     @SuppressWarnings("removal")

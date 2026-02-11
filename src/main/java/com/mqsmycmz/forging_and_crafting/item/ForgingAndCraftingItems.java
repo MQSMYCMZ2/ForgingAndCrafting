@@ -18,6 +18,9 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> GEAR = ITEMS.register("gear", () ->
             new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () ->
+            new Item(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> ROCK_CRUSHER_BLOCK_ITEM = ITEMS.register("rock_crusher", () ->
             new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties()));
 

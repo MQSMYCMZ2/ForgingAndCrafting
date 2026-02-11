@@ -5,6 +5,7 @@
   "block.forging_and_crafting.iron_ore_granules": "Iron Ore Granules",
   "block.forging_and_crafting.rock_crusher": "Rock Crusher",
   "entity.forging_and_crafting.rock_crusher": "Rock Crusher",
+  "item.forging_and_crafting.chisel": "Chisel",
   "item.forging_and_crafting.dust_particles": "Dust Particles",
   "item.forging_and_crafting.gear": "Gear",
   "itemGroup.forging_and_crafting_tab": "Forging And Crafting",

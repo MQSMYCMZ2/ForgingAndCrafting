@@ -15,6 +15,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
     protected void addTranslations() {
         add(ForgingAndCraftingItems.DUST_PARTICLES.get(), "灰尘颗粒");
         add(ForgingAndCraftingItems.GEAR.get(), "齿轮");
+        add(ForgingAndCraftingItems.CHISEL.get(), "凿子");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "碎石机");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "耐火砖块");
