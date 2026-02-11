@@ -1,7 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.block;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
-import com.mqsmycmz.forging_and_crafting.block.entity.GoldOreGranulesItem;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

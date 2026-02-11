@@ -2,9 +2,14 @@ package com.mqsmycmz.forging_and_crafting.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
@@ -123,5 +128,50 @@ public class CopperOreGranules extends Block {
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
+    }
+
+
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        return Block.canSupportCenter(pLevel, pPos.below(), Direction.UP);
+    }
+
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Object pRandom) {
+        if (!pState.canSurvive(pLevel, pPos)) {
+            dropBlock(pLevel, pPos, pState);
+        }
+    }
+
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+
+        // 如果下方的方块发生变化，立即检查
+        if (pFromPos.equals(pPos.below())) {
+            if (!pLevel.isClientSide && !pState.canSurvive(pLevel, pPos)) {
+                dropBlock((ServerLevel) pLevel, pPos, pState);
+            }
+        }
+    }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        if (!pLevel.isClientSide) {
+        }
+    }
+
+    private void dropBlock(ServerLevel pLevel, BlockPos pPos, BlockState pState) {
+        pLevel.destroyBlock(pPos, false);
+
+        ItemStack itemStack = new ItemStack(this.asItem());
+        ItemEntity itemEntity = new ItemEntity(
+                pLevel,
+                pPos.getX() + 0.5,
+                pPos.getY() + 0.5,
+                pPos.getZ() + 0.5,
+                itemStack
+        );
+        itemEntity.setDefaultPickUpDelay();
+        pLevel.addFreshEntity(itemEntity);
     }
 }
