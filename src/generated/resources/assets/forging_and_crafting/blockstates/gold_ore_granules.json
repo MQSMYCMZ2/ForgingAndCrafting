@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "forging_and_crafting:block/gold_ore_granules",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "forging_and_crafting:block/gold_ore_granules"
+    },
+    "facing=south": {
+      "model": "forging_and_crafting:block/gold_ore_granules",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "forging_and_crafting:block/gold_ore_granules",
+      "y": 270
+    }
+  }
+}

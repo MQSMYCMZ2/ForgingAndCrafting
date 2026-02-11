@@ -18,6 +18,9 @@ public class ModZhCnLangProvider extends LanguageProvider {
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "碎石机");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "耐火砖块");
+        add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get(), "铁矿碎粒");
+        add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get(), "铜矿碎粒");
+        add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get(), "金矿碎粒");
 
         add("itemGroup.forging_and_crafting_tab", "锻造和创造");
 

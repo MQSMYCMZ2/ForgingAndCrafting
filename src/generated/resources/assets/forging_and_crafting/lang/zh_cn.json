@@ -1,5 +1,8 @@
 {
   "block.forging_and_crafting.clay_brick": "耐火砖块",
+  "block.forging_and_crafting.copper_ore_granules": "铜矿碎粒",
+  "block.forging_and_crafting.gold_ore_granules": "金矿碎粒",
+  "block.forging_and_crafting.iron_ore_granules": "铁矿碎粒",
   "block.forging_and_crafting.rock_crusher": "碎石机",
   "entity.forging_and_crafting.rock_crusher": "碎石机",
   "item.forging_and_crafting.dust_particles": "灰尘颗粒",

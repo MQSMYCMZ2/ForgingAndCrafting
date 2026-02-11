@@ -21,6 +21,9 @@ public class ForgingAndCraftingCreativeModeTabs {
                     .title(Component.translatable("itemGroup.forging_and_crafting_tab"))
                     .displayItems((pParameters, pOutput) -> {
                 pOutput.accept(ForgingAndCraftingBlocks.CLAY_BRICK.get());
+                pOutput.accept(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get());
+                pOutput.accept(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get());
+                pOutput.accept(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
 
                 pOutput.accept(ForgingAndCraftingItems.DUST_PARTICLES.get());
                 pOutput.accept(ForgingAndCraftingItems.ROCK_CRUSHER_BLOCK_ITEM.get());

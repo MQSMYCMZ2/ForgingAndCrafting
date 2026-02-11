@@ -19,9 +19,17 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ForgingAndCraftingBlocks.CLAY_BRICK.get());
+                .add(ForgingAndCraftingBlocks.CLAY_BRICK.get())
+                .add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get())
+                .add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get())
+                .add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(ForgingAndCraftingBlocks.CLAY_BRICK.get());
+                .add(ForgingAndCraftingBlocks.CLAY_BRICK.get())
+                .add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
+
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get())
+                .add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get());
     }
 }

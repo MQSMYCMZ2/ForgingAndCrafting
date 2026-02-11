@@ -1,6 +1,7 @@
 package com.mqsmycmz.forging_and_crafting.block;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
+import com.mqsmycmz.forging_and_crafting.block.entity.GoldOreGranulesItem;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -21,6 +22,27 @@ public class ForgingAndCraftingBlocks {
     public static final RegistryObject<Block> CLAY_BRICK =
             registerBlock("clay_brick", () -> new Block(BlockBehaviour.Properties.of()
                     .strength(0.8f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> IRON_ORE_GRANULES =
+            registerBlock("iron_ore_granules", () -> new IronOreGranulesItem(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> COPPER_ORE_GRANULES =
+            registerBlock("copper_ore_granules", () -> new CopperOreGranules(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> GOLD_ORE_GRANULES =
+            registerBlock("gold_ore_granules", () -> new GoldOreGranulesItem(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));

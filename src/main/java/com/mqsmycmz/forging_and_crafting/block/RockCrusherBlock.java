@@ -40,7 +40,6 @@ public class RockCrusherBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        // 获取玩家水平朝向（排除上下方向）
         Direction facing = context.getHorizontalDirection().getOpposite();
         return this.defaultBlockState().setValue(FACING, facing);
     }
