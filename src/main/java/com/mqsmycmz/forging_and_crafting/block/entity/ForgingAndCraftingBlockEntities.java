@@ -17,6 +17,11 @@ public class ForgingAndCraftingBlockEntities {
                     BlockEntityType.Builder.of(RockCrusherBlockEntity::new,
                             ForgingAndCraftingBlocks.ROCK_CRUSHER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<CarrierDishBlockEntity>> CARRIER_DISH =
+            BLOCK_ENTITIES.register("carrier_dish", () ->
+                    BlockEntityType.Builder.of(CarrierDishBlockEntity::new,
+                            ForgingAndCraftingBlocks.CARRIER_DISH.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);
     }

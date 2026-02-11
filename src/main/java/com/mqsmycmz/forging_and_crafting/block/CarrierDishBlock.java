@@ -1,37 +1,48 @@
 package com.mqsmycmz.forging_and_crafting.block;
 
+import com.mqsmycmz.forging_and_crafting.block.entity.CarrierDishBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class CarrierDishBlock extends Block {
+public class CarrierDishBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+
+    public static final List<net.minecraft.world.item.Item> VALID_ORES = List.of(
+            Items.RAW_IRON_BLOCK,
+            Items.RAW_GOLD_BLOCK,
+            Items.RAW_COPPER_BLOCK
+    );
 
     public static final VoxelShape SHAPE_BASE = Stream.of(
             Block.box(2.25, 0.5, 2.25, 14.25, 1.25, 14.25),
@@ -99,6 +110,103 @@ public class CarrierDishBlock extends Block {
     }
 
     @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (!(blockEntity instanceof CarrierDishBlockEntity dishEntity)) {
+            return InteractionResult.PASS;
+        }
+
+        ItemStack heldItem = player.getItemInHand(hand);
+
+        if (VALID_ORES.contains(heldItem.getItem())) {
+            if (dishEntity.hasItem()) {
+                dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
+            }
+
+            ItemStack toPlace = heldItem.copy();
+            toPlace.setCount(1);
+            dishEntity.setDisplayedItem(toPlace);
+
+            if (!player.getAbilities().instabuild) {
+                heldItem.shrink(1);
+            }
+
+            return InteractionResult.CONSUME;
+        }
+
+        if (heldItem.isEmpty() && dishEntity.hasItem()) {
+            ItemStack displayed = dishEntity.getDisplayedItem();
+
+            dishEntity.clearItem();
+
+            if (!player.getInventory().add(displayed)) {
+                dropDisplayedItem(level, pos, displayed);
+            }
+            return InteractionResult.CONSUME;
+        }
+
+        return InteractionResult.PASS;
+    }
+
+    private void dropDisplayedItem(Level level, BlockPos pos, ItemStack stack) {
+        if (level.isClientSide || stack.isEmpty()) {
+            return;
+        }
+
+        double x = pos.getX() + 0.5;
+        double y = pos.getY() + 0.5;
+        double z = pos.getZ() + 0.5;
+
+        ItemEntity itemEntity = new ItemEntity(level, x, y, z, stack.copy());
+        itemEntity.setDefaultPickUpDelay();
+        itemEntity.setDeltaMovement(
+                level.random.nextGaussian() * 0.05,
+                0.2,
+                level.random.nextGaussian() * 0.05
+        );
+        level.addFreshEntity(itemEntity);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new CarrierDishBlockEntity(pos, state);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof CarrierDishBlockEntity dishEntity) {
+                if (dishEntity.hasItem()) {
+                    dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
+                }
+            }
+        }
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
+
+    private void dropBlock(ServerLevel level, BlockPos pos, BlockState state) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof CarrierDishBlockEntity dishEntity && dishEntity.hasItem()) {
+            dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
+            dishEntity.clearItem();
+        }
+
+        level.destroyBlock(pos, false);
+        Block.dropResources(state, level, pos, null, null, ItemStack.EMPTY);
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction facing = context.getHorizontalDirection().getOpposite();
         return this.defaultBlockState().setValue(FACING, facing);
@@ -135,52 +243,18 @@ public class CarrierDishBlock extends Block {
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState pState) {
-        return RenderShape.MODEL;
-    }
-
-
-    @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         return Block.canSupportCenter(pLevel, pPos.below(), Direction.UP);
-    }
-
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Object pRandom) {
-        if (!pState.canSurvive(pLevel, pPos)) {
-            dropBlock(pLevel, pPos, pState);
-        }
     }
 
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
 
-        // 如果下方的方块发生变化，立即检查
         if (pFromPos.equals(pPos.below())) {
             if (!pLevel.isClientSide && !pState.canSurvive(pLevel, pPos)) {
                 dropBlock((ServerLevel) pLevel, pPos, pState);
             }
         }
-    }
-
-    @Override
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
-        if (!pLevel.isClientSide) {
-        }
-    }
-
-    private void dropBlock(ServerLevel pLevel, BlockPos pPos, BlockState pState) {
-        pLevel.destroyBlock(pPos, false);
-
-        ItemStack itemStack = new ItemStack(this.asItem());
-        ItemEntity itemEntity = new ItemEntity(
-                pLevel,
-                pPos.getX() + 0.5,
-                pPos.getY() + 0.5,
-                pPos.getZ() + 0.5,
-                itemStack
-        );
-        itemEntity.setDefaultPickUpDelay();
-        pLevel.addFreshEntity(itemEntity);
     }
 }

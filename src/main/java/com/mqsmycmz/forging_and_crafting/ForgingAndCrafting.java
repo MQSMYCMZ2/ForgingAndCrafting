@@ -3,6 +3,7 @@ package com.mqsmycmz.forging_and_crafting;
 import com.mojang.logging.LogUtils;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
+import com.mqsmycmz.forging_and_crafting.block.entity.renderer.CarrierDishBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.block.entity.renderer.RockCrusherGeoBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.ForgingAndCraftingRecipes;
@@ -90,6 +91,7 @@ public class ForgingAndCrafting
         {
             MenuScreens.register(ForgingAndCraftingMenuTypes.ROCK_CRUSHER_MENU.get(), RockCrusherScreen::new);
             BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherGeoBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), CarrierDishBlockEntityRenderer::new);
         }
     }
 }
