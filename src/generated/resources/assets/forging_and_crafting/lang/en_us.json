@@ -10,5 +10,9 @@
   "item.forging_and_crafting.dust_particles": "Dust Particles",
   "item.forging_and_crafting.gear": "Gear",
   "itemGroup.forging_and_crafting_tab": "Forging And Crafting",
-  "jei.forging_and_crafting.rock_crusher": "Rock Crusher"
+  "jei.forging_and_crafting.rock_crusher": "Rock Crusher",
+  "message.forging_and_crafting.chisel_sharpness": "§aChiseling successful! Current sharpness level:%d",
+  "tooltip.forging_and_crafting.chisel.granules_drop": "§eEach output: %d grains",
+  "tooltip.forging_and_crafting.chisel.grind_hint": "§8 Sneak right-click Chisel (consumes 1 durability, +1 sharpness)",
+  "tooltip.forging_and_crafting.chisel.sharpness": "§aSharpness:%d"
 }

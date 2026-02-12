@@ -29,5 +29,11 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add("entity.forging_and_crafting.rock_crusher", "碎石机");
 
         add("jei.forging_and_crafting.rock_crusher", "碎石机");
+
+        add("message.forging_and_crafting.chisel_sharpness", "§a磨凿成功！当前尖锐程度：%d");
+
+        add("tooltip.forging_and_crafting.chisel.sharpness", "§a尖锐程度：%d");
+        add("tooltip.forging_and_crafting.chisel.granules_drop", "§e每次产出：%d 个碎粒");
+        add("tooltip.forging_and_crafting.chisel.grind_hint", "§8潜行右键磨凿（消耗1耐久，+1尖锐程度）");
     }
 }

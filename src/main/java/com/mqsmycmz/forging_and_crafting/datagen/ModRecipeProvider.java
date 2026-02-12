@@ -4,6 +4,7 @@ import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
@@ -41,6 +42,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("XXX")
                 .define('X', Items.REDSTONE).define('Y', Items.IRON_INGOT)
                 .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgingAndCraftingItems.CHISEL.get())
+                .pattern(" X ")
+                .pattern(" Y ")
+                .pattern(" Z ")
+                .define('X', Items.IRON_INGOT).define('Y', Items.IRON_BLOCK).define('Z', Items.STICK)
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                 .save(pWriter);
 
         //熔炉：

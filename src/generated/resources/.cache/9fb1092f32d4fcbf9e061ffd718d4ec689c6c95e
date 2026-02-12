@@ -1,7 +1,9 @@
-// 1.20.1	2026-02-10T20:44:27.147986	Recipes
+// 1.20.1	2026-02-12T10:53:54.164994	Recipes
 6401a0416baeb119c624d57c80fa2134c5942339 data/forging_and_crafting/advancements/recipes/building_blocks/clay_brick.json
 91e42ce5643443f9c6b185761c31a9b4061a280b data/forging_and_crafting/advancements/recipes/building_blocks/rock_crusher.json
+6f026b5540ce7e7c8c9cb0e47b2b01ba783acb46 data/forging_and_crafting/advancements/recipes/misc/chisel.json
 e6b0fe442d63989524818c36a754eefd88ccedee data/forging_and_crafting/advancements/recipes/misc/gear.json
+45fda282bbac68ac3185bb1b70091a0a1bc32971 data/forging_and_crafting/recipes/chisel.json
 9e142f8d7c116407e091dd1739d0e1bafcf5d96f data/forging_and_crafting/recipes/clay_brick.json
 82fb39edfaf8a8f43172a6b4983861a1fcd9252b data/forging_and_crafting/recipes/gear.json
 0e367f0fa223e67adb1bc443260ccf7c639fdfe1 data/forging_and_crafting/recipes/rock_crusher.json

@@ -1,9 +1,11 @@
 package com.mqsmycmz.forging_and_crafting.block.entity;
 
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.item.ChiselItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -21,14 +23,15 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class CarrierDishBlockEntity extends BlockEntity {
     private ItemStack displayedItem = ItemStack.EMPTY;
 
     // 凿矿相关数据
     public static final int MAX_HEIGHT = 8; // 最大高度（8个阶段）
-    private static final int CHISEL_INTERVAL = 20; // 10秒 = 200 ticks
-    private static final int GRANULES_PER_CHISEL = 3; // 每次产出3个
+    private static final int CHISEL_INTERVAL = 200; // 10秒 = 200 ticks
+    private int granulesPerChisel = 3; // 每次产出数量，根据凿子尖锐程度动态变化
 
     private int remainingHeight = MAX_HEIGHT; // 剩余高度（0-8）
     private int chiselProgress = 0; // 当前凿矿进度（0-200）
@@ -37,6 +40,13 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
     // 玩家方向（用于渲染凿子动画）
     private Direction playerDirection = Direction.NORTH;
+
+    // 当前使用的凿子尖锐程度
+    private int currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
+
+    // 当前使用凿子的玩家UUID和手持槽位（用于消耗耐久和增加尖锐程度）
+    private UUID chiselingPlayerUUID = null;
+    private InteractionHand chiselingHand = InteractionHand.MAIN_HAND;
 
     // 矿石到碎粒物品的映射
     public static final Map<Item, Item> ORE_TO_GRANULES = Map.of(
@@ -68,6 +78,10 @@ public class CarrierDishBlockEntity extends BlockEntity {
         this.chiselProgress = 0;
         this.isChiseling = false;
         this.playerDirection = Direction.NORTH;
+        this.currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
+        this.granulesPerChisel = ChiselItem.BASE_GRANULES_DROP;
+        this.chiselingPlayerUUID = null;
+        this.chiselingHand = InteractionHand.MAIN_HAND;
         this.setChanged();
         syncToClient();
     }
@@ -78,6 +92,10 @@ public class CarrierDishBlockEntity extends BlockEntity {
         this.chiselProgress = 0;
         this.isChiseling = false;
         this.playerDirection = Direction.NORTH;
+        this.currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
+        this.granulesPerChisel = ChiselItem.BASE_GRANULES_DROP;
+        this.chiselingPlayerUUID = null;
+        this.chiselingHand = InteractionHand.MAIN_HAND;
         this.setChanged();
         syncToClient();
     }
@@ -108,14 +126,30 @@ public class CarrierDishBlockEntity extends BlockEntity {
         return playerDirection;
     }
 
+    public int getCurrentChiselSharpness() {
+        return currentChiselSharpness;
+    }
+
+    public int getGranulesPerChisel() {
+        return granulesPerChisel;
+    }
+
     // 开始凿矿（由凿子调用）
-    public void startChiseling(Player player, InteractionHand hand) {
+    public void startChiseling(Player player, InteractionHand hand, int sharpness, ItemStack chiselStack) {
         if (!hasChiselerOre() || remainingHeight <= 0 || isChiseling) {
             return;
         }
 
         // 计算玩家相对于方块的方向
         this.playerDirection = calculatePlayerDirection(player);
+
+        // 设置凿子尖锐程度和对应的产出数量
+        this.currentChiselSharpness = sharpness;
+        this.granulesPerChisel = ChiselItem.calculateGranulesDrop(sharpness);
+
+        // 保存玩家信息以便后续处理
+        this.chiselingPlayerUUID = player.getUUID();
+        this.chiselingHand = hand;
 
         this.isChiseling = true;
         this.chiselProgress = 0;
@@ -129,6 +163,13 @@ public class CarrierDishBlockEntity extends BlockEntity {
                     net.minecraft.sounds.SoundSource.BLOCKS,
                     1.0f, 1.0f);
         }
+    }
+
+    // 兼容旧版本的无参数调用（默认使用基础值）
+    public void startChiseling(Player player, InteractionHand hand) {
+        ItemStack chiselStack = player.getItemInHand(hand);
+        int sharpness = ChiselItem.getSharpness(chiselStack);
+        startChiseling(player, hand, sharpness, chiselStack);
     }
 
     // 计算玩家相对于方块的水平方向
@@ -157,6 +198,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
         this.isChiseling = false;
         this.chiselProgress = 0;
+        this.chiselingPlayerUUID = null;
         this.setChanged();
         syncToClient();
 
@@ -193,7 +235,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
         chiselProgress++;
 
-        // 每10秒完成一次凿矿
+        // 每10秒完成一次凿矿（200 ticks）
         if (chiselProgress >= CHISEL_INTERVAL) {
             completeChisel();
         } else {
@@ -210,10 +252,14 @@ public class CarrierDishBlockEntity extends BlockEntity {
             return;
         }
 
+        // 处理凿子：增加尖锐程度、消耗耐久、显示消息
+        processChiselAfterComplete();
+
         // 获取对应的碎粒物品
         Item granuleItem = ORE_TO_GRANULES.get(displayedItem.getItem());
         if (granuleItem != null) {
-            ItemStack output = new ItemStack(granuleItem, GRANULES_PER_CHISEL);
+            // 使用根据凿子尖锐程度计算的产出数量
+            ItemStack output = new ItemStack(granuleItem, granulesPerChisel);
 
             // 弹出物品
             double x = worldPosition.getX() + 0.5 + (level.random.nextDouble() - 0.5) * 0.5;
@@ -251,9 +297,57 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
         // 停止凿矿
         isChiseling = false;
+        chiselingPlayerUUID = null;
 
         this.setChanged();
         syncToClient();
+    }
+
+    /**
+     * 完成凿矿后处理凿子：自动增加尖锐程度、消耗耐久、显示消息
+     */
+    private void processChiselAfterComplete() {
+        if (chiselingPlayerUUID == null || level == null) {
+            return;
+        }
+
+        Player player = level.getPlayerByUUID(chiselingPlayerUUID);
+        if (player == null) {
+            return;
+        }
+
+        ItemStack chiselStack = player.getItemInHand(chiselingHand);
+        if (chiselStack.isEmpty() || !(chiselStack.getItem() instanceof ChiselItem)) {
+            return;
+        }
+
+        // 先增加尖锐程度（必须在消耗耐久之前，防止耐久耗尽破坏后无法增加）
+        int newSharpness = ChiselItem.increaseSharpness(chiselStack);
+
+        // 播放磨凿音效
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                net.minecraft.sounds.SoundEvents.GRINDSTONE_USE,
+                net.minecraft.sounds.SoundSource.PLAYERS,
+                0.5f, 1.0f);
+
+        // 显示磨凿成功消息
+        player.displayClientMessage(Component.translatable("message.forging_and_crafting.chisel_sharpness",
+                newSharpness), true);
+
+        // 消耗耐久
+        int currentDamage = chiselStack.getDamageValue();
+        int maxDamage = chiselStack.getMaxDamage();
+
+        if (currentDamage + ChiselItem.DURABILITY_COST_PER_CHISEL >= maxDamage) {
+            // 耐久耗尽，破坏凿子
+            chiselStack.shrink(1);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    net.minecraft.sounds.SoundEvents.ITEM_BREAK,
+                    net.minecraft.sounds.SoundSource.PLAYERS,
+                    0.8f, 0.8f + level.random.nextFloat() * 0.4f);
+        } else {
+            chiselStack.setDamageValue(currentDamage + ChiselItem.DURABILITY_COST_PER_CHISEL);
+        }
     }
 
     // 获取应该掉落的粗矿数量（根据剩余高度计算）
@@ -294,6 +388,12 @@ public class CarrierDishBlockEntity extends BlockEntity {
         tag.putInt("ChiselProgress", chiselProgress);
         tag.putBoolean("IsChiseling", isChiseling);
         tag.putInt("PlayerDirection", playerDirection.get2DDataValue());
+        tag.putInt("ChiselSharpness", currentChiselSharpness);
+        tag.putInt("GranulesPerChisel", granulesPerChisel);
+        if (chiselingPlayerUUID != null) {
+            tag.putUUID("ChiselingPlayer", chiselingPlayerUUID);
+        }
+        tag.putInt("ChiselingHand", chiselingHand == InteractionHand.MAIN_HAND ? 0 : 1);
     }
 
     @Override
@@ -305,6 +405,14 @@ public class CarrierDishBlockEntity extends BlockEntity {
         chiselProgress = tag.getInt("ChiselProgress");
         isChiseling = tag.getBoolean("IsChiseling");
         playerDirection = Direction.from2DDataValue(tag.getInt("PlayerDirection"));
+        currentChiselSharpness = tag.getInt("ChiselSharpness");
+        if (currentChiselSharpness == 0) currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
+        granulesPerChisel = tag.getInt("GranulesPerChisel");
+        if (granulesPerChisel == 0) granulesPerChisel = ChiselItem.BASE_GRANULES_DROP;
+        if (tag.hasUUID("ChiselingPlayer")) {
+            chiselingPlayerUUID = tag.getUUID("ChiselingPlayer");
+        }
+        chiselingHand = tag.getInt("ChiselingHand") == 0 ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
     }
 
     @Nullable
@@ -321,6 +429,8 @@ public class CarrierDishBlockEntity extends BlockEntity {
         tag.putInt("ChiselProgress", chiselProgress);
         tag.putBoolean("IsChiseling", isChiseling);
         tag.putInt("PlayerDirection", playerDirection.get2DDataValue());
+        tag.putInt("ChiselSharpness", currentChiselSharpness);
+        tag.putInt("GranulesPerChisel", granulesPerChisel);
         return tag;
     }
 
@@ -332,5 +442,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
         chiselProgress = tag.getInt("ChiselProgress");
         isChiseling = tag.getBoolean("IsChiseling");
         playerDirection = Direction.from2DDataValue(tag.getInt("PlayerDirection"));
+        currentChiselSharpness = tag.getInt("ChiselSharpness");
+        granulesPerChisel = tag.getInt("GranulesPerChisel");
     }
 }

@@ -29,5 +29,11 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add("entity.forging_and_crafting.rock_crusher", "Rock Crusher");
 
         add("jei.forging_and_crafting.rock_crusher", "Rock Crusher");
+
+        add("message.forging_and_crafting.chisel_sharpness", "§aChiseling successful! Current sharpness level:%d");
+
+        add("tooltip.forging_and_crafting.chisel.sharpness", "§aSharpness:%d");
+        add("tooltip.forging_and_crafting.chisel.granules_drop", "§eEach output: %d grains");
+        add("tooltip.forging_and_crafting.chisel.grind_hint", "§8 Sneak right-click Chisel (consumes 1 durability, +1 sharpness)");
     }
 }
