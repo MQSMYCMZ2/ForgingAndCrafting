@@ -30,7 +30,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
     // 凿矿相关数据
     public static final int MAX_HEIGHT = 8; // 最大高度（8个阶段）
-    private static final int CHISEL_INTERVAL = 200; // 10秒 = 200 ticks
+    private static final int CHISEL_INTERVAL = 30; // 10秒 = 200 ticks
     private int granulesPerChisel = 3; // 每次产出数量，根据凿子尖锐程度动态变化
 
     private int remainingHeight = MAX_HEIGHT; // 剩余高度（0-8）
@@ -126,14 +126,6 @@ public class CarrierDishBlockEntity extends BlockEntity {
         return playerDirection;
     }
 
-    public int getCurrentChiselSharpness() {
-        return currentChiselSharpness;
-    }
-
-    public int getGranulesPerChisel() {
-        return granulesPerChisel;
-    }
-
     // 开始凿矿（由凿子调用）
     public void startChiseling(Player player, InteractionHand hand, int sharpness, ItemStack chiselStack) {
         if (!hasChiselerOre() || remainingHeight <= 0 || isChiseling) {
@@ -163,13 +155,6 @@ public class CarrierDishBlockEntity extends BlockEntity {
                     net.minecraft.sounds.SoundSource.BLOCKS,
                     1.0f, 1.0f);
         }
-    }
-
-    // 兼容旧版本的无参数调用（默认使用基础值）
-    public void startChiseling(Player player, InteractionHand hand) {
-        ItemStack chiselStack = player.getItemInHand(hand);
-        int sharpness = ChiselItem.getSharpness(chiselStack);
-        startChiseling(player, hand, sharpness, chiselStack);
     }
 
     // 计算玩家相对于方块的水平方向

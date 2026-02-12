@@ -20,13 +20,13 @@ import java.util.List;
 public class ChiselItem extends Item {
     public static final String NBT_SHARPNESS = "Sharpness";
 
-    public static final int BASE_SHARPNESS = 80;
+    public static final int BASE_SHARPNESS = 30;
     public static final int BASE_DURABILITY = 500;
-    public static final int BASE_GRANULES_DROP = 3;
+    public static final int BASE_GRANULES_DROP = 1;
     // 每次凿矿增加的尖锐程度
     public static final int SHARPNESS_PER_CHISEL = 1;
     // 每次凿矿消耗的耐久
-    public static final int DURABILITY_COST_PER_CHISEL = 1;
+    public static final int DURABILITY_COST_PER_CHISEL = 10;
 
     public ChiselItem(Properties pProperties) {
         super(pProperties.stacksTo(1).durability(BASE_DURABILITY));
@@ -46,10 +46,6 @@ public class ChiselItem extends Item {
         stack.getOrCreateTag().putInt(NBT_SHARPNESS, sharpness);
     }
 
-    /**
-     * 增加尖锐程度（完成凿矿后调用）
-     * @return 新的尖锐程度值
-     */
     public static int increaseSharpness(ItemStack stack) {
         int currentSharpness = getSharpness(stack);
         int newSharpness = currentSharpness + SHARPNESS_PER_CHISEL;
@@ -58,18 +54,8 @@ public class ChiselItem extends Item {
     }
 
     public static int calculateGranulesDrop(int sharpness) {
-        int bonus = (sharpness - BASE_SHARPNESS) / 2;
+        int bonus = (sharpness - BASE_SHARPNESS) / 15;
         return BASE_GRANULES_DROP + bonus;
-    }
-
-    public static int calculateMaxDurability(int sharpness) {
-        return Math.max(1, -sharpness + BASE_DURABILITY);
-    }
-
-    public static ItemStack createChiselWithSharpness(int sharpness) {
-        ItemStack stack = new ItemStack(ForgingAndCraftingItems.CHISEL.get());
-        setSharpness(stack, sharpness);
-        return stack;
     }
 
     @Override
@@ -120,17 +106,11 @@ public class ChiselItem extends Item {
 
         int sharpness = getSharpness(stack);
         int dropCount = calculateGranulesDrop(sharpness);
-        int maxDurability = calculateMaxDurability(sharpness);
-        int currentDamage = stack.getDamageValue();
-        int remainingDurability = maxDurability - currentDamage;
 
         tooltip.add(Component.translatable("tooltip.forging_and_crafting.chisel.sharpness", sharpness)
                 .withStyle(net.minecraft.ChatFormatting.GREEN));
         tooltip.add(Component.translatable("tooltip.forging_and_crafting.chisel.granules_drop", dropCount)
                 .withStyle(net.minecraft.ChatFormatting.YELLOW));
-        tooltip.add(Component.translatable("tooltip.forging_and_crafting.chisel.durability",
-                        remainingDurability, maxDurability)
-                .withStyle(net.minecraft.ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.forging_and_crafting.chisel.auto_sharpen_hint")
                 .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
     }
