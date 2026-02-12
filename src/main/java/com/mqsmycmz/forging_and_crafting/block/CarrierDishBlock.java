@@ -1,6 +1,7 @@
 package com.mqsmycmz.forging_and_crafting.block;
 
 import com.mqsmycmz.forging_and_crafting.block.entity.CarrierDishBlockEntity;
+import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -8,6 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,6 +19,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -122,7 +126,18 @@ public class CarrierDishBlock extends BaseEntityBlock {
 
         ItemStack heldItem = player.getItemInHand(hand);
 
+        // 如果是凿子，交给凿子处理
+        if (heldItem.getItem() instanceof com.mqsmycmz.forging_and_crafting.item.ChiselItem) {
+            return InteractionResult.PASS; // 让凿子的useOn处理
+        }
+
+        // 放置矿石
         if (VALID_ORES.contains(heldItem.getItem())) {
+            // 如果正在凿，不能更换
+            if (dishEntity.isChiseling()) {
+                return InteractionResult.PASS;
+            }
+
             if (dishEntity.hasItem()) {
                 dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
             }
@@ -138,9 +153,14 @@ public class CarrierDishBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
 
+        // 空手取出
         if (heldItem.isEmpty() && dishEntity.hasItem()) {
-            ItemStack displayed = dishEntity.getDisplayedItem();
+            // 如果正在凿，不能取出
+            if (dishEntity.isChiseling()) {
+                return InteractionResult.PASS;
+            }
 
+            ItemStack displayed = dishEntity.getDisplayedItem();
             dishEntity.clearItem();
 
             if (!player.getInventory().add(displayed)) {
@@ -177,6 +197,14 @@ public class CarrierDishBlock extends BaseEntityBlock {
         return new CarrierDishBlockEntity(pos, state);
     }
 
+    // 添加Ticker支持
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, ForgingAndCraftingBlockEntities.CARRIER_DISH.get(),
+                CarrierDishBlockEntity::tick);
+    }
+
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -188,7 +216,21 @@ public class CarrierDishBlock extends BaseEntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof CarrierDishBlockEntity dishEntity) {
                 if (dishEntity.hasItem()) {
-                    dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
+                    // 检查是否是可以凿的矿石
+                    if (dishEntity.hasChiselerOre() && dishEntity.getRemainingHeight() < CarrierDishBlockEntity.MAX_HEIGHT) {
+                        // 已经凿过，掉落粗矿物品
+                        int dropCount = dishEntity.getRemainingRawOreCount();
+                        Item rawOreItem = dishEntity.getRawOreItem();
+
+                        if (rawOreItem != null && dropCount > 0) {
+                            ItemStack dropStack = new ItemStack(rawOreItem, dropCount);
+                            dropDisplayedItem(level, pos, dropStack);
+                        }
+                        // 如果dropCount为0，不掉落任何东西（矿石被完全凿碎了）
+                    } else {
+                        // 未凿过或是非矿石，掉落原物品
+                        dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
+                    }
                 }
             }
         }
