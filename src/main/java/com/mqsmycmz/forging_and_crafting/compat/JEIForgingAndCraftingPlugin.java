@@ -3,7 +3,6 @@ package com.mqsmycmz.forging_and_crafting.compat;
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
-import com.mqsmycmz.forging_and_crafting.item.ChiselItem;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.RockCrusherRecipe;
 import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
@@ -34,8 +33,11 @@ public class JEIForgingAndCraftingPlugin implements IModPlugin {
         // 注册碎石机分类
         registration.addRecipeCategories(new RockCrusherCategory(registration.getJeiHelpers().getGuiHelper()));
 
-        // 注册矿石处理分类（使用你的数据加载器）
+        // 注册带3D预览的矿石处理分类
         registration.addRecipeCategories(new OreProcessingCategory(registration.getJeiHelpers().getGuiHelper()));
+
+        // 可选：注册纯3D展示分类
+        // registration.addRecipeCategories(new CarrierDish3DCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -51,6 +53,9 @@ public class JEIForgingAndCraftingPlugin implements IModPlugin {
                 new ArrayList<>(OreProcessingDataLoader.getInstance().getAllEntries());
 
         registration.addRecipes(OreProcessingCategory.RECIPE_TYPE, oreProcessingRecipes);
+
+        // 可选：为3D分类注册相同的配方
+        // registration.addRecipes(CarrierDish3DCategory.RECIPE_TYPE, oreProcessingRecipes);
     }
 
     @Override
@@ -61,11 +66,13 @@ public class JEIForgingAndCraftingPlugin implements IModPlugin {
                 OreProcessingCategory.RECIPE_TYPE
         );
 
-        // 凿子也可以作为催化剂
-        registration.addRecipeCatalyst(
-                new ItemStack(ForgingAndCraftingItems.CHISEL.get()), // 请根据你的实际注册名修改
-                OreProcessingCategory.RECIPE_TYPE
-        );
+        // 凿子作为催化剂
+        if (ForgingAndCraftingItems.CHISEL != null && ForgingAndCraftingItems.CHISEL.get() != null) {
+            registration.addRecipeCatalyst(
+                    new ItemStack(ForgingAndCraftingItems.CHISEL.get()),
+                    OreProcessingCategory.RECIPE_TYPE
+            );
+        }
     }
 
     @Override
