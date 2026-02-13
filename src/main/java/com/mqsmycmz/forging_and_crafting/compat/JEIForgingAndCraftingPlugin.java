@@ -1,7 +1,7 @@
+// JEIForgingAndCraftingPlugin.java
 package com.mqsmycmz.forging_and_crafting.compat;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
-import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.RockCrusherRecipe;
@@ -33,11 +33,8 @@ public class JEIForgingAndCraftingPlugin implements IModPlugin {
         // 注册碎石机分类
         registration.addRecipeCategories(new RockCrusherCategory(registration.getJeiHelpers().getGuiHelper()));
 
-        // 注册带3D预览的矿石处理分类
+        // 注册带3D预览的矿石处理分类（现在使用GeckoLib动画）
         registration.addRecipeCategories(new OreProcessingCategory(registration.getJeiHelpers().getGuiHelper()));
-
-        // 可选：注册纯3D展示分类
-        // registration.addRecipeCategories(new CarrierDish3DCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -53,18 +50,18 @@ public class JEIForgingAndCraftingPlugin implements IModPlugin {
                 new ArrayList<>(OreProcessingDataLoader.getInstance().getAllEntries());
 
         registration.addRecipes(OreProcessingCategory.RECIPE_TYPE, oreProcessingRecipes);
-
-        // 可选：为3D分类注册相同的配方
-        // registration.addRecipes(CarrierDish3DCategory.RECIPE_TYPE, oreProcessingRecipes);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        // 承物盘作为矿石处理配方的催化剂
-        registration.addRecipeCatalyst(
-                new ItemStack(ForgingAndCraftingBlocks.CARRIER_DISH.get()),
-                OreProcessingCategory.RECIPE_TYPE
-        );
+        // 【修改】使用动画物品作为矿石处理配方的催化剂
+        if (ForgingAndCraftingItems.CARRIER_DISH_ANIMATED != null &&
+                ForgingAndCraftingItems.CARRIER_DISH_ANIMATED.get() != null) {
+            registration.addRecipeCatalyst(
+                    new ItemStack(ForgingAndCraftingItems.CARRIER_DISH_ANIMATED.get()),
+                    OreProcessingCategory.RECIPE_TYPE
+            );
+        }
 
         // 凿子作为催化剂
         if (ForgingAndCraftingItems.CHISEL != null && ForgingAndCraftingItems.CHISEL.get() != null) {
