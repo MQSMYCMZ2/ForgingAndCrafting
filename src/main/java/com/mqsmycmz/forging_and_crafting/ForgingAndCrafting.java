@@ -32,7 +32,7 @@ import software.bernie.geckolib.GeckoLib;
 public class ForgingAndCrafting
 {
     public static final String MOD_ID = "forging_and_crafting";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public ForgingAndCrafting(FMLJavaModLoadingContext context)
     {

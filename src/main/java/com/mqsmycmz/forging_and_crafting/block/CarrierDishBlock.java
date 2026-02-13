@@ -2,6 +2,7 @@ package com.mqsmycmz.forging_and_crafting.block;
 
 import com.mqsmycmz.forging_and_crafting.block.entity.CarrierDishBlockEntity;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
+import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -42,11 +43,7 @@ import java.util.stream.Stream;
 public class CarrierDishBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public static final List<net.minecraft.world.item.Item> VALID_ORES = List.of(
-            Items.RAW_IRON_BLOCK,
-            Items.RAW_GOLD_BLOCK,
-            Items.RAW_COPPER_BLOCK
-    );
+    // 注意：VALID_ORES 硬编码列表已移除，现在使用 OreProcessingDataLoader.isValidOre()
 
     public static final VoxelShape SHAPE_BASE = Stream.of(
             Block.box(2.25, 0.5, 2.25, 14.25, 1.25, 14.25),
@@ -131,8 +128,8 @@ public class CarrierDishBlock extends BaseEntityBlock {
             return InteractionResult.PASS; // 让凿子的useOn处理
         }
 
-        // 放置矿石
-        if (VALID_ORES.contains(heldItem.getItem())) {
+        // 放置矿石 - 使用数据加载器检查是否是有效矿石
+        if (OreProcessingDataLoader.getInstance().isValidOre(heldItem.getItem())) {
             // 如果正在凿，不能更换
             if (dishEntity.isChiseling()) {
                 return InteractionResult.PASS;

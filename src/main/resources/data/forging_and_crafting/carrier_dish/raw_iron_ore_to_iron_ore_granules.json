@@ -1,0 +1,5 @@
+{
+  "input": "minecraft:raw_iron_block",
+  "output_granules": "forging_and_crafting:iron_ore_granules",
+  "output_raw_ore": "minecraft:raw_iron"
+}

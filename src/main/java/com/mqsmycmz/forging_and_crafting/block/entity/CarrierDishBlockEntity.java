@@ -1,6 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.block.entity;
 
-import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
 import com.mqsmycmz.forging_and_crafting.item.ChiselItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,7 +15,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,19 +47,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
     private UUID chiselingPlayerUUID = null;
     private InteractionHand chiselingHand = InteractionHand.MAIN_HAND;
 
-    // 矿石到碎粒物品的映射
-    public static final Map<Item, Item> ORE_TO_GRANULES = Map.of(
-            Items.RAW_IRON_BLOCK, ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get().asItem(),
-            Items.RAW_GOLD_BLOCK, ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get().asItem(),
-            Items.RAW_COPPER_BLOCK, ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get().asItem()
-    );
-
-    // 粗矿块到粗矿物品的映射
-    public static final Map<Item, Item> ORE_BLOCK_TO_RAW_ORE = Map.of(
-            Items.RAW_IRON_BLOCK, Items.RAW_IRON,
-            Items.RAW_GOLD_BLOCK, Items.RAW_GOLD,
-            Items.RAW_COPPER_BLOCK, Items.RAW_COPPER
-    );
+    // 注意：硬编码映射已移除，现在使用 OreProcessingDataLoader 中的数据
 
     public CarrierDishBlockEntity(BlockPos pos, BlockState state) {
         super(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), pos, state);
@@ -106,8 +93,12 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
     // ========== 凿矿相关方法 ==========
 
+    /**
+     * 检查当前物品是否是可凿的矿石
+     * 现在从 OreProcessingDataLoader 获取数据
+     */
     public boolean hasChiselerOre() {
-        return hasItem() && ORE_TO_GRANULES.containsKey(displayedItem.getItem());
+        return hasItem() && OreProcessingDataLoader.getInstance().isValidOre(displayedItem.getItem());
     }
 
     public boolean isChiseling() {
@@ -240,8 +231,8 @@ public class CarrierDishBlockEntity extends BlockEntity {
         // 处理凿子：增加尖锐程度、消耗耐久、显示消息
         processChiselAfterComplete();
 
-        // 获取对应的碎粒物品
-        Item granuleItem = ORE_TO_GRANULES.get(displayedItem.getItem());
+        // 从数据加载器获取对应的碎粒物品
+        Item granuleItem = OreProcessingDataLoader.getInstance().getGranulesForOre(displayedItem.getItem());
         if (granuleItem != null) {
             // 使用根据凿子尖锐程度计算的产出数量
             ItemStack output = new ItemStack(granuleItem, granulesPerChisel);
@@ -337,7 +328,9 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
     // 获取应该掉落的粗矿数量（根据剩余高度计算）
     public int getRemainingRawOreCount() {
-        if (!hasItem() || !ORE_BLOCK_TO_RAW_ORE.containsKey(displayedItem.getItem())) {
+        // 从数据加载器获取粗矿映射
+        Item rawOreItem = OreProcessingDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
+        if (rawOreItem == null) {
             return 0;
         }
 
@@ -354,7 +347,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
     // 获取对应的粗矿物品类型
     public Item getRawOreItem() {
         if (!hasItem()) return null;
-        return ORE_BLOCK_TO_RAW_ORE.get(displayedItem.getItem());
+        return OreProcessingDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
     }
 
     // ========== 数据同步 ==========

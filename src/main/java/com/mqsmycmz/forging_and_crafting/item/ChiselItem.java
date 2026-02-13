@@ -72,7 +72,7 @@ public class ChiselItem extends Item {
             return InteractionResult.PASS;
         }
 
-        // 检查是否有可凿的矿石
+        // 检查是否有可凿的矿石（现在由 BlockEntity 内部通过数据加载器判断）
         if (!dishBlockEntity.hasChiselerOre()) {
             return InteractionResult.PASS;
         }
