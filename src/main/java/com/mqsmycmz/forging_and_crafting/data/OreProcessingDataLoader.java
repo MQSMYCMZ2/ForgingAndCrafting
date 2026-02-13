@@ -10,19 +10,22 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = ForgingAndCrafting.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final String FOLDER = "carrier_dish";
+    private static final String FOLDER = "ore_processing";
 
     // 单例实例
     private static final OreProcessingDataLoader INSTANCE = new OreProcessingDataLoader();
@@ -31,7 +34,7 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     private Map<Item, Item> oreToGranules = new HashMap<>();
     // 粗矿块到粗矿的映射
     private Map<Item, Item> oreBlockToRawOre = new HashMap<>();
-    // 有效矿石列表
+    // 完整条目映射（用于JEI）
     private Map<Item, OreProcessingEntry> processingEntries = new HashMap<>();
 
     public OreProcessingDataLoader() {
@@ -81,7 +84,7 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
         if (json.has("output_raw_ore")) {
             rawOreItem = parseItem(json.get("output_raw_ore").getAsString(), "output_raw_ore");
         } else {
-            // 尝试自动推断：如果输入是粗矿块，尝试找到对应的粗矿
+            // 尝试自动推断
             rawOreItem = inferRawOre(inputItem);
         }
 
@@ -92,10 +95,13 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
         }
 
         // 保存完整条目
-        processingEntries.put(inputItem, new OreProcessingEntry(inputItem, granulesItem, rawOreItem));
+        OreProcessingEntry entry = new OreProcessingEntry(inputItem, granulesItem, rawOreItem);
+        processingEntries.put(inputItem, entry);
 
         ForgingAndCrafting.LOGGER.debug("Registered ore processing: {} -> {} (raw: {})",
-                inputItem, granulesItem, rawOreItem);
+                ForgeRegistries.ITEMS.getKey(inputItem),
+                ForgeRegistries.ITEMS.getKey(granulesItem),
+                rawOreItem != null ? ForgeRegistries.ITEMS.getKey(rawOreItem) : "null");
     }
 
     private Item parseItem(String itemId, String fieldName) {
@@ -108,14 +114,12 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     }
 
     private Item inferRawOre(Item inputItem) {
-        // 简单的推断逻辑：如果输入是粗矿块，尝试找到对应的粗矿
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(inputItem);
         if (id == null) return null;
 
         String path = id.getPath();
-        // raw_iron_block -> raw_iron
         if (path.endsWith("_block")) {
-            String rawPath = path.substring(0, path.length() - 6); // 去掉 "_block"
+            String rawPath = path.substring(0, path.length() - 6);
             ResourceLocation rawId = new ResourceLocation(id.getNamespace(), rawPath);
             Item rawItem = ForgeRegistries.ITEMS.getValue(rawId);
             if (rawItem != null && rawItem != Items.AIR) {
@@ -151,6 +155,13 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
         return processingEntries.get(input);
     }
 
+    /**
+     * 获取所有矿石处理条目（用于JEI）
+     */
+    public Collection<OreProcessingEntry> getAllEntries() {
+        return Collections.unmodifiableCollection(processingEntries.values());
+    }
+
     // ========== 事件订阅 ==========
 
     @SubscribeEvent
@@ -161,5 +172,33 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     // ========== 数据条目类 ==========
 
     public record OreProcessingEntry(Item input, Item outputGranules, Item outputRawOre) {
+
+        /**
+         * 获取输入物品的堆叠
+         */
+        public ItemStack getInputStack() {
+            return new ItemStack(input);
+        }
+
+        /**
+         * 获取碎粒输出堆叠
+         */
+        public ItemStack getGranulesStack(int count) {
+            return new ItemStack(outputGranules, count);
+        }
+
+        /**
+         * 获取粗矿输出堆叠（如果存在）
+         */
+        public ItemStack getRawOreStack(int count) {
+            return outputRawOre != null ? new ItemStack(outputRawOre, count) : ItemStack.EMPTY;
+        }
+
+        /**
+         * 是否有粗矿输出
+         */
+        public boolean hasRawOreOutput() {
+            return outputRawOre != null;
+        }
     }
 }

@@ -29,6 +29,8 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add("entity.forging_and_crafting.rock_crusher", "Rock Crusher");
 
         add("jei.forging_and_crafting.rock_crusher", "Rock Crusher");
+        add("jei.forging_and_crafting.category.ore_processing", "Ore Chiseling");
+        add("jei.forging_and_crafting.ore_processing.hint", "Use Chisel on Carrier Dish");
 
         add("message.forging_and_crafting.chisel_sharpness", "§aChiseling successful! Current sharpness level:%d");
 

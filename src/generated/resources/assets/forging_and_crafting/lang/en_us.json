@@ -10,6 +10,8 @@
   "item.forging_and_crafting.dust_particles": "Dust Particles",
   "item.forging_and_crafting.gear": "Gear",
   "itemGroup.forging_and_crafting_tab": "Forging And Crafting",
+  "jei.forging_and_crafting.category.ore_processing": "Ore Chiseling",
+  "jei.forging_and_crafting.ore_processing.hint": "Use Chisel on Carrier Dish",
   "jei.forging_and_crafting.rock_crusher": "Rock Crusher",
   "message.forging_and_crafting.chisel_sharpness": "§aChiseling successful! Current sharpness level:%d",
   "tooltip.forging_and_crafting.chisel.granules_drop": "§eEach output: %d grains",

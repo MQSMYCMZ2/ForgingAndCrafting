@@ -10,6 +10,8 @@
   "item.forging_and_crafting.dust_particles": "灰尘颗粒",
   "item.forging_and_crafting.gear": "齿轮",
   "itemGroup.forging_and_crafting_tab": "锻造和创造",
+  "jei.forging_and_crafting.category.ore_processing": "矿石凿刻处理",
+  "jei.forging_and_crafting.ore_processing.hint": "使用凿子在承物盘上处理",
   "jei.forging_and_crafting.rock_crusher": "碎石机",
   "message.forging_and_crafting.chisel_sharpness": "§a磨凿成功！当前尖锐程度：%d",
   "tooltip.forging_and_crafting.chisel.granules_drop": "§e每次产出：%d 个碎粒",
