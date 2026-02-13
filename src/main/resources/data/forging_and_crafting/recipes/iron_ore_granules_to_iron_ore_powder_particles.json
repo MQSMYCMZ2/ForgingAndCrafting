@@ -1,0 +1,12 @@
+{
+  "type": "forging_and_crafting:rock_crusher",
+    "ingredients": [
+      {
+        "item": "forging_and_crafting:iron_ore_granules"
+      }
+    ],
+    "result": {
+      "count": 9,
+      "item": "forging_and_crafting:iron_ore_powder_particles"
+    }
+}

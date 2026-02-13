@@ -30,6 +30,9 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingItems.ROCK_CRUSHER_BLOCK_ITEM.get());
                 pOutput.accept(ForgingAndCraftingItems.GEAR.get());
                 pOutput.accept(ForgingAndCraftingItems.CHISEL.get());
+                pOutput.accept(ForgingAndCraftingItems.COPPER_ORE_POWDER_PARTICLES.get());
+                pOutput.accept(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES.get());
+                pOutput.accept(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES.get());
     }).build());
 
     public static void register(IEventBus bus) {

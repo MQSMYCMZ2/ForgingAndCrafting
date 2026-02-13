@@ -21,6 +21,15 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () ->
             new ChiselItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> COPPER_ORE_POWDER_PARTICLES = ITEMS.register("copper_ore_powder_particles", () ->
+            new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> IRON_ORE_POWDER_PARTICLES = ITEMS.register("iron_ore_powder_particles", () ->
+            new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> GOLD_ORE_POWDER_PARTICLES = ITEMS.register("gold_ore_powder_particles", () ->
+            new Item(new Item.Properties()));
+
     // 在 ForgingAndCraftingItems.java 中添加：
     public static final RegistryObject<Item> CARRIER_DISH_ANIMATED = ITEMS.register("carrier_dish_animated",
             () -> new CarrierDishAnimatedItem(new Item.Properties()));

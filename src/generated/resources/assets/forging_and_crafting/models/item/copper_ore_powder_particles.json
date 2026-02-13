@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forging_and_crafting:item/copper_ore_powder_particles"
+  }
+}
