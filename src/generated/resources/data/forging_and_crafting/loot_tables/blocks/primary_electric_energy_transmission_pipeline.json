@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "forging_and_crafting:primary_electric_energy_transmission_pipeline"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "forging_and_crafting:blocks/primary_electric_energy_transmission_pipeline"
+}

@@ -4,6 +4,9 @@
     "forging_and_crafting:iron_ore_granules",
     "forging_and_crafting:copper_ore_granules",
     "forging_and_crafting:gold_ore_granules",
-    "forging_and_crafting:carrier_dish"
+    "forging_and_crafting:carrier_dish",
+    "forging_and_crafting:melting_pot",
+    "forging_and_crafting:primary_electric_energy_transmission_pipeline",
+    "forging_and_crafting:primary_solution_delivery_pipeline"
   ]
 }

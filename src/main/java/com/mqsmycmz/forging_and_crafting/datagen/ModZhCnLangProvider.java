@@ -26,6 +26,9 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get(), "铜矿碎粒");
         add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get(), "金矿碎粒");
         add(ForgingAndCraftingBlocks.CARRIER_DISH.get(), "承载皿");
+        add(ForgingAndCraftingBlocks.MELTING_POT.get(), "熔炼锅");
+        add(ForgingAndCraftingBlocks.PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(), "初级电能传输管道");
+        add(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get(), "初级溶液输送管道");
 
         add("itemGroup.forging_and_crafting_tab", "锻造和创造");
 

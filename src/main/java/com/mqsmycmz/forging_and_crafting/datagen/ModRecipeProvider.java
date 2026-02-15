@@ -60,6 +60,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                 .save(pWriter);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ForgingAndCraftingBlocks.MELTING_POT.get())
+                .pattern("XXX")
+                .pattern("XYX")
+                .pattern("XXX")
+                .define('X', Items.IRON_INGOT).define('Y', Items.CAULDRON)
+                .unlockedBy(getHasName(Items.CAULDRON), has(Items.CAULDRON))
+                .save(pWriter);
+
         //熔炉：
         //oreSmelting(pWriter, CLAY_BRICK, RecipeCategory.MISC, ForgingAndCraftingBlocks.CLAY_BRICK.get(), 0.25F, 200, "clay_brick");
         //高炉：

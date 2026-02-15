@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "forging_and_crafting:block/primary_solution_delivery_pipeline",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "forging_and_crafting:block/primary_solution_delivery_pipeline",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "forging_and_crafting:block/primary_solution_delivery_pipeline"
+    },
+    "facing=south": {
+      "model": "forging_and_crafting:block/primary_solution_delivery_pipeline",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "forging_and_crafting:block/primary_solution_delivery_pipeline",
+      "x": -90
+    },
+    "facing=west": {
+      "model": "forging_and_crafting:block/primary_solution_delivery_pipeline",
+      "y": 270
+    }
+  }
+}

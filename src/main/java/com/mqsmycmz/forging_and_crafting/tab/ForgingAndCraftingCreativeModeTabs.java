@@ -25,6 +25,9 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get());
                 pOutput.accept(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
                 pOutput.accept(ForgingAndCraftingBlocks.CARRIER_DISH.get());
+                pOutput.accept(ForgingAndCraftingBlocks.MELTING_POT.get());
+                pOutput.accept(ForgingAndCraftingBlocks.PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get());
+                pOutput.accept(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get());
 
                 pOutput.accept(ForgingAndCraftingItems.DUST_PARTICLES.get());
                 pOutput.accept(ForgingAndCraftingItems.ROCK_CRUSHER_BLOCK_ITEM.get());

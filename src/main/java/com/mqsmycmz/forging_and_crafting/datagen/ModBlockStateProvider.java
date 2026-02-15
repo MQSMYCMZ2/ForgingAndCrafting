@@ -2,9 +2,12 @@ package com.mqsmycmz.forging_and_crafting.datagen;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.block.PrimaryElectricEnergyTransmissionPipeline;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -38,6 +41,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(ForgingAndCraftingBlocks.CARRIER_DISH.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/carrier_dish")));
 
+        horizontalBlock(ForgingAndCraftingBlocks.MELTING_POT.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/melting_pot")));
+        simpleBlockItem(ForgingAndCraftingBlocks.MELTING_POT.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/melting_pot")));
+
+        simpleBlockItem(ForgingAndCraftingBlocks.PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/primary_electric_energy_transmission_pipeline")));
+
+        simpleBlockItem(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/primary_solution_delivery_pipeline")));
     }
 
 //    public void horizontalBlock(Block block, ModelFile model) {

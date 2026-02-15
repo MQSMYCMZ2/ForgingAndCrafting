@@ -53,6 +53,27 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> MELTING_POT =
+            registerBlock("melting_pot", () -> new MeltingPotBlock(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE =
+            registerBlock("primary_electric_energy_transmission_pipeline", () -> new PrimaryElectricEnergyTransmissionPipeline(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.METAL)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> PRIMARY_SOLUTION_DELIVERY_PIPELINE =
+            registerBlock("primary_solution_delivery_pipeline", () -> new PrimarySolutionDeliveryPipelineBlock(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.METAL)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> ROCK_CRUSHER = BLOCKS.register("rock_crusher",
             () -> new RockCrusherBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
