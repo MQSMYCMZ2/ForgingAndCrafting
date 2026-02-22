@@ -4,11 +4,11 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_up",
-		"particle": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_up"
+		"particles": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_up"
 	},
 	"elements": [
 		{
-			"from": [6.5, 8, 6.5],
+			"from": [6.5, 7, 6.5],
 			"to": [9.5, 16, 9.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10.25, 8]},
 			"faces": {
@@ -73,7 +73,7 @@
 			}
 		},
 		{
-			"from": [6.25, 8, 7.25],
+			"from": [6.25, 7, 7.25],
 			"to": [6.5, 15.5, 8.75],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 9.75, 8]},
 			"faces": {
@@ -86,7 +86,7 @@
 			}
 		},
 		{
-			"from": [9.5, 8, 7.25],
+			"from": [9.5, 7, 7.25],
 			"to": [9.75, 15.5, 8.75],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 9.75, 8]},
 			"faces": {
@@ -99,7 +99,7 @@
 			}
 		},
 		{
-			"from": [7.25, 8, 6.25],
+			"from": [7.25, 7, 6.25],
 			"to": [8.75, 15.5, 6.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 9.75, 8]},
 			"faces": {
@@ -112,7 +112,7 @@
 			}
 		},
 		{
-			"from": [7.25, 8, 9.5],
+			"from": [7.25, 7, 9.5],
 			"to": [8.75, 15.5, 9.75],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 9.75, 8]},
 			"faces": {

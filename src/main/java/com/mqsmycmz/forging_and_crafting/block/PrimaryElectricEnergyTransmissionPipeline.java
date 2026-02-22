@@ -13,6 +13,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.stream.Stream;
 
 public class PrimaryElectricEnergyTransmissionPipeline extends Block {
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
@@ -21,9 +27,9 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
     public static final BooleanProperty WEST = BlockStateProperties.WEST;
     public static final BooleanProperty UP = BlockStateProperties.UP;
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
-
-    // 【修改】CONNECTED 替代 JOINT，表示是否有任意方向连接
     public static final BooleanProperty CONNECTED = BooleanProperty.create("connected");
+
+    public static final VoxelShape UNCONNECTED_SHAPE = Block.box(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
 
     public PrimaryElectricEnergyTransmissionPipeline(Properties properties) {
         super(properties);
@@ -49,9 +55,98 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         return 1.0F;
     }
 
+    private VoxelShape getConnectShape(BlockState pState) {
+        var shape = Block.box(7, 7, 7, 9, 9, 9);
+
+        if (pState.getValue(NORTH)) shape = Shapes.or(shape, Stream.of(
+                Block.box(6.5, 6.5, 0, 9.5, 9.5, 8),
+                Block.box(6.25, 6.5, 0, 6.5, 9.75, 0.5),
+                Block.box(9.5, 6.25, 0, 9.75, 9.5, 0.5),
+                Block.box(6.5, 9.5, 0, 9.75, 9.75, 0.5),
+                Block.box(6.25, 6.25, 0, 9.5, 6.5, 0.5),
+                Block.box(6.25, 7.25, 0.5, 6.5, 8.75, 8),
+                Block.box(9.5, 7.25, 0.5, 9.75, 8.75, 8),
+                Block.box(7.25, 9.5, 0.5, 8.75, 9.75, 8),
+                Block.box(7.25, 6.25, 0.5, 8.75, 6.5, 8)
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+        if (pState.getValue(SOUTH)) shape = Shapes.or(shape, Stream.of(
+                Block.box(6.5, 6.5, 8, 9.5, 9.5, 16),
+                Block.box(6.25, 6.5, 15.5, 6.5, 9.75, 16),
+                Block.box(9.5, 6.25, 15.5, 9.75, 9.5, 16),
+                Block.box(6.5, 9.5, 15.5, 9.75, 9.75, 16),
+                Block.box(6.25, 6.25, 15.5, 9.5, 6.5, 16),
+                Block.box(6.25, 7.25, 8, 6.5, 8.75, 15.5),
+                Block.box(9.5, 7.25, 8, 9.75, 8.75, 15.5),
+                Block.box(7.25, 9.5, 8, 8.75, 9.75, 15.5),
+                Block.box(7.25, 6.25, 8, 8.75, 6.5, 15.5)
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+        if (pState.getValue(EAST)) shape = Shapes.or(shape, Stream.of(
+                Block.box(8, 6.5, 6.5, 16, 9.5, 9.5),
+                Block.box(15.5, 6.5, 9.5, 16, 9.75, 9.75),
+                Block.box(15.5, 6.25, 6.25, 16, 9.5, 6.5),
+                Block.box(15.5, 9.5, 6.25, 16, 9.75, 9.5),
+                Block.box(15.5, 6.25, 6.5, 16, 6.5, 9.75),
+                Block.box(8, 7.25, 9.5, 15.5, 8.75, 9.75),
+                Block.box(8, 7.25, 6.25, 15.5, 8.75, 6.5),
+                Block.box(8, 9.5, 7.25, 15.5, 9.75, 8.75),
+                Block.box(8, 6.25, 7.25, 15.5, 6.5, 8.75)
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+        if (pState.getValue(WEST)) shape = Shapes.or(shape, Stream.of(
+                Block.box(0, 6.5, 6.5, 8, 9.5, 9.5),
+                Block.box(0, 6.5, 9.5, 0.5, 9.75, 9.75),
+                Block.box(0, 6.25, 6.25, 0.5, 9.5, 6.5),
+                Block.box(0, 9.5, 6.25, 0.5, 9.75, 9.5),
+                Block.box(0, 6.25, 6.5, 0.5, 6.5, 9.75),
+                Block.box(0.5, 7.25, 9.5, 8, 8.75, 9.75),
+                Block.box(0.5, 7.25, 6.25, 8, 8.75, 6.5),
+                Block.box(0.5, 9.5, 7.25, 8, 9.75, 8.75),
+                Block.box(0.5, 6.25, 7.25, 8, 6.5, 8.75)
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+        if (pState.getValue(UP)) shape = Shapes.or(shape, Stream.of(
+                Block.box(6.5, 8, 6.5, 9.5, 16, 9.5),
+                Block.box(9.5, 15.5, 6.5, 9.75, 16, 9.75),
+                Block.box(6.25, 15.5, 6.25, 6.5, 16, 9.5),
+                Block.box(6.25, 15.5, 9.5, 9.5, 16, 9.75),
+                Block.box(6.5, 15.5, 6.25, 9.75, 16, 6.5),
+                Block.box(6.25, 8, 7.25, 6.5, 15.5, 8.75),
+                Block.box(9.5, 8, 7.25, 9.75, 15.5, 8.75),
+                Block.box(7.25, 8, 6.25, 8.75, 15.5, 6.5),
+                Block.box(7.25, 8, 9.5, 8.75, 15.5, 9.75)
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+        if (pState.getValue(DOWN)) shape = Shapes.or(shape, Stream.of(
+                Block.box(6.5, 0, 6.5, 9.5, 8, 9.5),
+                Block.box(9.5, 0, 6.5, 9.75, 0.5, 9.75),
+                Block.box(6.25, 0, 6.25, 6.5, 0.5, 9.5),
+                Block.box(6.25, 0, 9.5, 9.5, 0.5, 9.75),
+                Block.box(6.5, 0, 6.25, 9.75, 0.5, 6.5),
+                Block.box(6.25, 0.5, 7.25, 6.5, 8, 8.75),
+                Block.box(9.5, 0.5, 7.25, 9.75, 8, 8.75),
+                Block.box(7.25, 0.5, 6.25, 8.75, 8, 6.5),
+                Block.box(7.25, 0.5, 9.5, 8.75, 8, 9.75)
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
+
+        return shape;
+    }
+
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
-        return true;
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return getCollisionShape(pState, pLevel, pPos, pContext);
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        if (!pState.getValue(CONNECTED)) {
+            return UNCONNECTED_SHAPE;
+        }
+        return getConnectShape(pState);
+    }
+
+    @Override
+    public VoxelShape getInteractionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        if (!pState.getValue(CONNECTED)) {
+            return UNCONNECTED_SHAPE;
+        }
+        return getConnectShape(pState);
     }
 
     public static BooleanProperty getConnection(Direction direction) {

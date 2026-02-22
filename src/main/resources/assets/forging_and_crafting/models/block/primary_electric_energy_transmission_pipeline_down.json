@@ -9,8 +9,8 @@
 	"elements": [
 		{
 			"from": [6.5, 0, 6.5],
-			"to": [9.5, 8, 9.5],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.25, 8]},
+			"to": [9.5, 9, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.25, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 1.5, 4], "texture": "#0"},
 				"east": {"uv": [1.5, 0, 3, 4], "texture": "#0"},
@@ -49,7 +49,7 @@
 		{
 			"from": [6.25, 0, 9.5],
 			"to": [9.5, 0.5, 9.75],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.25, 8]},
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.25, 8]},
 			"faces": {
 				"north": {"uv": [8.5, 0, 10, 0.5], "texture": "#0"},
 				"east": {"uv": [1.5, 9, 2, 9.5], "texture": "#0"},
@@ -74,8 +74,8 @@
 		},
 		{
 			"from": [6.25, 0.5, 7.25],
-			"to": [6.5, 8, 8.75],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.25, 8]},
+			"to": [6.5, 9, 8.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.25, 8]},
 			"faces": {
 				"north": {"uv": [6.5, 7, 7, 11], "texture": "#0"},
 				"east": {"uv": [1.5, 4, 2.5, 8], "texture": "#0"},
@@ -87,8 +87,8 @@
 		},
 		{
 			"from": [9.5, 0.5, 7.25],
-			"to": [9.75, 8, 8.75],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.25, 8]},
+			"to": [9.75, 9, 8.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.25, 8]},
 			"faces": {
 				"north": {"uv": [7.5, 0, 8, 4], "texture": "#0"},
 				"east": {"uv": [3.5, 4, 4.5, 8], "texture": "#0"},
@@ -100,8 +100,8 @@
 		},
 		{
 			"from": [7.25, 0.5, 6.25],
-			"to": [8.75, 8, 6.5],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.25, 8]},
+			"to": [8.75, 9, 6.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.25, 8]},
 			"faces": {
 				"north": {"uv": [4.5, 4, 5.5, 8], "texture": "#0"},
 				"east": {"uv": [0, 8, 0.5, 12], "texture": "#0"},
@@ -113,8 +113,8 @@
 		},
 		{
 			"from": [7.25, 0.5, 9.5],
-			"to": [8.75, 8, 9.75],
-			"rotation": {"angle": 0, "axis": "x", "origin": [8, 2.25, 8]},
+			"to": [8.75, 9, 9.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 2.25, 8]},
 			"faces": {
 				"north": {"uv": [5.5, 4, 6.5, 8], "texture": "#0"},
 				"east": {"uv": [0.5, 8, 1, 12], "texture": "#0"},
@@ -125,7 +125,6 @@
 			}
 		}
 	],
-	"display": {},
 	"groups": [
 		{
 			"name": "VoxelShapes",
