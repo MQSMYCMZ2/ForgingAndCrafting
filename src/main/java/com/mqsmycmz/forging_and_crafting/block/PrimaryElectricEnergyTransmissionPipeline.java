@@ -17,9 +17,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class PrimaryElectricEnergyTransmissionPipeline extends Block {
@@ -31,13 +28,7 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
     public static final BooleanProperty CONNECTED = BooleanProperty.create("connected");
 
-    // 未连接时的大方块碰撞箱
     private static final VoxelShape UNCONNECTED_SHAPE = Block.box(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
-
-    // 【常量定义】可连接的方块列表 - 在这里添加自定义方块
-    public static final List<Supplier<Block>> CONNECTABLE_BLOCKS = Arrays.asList(
-            () -> ForgingAndCraftingBlocks.ROCK_CRUSHER.get()
-    );
 
     public PrimaryElectricEnergyTransmissionPipeline(Properties properties) {
         super(properties);
@@ -239,24 +230,13 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         return state;
     }
 
-    // 【关键修改】使用常量定义可连接方块
     private boolean canConnect(BlockState neighborState, BlockPos pos, Level world, Direction direction) {
-        // 特殊方块直接连接
         if (neighborState.is(Blocks.COMPOSTER))
             return true;
 
-        // 管道之间互相连接
         if (neighborState.getBlock() instanceof PrimaryElectricEnergyTransmissionPipeline)
             return true;
 
-        // 【关键】检查是否在可连接方块列表中
-        for (Supplier<Block> blockSupplier : CONNECTABLE_BLOCKS) {
-            if (neighborState.is(blockSupplier.get())) {
-                return true;
-            }
-        }
-
-        //检查是否有任意方块实体（作为后备选项）
         var blockEntity = world.getBlockEntity(pos);
         if (blockEntity != null) {
             return true;
