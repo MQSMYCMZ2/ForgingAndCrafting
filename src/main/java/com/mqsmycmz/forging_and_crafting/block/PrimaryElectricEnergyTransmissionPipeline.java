@@ -2,7 +2,6 @@ package com.mqsmycmz.forging_and_crafting.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,6 +17,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class PrimaryElectricEnergyTransmissionPipeline extends Block {
@@ -29,12 +31,18 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
     public static final BooleanProperty CONNECTED = BooleanProperty.create("connected");
 
-    public static final VoxelShape UNCONNECTED_SHAPE = Block.box(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
+    // 未连接时的大方块碰撞箱
+    private static final VoxelShape UNCONNECTED_SHAPE = Block.box(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
+
+    // 【常量定义】可连接的方块列表 - 在这里添加自定义方块
+    public static final List<Supplier<Block>> CONNECTABLE_BLOCKS = Arrays.asList(
+            () -> ForgingAndCraftingBlocks.ROCK_CRUSHER.get()
+    );
 
     public PrimaryElectricEnergyTransmissionPipeline(Properties properties) {
         super(properties);
         this.registerDefaultState(getStateDefinition().any()
-                .setValue(CONNECTED, false)  // 默认未连接
+                .setValue(CONNECTED, false)
                 .setValue(NORTH, false)
                 .setValue(EAST, false)
                 .setValue(SOUTH, false)
@@ -43,7 +51,6 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
                 .setValue(DOWN, false));
     }
 
-    // 【新增】检查是否有任意方向连接
     public static boolean hasAnyConnection(BlockState state) {
         return state.getValue(NORTH) || state.getValue(SOUTH) ||
                 state.getValue(EAST) || state.getValue(WEST) ||
@@ -55,10 +62,31 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         return 1.0F;
     }
 
-    private VoxelShape getConnectShape(BlockState pState) {
-        var shape = Block.box(7, 7, 7, 9, 9, 9);
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return getCollisionShape(state, level, pos, context);
+    }
 
-        if (pState.getValue(NORTH)) shape = Shapes.or(shape, Stream.of(
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (!state.getValue(CONNECTED)) {
+            return UNCONNECTED_SHAPE;
+        }
+        return getConnectedShape(state);
+    }
+
+    @Override
+    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+        if (!state.getValue(CONNECTED)) {
+            return UNCONNECTED_SHAPE;
+        }
+        return getConnectedShape(state);
+    }
+
+    private VoxelShape getConnectedShape(BlockState state) {
+        var shape = Block.box(6.5, 6.5, 6.5, 9.5, 9.5, 9.5);
+
+        if (state.getValue(NORTH)) shape = Shapes.or(shape, Stream.of(
                 Block.box(6.5, 6.5, 0, 9.5, 9.5, 8),
                 Block.box(6.25, 6.5, 0, 6.5, 9.75, 0.5),
                 Block.box(9.5, 6.25, 0, 9.75, 9.5, 0.5),
@@ -69,7 +97,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
                 Block.box(7.25, 9.5, 0.5, 8.75, 9.75, 8),
                 Block.box(7.25, 6.25, 0.5, 8.75, 6.5, 8)
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
-        if (pState.getValue(SOUTH)) shape = Shapes.or(shape, Stream.of(
+
+        if (state.getValue(SOUTH)) shape = Shapes.or(shape, Stream.of(
                 Block.box(6.5, 6.5, 8, 9.5, 9.5, 16),
                 Block.box(6.25, 6.5, 15.5, 6.5, 9.75, 16),
                 Block.box(9.5, 6.25, 15.5, 9.75, 9.5, 16),
@@ -80,7 +109,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
                 Block.box(7.25, 9.5, 8, 8.75, 9.75, 15.5),
                 Block.box(7.25, 6.25, 8, 8.75, 6.5, 15.5)
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
-        if (pState.getValue(EAST)) shape = Shapes.or(shape, Stream.of(
+
+        if (state.getValue(EAST)) shape = Shapes.or(shape, Stream.of(
                 Block.box(8, 6.5, 6.5, 16, 9.5, 9.5),
                 Block.box(15.5, 6.5, 9.5, 16, 9.75, 9.75),
                 Block.box(15.5, 6.25, 6.25, 16, 9.5, 6.5),
@@ -91,7 +121,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
                 Block.box(8, 9.5, 7.25, 15.5, 9.75, 8.75),
                 Block.box(8, 6.25, 7.25, 15.5, 6.5, 8.75)
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
-        if (pState.getValue(WEST)) shape = Shapes.or(shape, Stream.of(
+
+        if (state.getValue(WEST)) shape = Shapes.or(shape, Stream.of(
                 Block.box(0, 6.5, 6.5, 8, 9.5, 9.5),
                 Block.box(0, 6.5, 9.5, 0.5, 9.75, 9.75),
                 Block.box(0, 6.25, 6.25, 0.5, 9.5, 6.5),
@@ -102,7 +133,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
                 Block.box(0.5, 9.5, 7.25, 8, 9.75, 8.75),
                 Block.box(0.5, 6.25, 7.25, 8, 6.5, 8.75)
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
-        if (pState.getValue(UP)) shape = Shapes.or(shape, Stream.of(
+
+        if (state.getValue(UP)) shape = Shapes.or(shape, Stream.of(
                 Block.box(6.5, 8, 6.5, 9.5, 16, 9.5),
                 Block.box(9.5, 15.5, 6.5, 9.75, 16, 9.75),
                 Block.box(6.25, 15.5, 6.25, 6.5, 16, 9.5),
@@ -113,7 +145,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
                 Block.box(7.25, 8, 6.25, 8.75, 15.5, 6.5),
                 Block.box(7.25, 8, 9.5, 8.75, 15.5, 9.75)
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
-        if (pState.getValue(DOWN)) shape = Shapes.or(shape, Stream.of(
+
+        if (state.getValue(DOWN)) shape = Shapes.or(shape, Stream.of(
                 Block.box(6.5, 0, 6.5, 9.5, 8, 9.5),
                 Block.box(9.5, 0, 6.5, 9.75, 0.5, 9.75),
                 Block.box(6.25, 0, 6.25, 6.5, 0.5, 9.5),
@@ -126,27 +159,6 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get());
 
         return shape;
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return getCollisionShape(pState, pLevel, pPos, pContext);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        if (!pState.getValue(CONNECTED)) {
-            return UNCONNECTED_SHAPE;
-        }
-        return getConnectShape(pState);
-    }
-
-    @Override
-    public VoxelShape getInteractionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        if (!pState.getValue(CONNECTED)) {
-            return UNCONNECTED_SHAPE;
-        }
-        return getConnectShape(pState);
     }
 
     public static BooleanProperty getConnection(Direction direction) {
@@ -166,7 +178,6 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         var pos = context.getClickedPos();
         var state = this.defaultBlockState();
 
-        // 检查所有方向的连接
         for (var direction : Direction.values()) {
             var neighborPos = pos.relative(direction);
             var neighborState = world.getBlockState(neighborPos);
@@ -174,12 +185,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
             state = state.setValue(getConnection(direction), connected);
         }
 
-        // 【修改】设置 CONNECTED 属性
         boolean hasConnection = hasAnyConnection(state);
         state = state.setValue(CONNECTED, hasConnection);
-
-        System.out.println("【放置】Pipe at " + pos + " connected=" + hasConnection +
-                " N=" + state.getValue(NORTH) + " S=" + state.getValue(SOUTH));
 
         return state;
     }
@@ -191,7 +198,6 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
             return state;
         }
 
-        // 重新计算所有方向的连接
         for (var dir : Direction.values()) {
             var p = pos.relative(dir);
             var s = world.getBlockState(p);
@@ -203,11 +209,8 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
             }
         }
 
-        // 【修改】更新 CONNECTED 属性
         boolean hasConnection = hasAnyConnection(state);
         state = state.setValue(CONNECTED, hasConnection);
-
-        System.out.println("【更新】Pipe at " + pos + " connected=" + hasConnection);
 
         return state;
     }
@@ -218,8 +221,6 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         super.neighborChanged(state, world, pos, block, fromPos, isMoving);
 
         var newState = calculateConnections(state, world, pos);
-
-        // 【修改】更新 CONNECTED 属性
         boolean hasConnection = hasAnyConnection(newState);
         newState = newState.setValue(CONNECTED, hasConnection);
 
@@ -238,19 +239,27 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         return state;
     }
 
+    // 【关键修改】使用常量定义可连接方块
     private boolean canConnect(BlockState neighborState, BlockPos pos, Level world, Direction direction) {
         // 特殊方块直接连接
-        if (neighborState.is(Blocks.END_PORTAL_FRAME) || neighborState.is(Blocks.COMPOSTER))
+        if (neighborState.is(Blocks.COMPOSTER))
             return true;
 
         // 管道之间互相连接
         if (neighborState.getBlock() instanceof PrimaryElectricEnergyTransmissionPipeline)
             return true;
 
-        // 检查是否有容器
+        // 【关键】检查是否在可连接方块列表中
+        for (Supplier<Block> blockSupplier : CONNECTABLE_BLOCKS) {
+            if (neighborState.is(blockSupplier.get())) {
+                return true;
+            }
+        }
+
+        //检查是否有任意方块实体（作为后备选项）
         var blockEntity = world.getBlockEntity(pos);
         if (blockEntity != null) {
-            return blockEntity instanceof Container;
+            return true;
         }
 
         return false;
@@ -258,7 +267,6 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        // 【修改】使用 CONNECTED 替代 JOINT
         builder.add(CONNECTED, NORTH, EAST, SOUTH, WEST, UP, DOWN);
     }
 }
