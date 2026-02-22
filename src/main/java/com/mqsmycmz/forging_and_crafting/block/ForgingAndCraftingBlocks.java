@@ -64,6 +64,7 @@ public class ForgingAndCraftingBlocks {
             registerBlock("primary_electric_energy_transmission_pipeline", () -> new PrimaryElectricEnergyTransmissionPipeline(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.METAL)
+                    .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 

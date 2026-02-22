@@ -1,27 +1,52 @@
 {
-  "variants": {
-    "facing=down": {
-      "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline",
-      "x": 90
+  "multipart": [
+    {
+      "when": { "connected": "false" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_joint_original"
+      }
     },
-    "facing=east": {
-      "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline",
-      "y": 90
+    {
+      "when": { "connected": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_joint"
+      }
     },
-    "facing=north": {
-      "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline"
+    {
+      "when": { "up": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_up"
+      }
     },
-    "facing=south": {
-      "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline",
-      "y": 180
+    {
+      "when": { "down": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_down"
+      }
     },
-    "facing=up": {
-      "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline",
-      "x": -90
+    {
+      "when": { "north": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_north"
+      }
     },
-    "facing=west": {
-      "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline",
-      "y": 270
+    {
+      "when": { "south": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_south"
+      }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_west"
+      }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/primary_electric_energy_transmission_pipeline_east"
+      }
     }
-  }
+  ]
 }

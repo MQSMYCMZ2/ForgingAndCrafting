@@ -2,195 +2,168 @@ package com.mqsmycmz.forging_and_crafting.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.phys.AABB;
-
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class PrimaryElectricEnergyTransmissionPipeline extends Block {
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
+    public static final BooleanProperty EAST = BlockStateProperties.EAST;
+    public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
+    public static final BooleanProperty WEST = BlockStateProperties.WEST;
+    public static final BooleanProperty UP = BlockStateProperties.UP;
+    public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
 
-    // 只定义基础水平形状（朝北）
-    public static final VoxelShape SHAPE_BASE = Stream.of(
-            Block.box(6.5, 6.5, 0, 9.5, 9.5, 16),
-            Block.box(6.25, 6.5, 0, 6.5, 9.75, 0.5),
-            Block.box(9.5, 6.25, 0, 9.75, 9.5, 0.5),
-            Block.box(6.5, 9.5, 0, 9.75, 9.75, 0.5),
-            Block.box(6.25, 6.25, 0, 9.5, 6.5, 0.5),
-            Block.box(6.5, 9.5, 15.5, 9.75, 9.75, 16),
-            Block.box(9.5, 6.5, 15.5, 9.75, 9.5, 16),
-            Block.box(6.25, 6.5, 15.5, 6.5, 9.75, 16),
-            Block.box(6.25, 6.25, 15.5, 9.75, 6.5, 16),
-            Block.box(7.25, 6.25, 0.5, 8.75, 6.5, 15.5),
-            Block.box(6.25, 7.25, 0.5, 6.5, 8.75, 15.5),
-            Block.box(9.5, 7.25, 0.5, 9.75, 8.75, 15.5),
-            Block.box(7.25, 9.5, 0.5, 8.75, 9.75, 15.5)
-    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
-
-    // 缓存所有方向的形状
-    public static final Map<Direction, VoxelShape> SHAPES = new EnumMap<>(Direction.class);
-
-    static {
-        // 水平方向：通过Y轴旋转生成
-        SHAPES.put(Direction.NORTH, SHAPE_BASE);
-        SHAPES.put(Direction.EAST, rotateShapeClockwise(SHAPE_BASE, 1));
-        SHAPES.put(Direction.SOUTH, rotateShapeClockwise(SHAPE_BASE, 2));
-        SHAPES.put(Direction.WEST, rotateShapeClockwise(SHAPE_BASE, 3));
-
-        // 垂直方向：通过X轴旋转生成（关键！）
-        SHAPES.put(Direction.UP, rotateX(SHAPE_BASE, -90));
-        SHAPES.put(Direction.DOWN, rotateX(SHAPE_BASE, 90));
-    }
+    // 【修改】CONNECTED 替代 JOINT，表示是否有任意方向连接
+    public static final BooleanProperty CONNECTED = BooleanProperty.create("connected");
 
     public PrimaryElectricEnergyTransmissionPipeline(Properties properties) {
         super(properties);
+        this.registerDefaultState(getStateDefinition().any()
+                .setValue(CONNECTED, false)  // 默认未连接
+                .setValue(NORTH, false)
+                .setValue(EAST, false)
+                .setValue(SOUTH, false)
+                .setValue(WEST, false)
+                .setValue(UP, false)
+                .setValue(DOWN, false));
     }
 
-    private static VoxelShape rotateShapeClockwise(VoxelShape shape, int times) {
-        if (times == 0) return shape;
-
-        VoxelShape result = shape;
-        for (int i = 0; i < times; i++) {
-            List<AABB> boxes = new ArrayList<>();
-            result.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
-                double pxMinX = minX * 16.0;
-                double pxMaxX = maxX * 16.0;
-                double pxMinZ = minZ * 16.0;
-                double pxMaxZ = maxZ * 16.0;
-
-                double newPxMinX = 16.0 - pxMaxZ;
-                double newPxMaxX = 16.0 - pxMinZ;
-                double newPxMinZ = pxMinX;
-                double newPxMaxZ = pxMaxX;
-
-                boxes.add(new AABB(
-                        newPxMinX / 16.0, minY, newPxMinZ / 16.0,
-                        newPxMaxX / 16.0, maxY, newPxMaxZ / 16.0
-                ));
-            });
-            result = boxes.stream()
-                    .map(Shapes::create)
-                    .reduce(Shapes.empty(), (a, b) -> Shapes.join(a, b, BooleanOp.OR));
-        }
-        return result;
+    // 【新增】检查是否有任意方向连接
+    public static boolean hasAnyConnection(BlockState state) {
+        return state.getValue(NORTH) || state.getValue(SOUTH) ||
+                state.getValue(EAST) || state.getValue(WEST) ||
+                state.getValue(UP) || state.getValue(DOWN);
     }
 
-    /**
-     * 绕X轴旋转（用于垂直方向）- 修复版
-     */
-    private static VoxelShape rotateX(VoxelShape shape, double degrees) {
-        double rad = Math.toRadians(degrees);
-        double cos = Math.cos(rad);
-        double sin = Math.sin(rad);
-        double center = 8.0;
-
-        List<AABB> boxes = new ArrayList<>();
-        shape.forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) -> {
-            // 转换到像素坐标，以中心为原点
-            double x1 = minX * 16 - center;
-            double x2 = maxX * 16 - center;
-            double y1 = minY * 16 - center;
-            double y2 = maxY * 16 - center;
-            double z1 = minZ * 16 - center;
-            double z2 = maxZ * 16 - center;
-
-            // 绕X轴旋转：Y和Z交换
-            double newY1 = y1 * cos - z1 * sin;
-            double newY2 = y2 * cos - z2 * sin;
-            double newZ1 = y1 * sin + z1 * cos;
-            double newZ2 = y2 * sin + z2 * cos;
-
-            // 加回中心并转换回世界坐标
-            double finalMinX = (Math.min(x1, x2) + center) / 16.0;
-            double finalMaxX = (Math.max(x1, x2) + center) / 16.0;
-            double finalMinY = (Math.min(newY1, newY2) + center) / 16.0;
-            double finalMaxY = (Math.max(newY1, newY2) + center) / 16.0;
-            // 关键修复：使用center而不是添加偏移
-            double finalMinZ = (Math.min(newZ1, newZ2) + center) / 16.0;
-            double finalMaxZ = (Math.max(newZ1, newZ2) + center) / 16.0;
-
-            boxes.add(new AABB(finalMinX, finalMinY, finalMinZ, finalMaxX, finalMaxY, finalMaxZ));
-        });
-
-        return combineBoxes(boxes);
+    @Override
+    public float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
+        return 1.0F;
     }
 
-    /**
-     * 辅助方法：合并所有AABB为VoxelShape
-     */
-    private static VoxelShape combineBoxes(List<AABB> boxes) {
-        return boxes.stream()
-                .map(Shapes::create)
-                .reduce(Shapes.empty(), (a, b) -> Shapes.join(a, b, BooleanOp.OR));
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+        return true;
+    }
+
+    public static BooleanProperty getConnection(Direction direction) {
+        return switch (direction) {
+            case DOWN -> DOWN;
+            case UP -> UP;
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case WEST -> WEST;
+            case EAST -> EAST;
+        };
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction clickedFace = context.getClickedFace();
-        Direction facing;
+        var world = context.getLevel();
+        var pos = context.getClickedPos();
+        var state = this.defaultBlockState();
 
-        // 逻辑：管道朝向与点击面相同（指向该方向）
-        if (clickedFace.getAxis().isHorizontal()) {
-            // 水平面：管道水平放置，朝向该方向
-            facing = clickedFace;
-        } else {
-            // 顶面/底面：管道垂直，朝向上下
-            facing = clickedFace;
+        // 检查所有方向的连接
+        for (var direction : Direction.values()) {
+            var neighborPos = pos.relative(direction);
+            var neighborState = world.getBlockState(neighborPos);
+            var connected = canConnect(neighborState, neighborPos, world, direction);
+            state = state.setValue(getConnection(direction), connected);
         }
 
-        return this.defaultBlockState().setValue(FACING, facing);
+        // 【修改】设置 CONNECTED 属性
+        boolean hasConnection = hasAnyConnection(state);
+        state = state.setValue(CONNECTED, hasConnection);
+
+        System.out.println("【放置】Pipe at " + pos + " connected=" + hasConnection +
+                " N=" + state.getValue(NORTH) + " S=" + state.getValue(SOUTH));
+
+        return state;
     }
 
     @Override
-    public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+                                  LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
+        if (!(world instanceof Level level)) {
+            return state;
+        }
+
+        // 重新计算所有方向的连接
+        for (var dir : Direction.values()) {
+            var p = pos.relative(dir);
+            var s = world.getBlockState(p);
+            var connected = canConnect(s, p, level, dir);
+            var connectionProperty = getConnection(dir);
+
+            if (state.getValue(connectionProperty) != connected) {
+                state = state.setValue(connectionProperty, connected);
+            }
+        }
+
+        // 【修改】更新 CONNECTED 属性
+        boolean hasConnection = hasAnyConnection(state);
+        state = state.setValue(CONNECTED, hasConnection);
+
+        System.out.println("【更新】Pipe at " + pos + " connected=" + hasConnection);
+
+        return state;
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.setValue(FACING, mirror.mirror(state.getValue(FACING)));
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block,
+                                BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, world, pos, block, fromPos, isMoving);
+
+        var newState = calculateConnections(state, world, pos);
+
+        // 【修改】更新 CONNECTED 属性
+        boolean hasConnection = hasAnyConnection(newState);
+        newState = newState.setValue(CONNECTED, hasConnection);
+
+        if (newState != state) {
+            world.setBlock(pos, newState, 2);
+        }
+    }
+
+    private BlockState calculateConnections(BlockState state, Level world, BlockPos pos) {
+        for (var dir : Direction.values()) {
+            var p = pos.relative(dir);
+            var s = world.getBlockState(p);
+            var connected = canConnect(s, p, world, dir);
+            state = state.setValue(getConnection(dir), connected);
+        }
+        return state;
+    }
+
+    private boolean canConnect(BlockState neighborState, BlockPos pos, Level world, Direction direction) {
+        // 特殊方块直接连接
+        if (neighborState.is(Blocks.END_PORTAL_FRAME) || neighborState.is(Blocks.COMPOSTER))
+            return true;
+
+        // 管道之间互相连接
+        if (neighborState.getBlock() instanceof PrimaryElectricEnergyTransmissionPipeline)
+            return true;
+
+        // 检查是否有容器
+        var blockEntity = world.getBlockEntity(pos);
+        if (blockEntity != null) {
+            return blockEntity instanceof Container;
+        }
+
+        return false;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPES.getOrDefault(state.getValue(FACING), SHAPE_BASE);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return getShape(state, level, pos, context);
-    }
-
-    @Override
-    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return getShape(state, level, pos, CollisionContext.empty());
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+        // 【修改】使用 CONNECTED 替代 JOINT
+        builder.add(CONNECTED, NORTH, EAST, SOUTH, WEST, UP, DOWN);
     }
 }
