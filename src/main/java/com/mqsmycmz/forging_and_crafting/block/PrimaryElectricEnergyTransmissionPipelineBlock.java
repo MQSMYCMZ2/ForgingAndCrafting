@@ -19,7 +19,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
-public class PrimaryElectricEnergyTransmissionPipeline extends Block {
+public class PrimaryElectricEnergyTransmissionPipelineBlock extends Block {
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty EAST = BlockStateProperties.EAST;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -30,7 +30,7 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
 
     private static final VoxelShape UNCONNECTED_SHAPE = Block.box(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
 
-    public PrimaryElectricEnergyTransmissionPipeline(Properties properties) {
+    public PrimaryElectricEnergyTransmissionPipelineBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(getStateDefinition().any()
                 .setValue(CONNECTED, false)
@@ -75,7 +75,7 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
     }
 
     private VoxelShape getConnectedShape(BlockState state) {
-        var shape = Block.box(6.5, 6.5, 6.5, 9.5, 9.5, 9.5);
+        var shape = Block.box(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
 
         if (state.getValue(NORTH)) shape = Shapes.or(shape, Stream.of(
                 Block.box(6.5, 6.5, 0, 9.5, 9.5, 8),
@@ -234,7 +234,7 @@ public class PrimaryElectricEnergyTransmissionPipeline extends Block {
         if (neighborState.is(Blocks.COMPOSTER))
             return true;
 
-        if (neighborState.getBlock() instanceof PrimaryElectricEnergyTransmissionPipeline)
+        if (neighborState.getBlock() instanceof PrimaryElectricEnergyTransmissionPipelineBlock || neighborState.getBlock() instanceof PrimarySolutionDeliveryPipelineBlock)
             return true;
 
         var blockEntity = world.getBlockEntity(pos);
