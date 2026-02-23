@@ -2,8 +2,8 @@
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "forging_and_crafting:block/primary_solution_delivery_pipeline_joint",
-		"particle": "forging_and_crafting:block/primary_solution_delivery_pipeline_joint"
+		"0": "forging_and_crafting:block/solution_delivery_pipeline_joint",
+		"particle": "forging_and_crafting:block/solution_delivery_pipeline_joint"
 	},
 	"elements": [
 		{

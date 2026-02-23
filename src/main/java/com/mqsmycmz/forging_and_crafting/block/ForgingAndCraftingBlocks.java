@@ -60,16 +60,16 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE =
-            registerBlock("primary_electric_energy_transmission_pipeline", () -> new PrimaryElectricEnergyTransmissionPipelineBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<Block> ELECTRIC_ENERGY_TRANSMISSION_PIPELINE =
+            registerBlock("electric_energy_transmission_pipeline", () -> new ElectricEnergyTransmissionPipelineBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.METAL)
                     .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> PRIMARY_SOLUTION_DELIVERY_PIPELINE =
-            registerBlock("primary_solution_delivery_pipeline", () -> new PrimarySolutionDeliveryPipelineBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<Block> SOLUTION_DELIVERY_PIPELINE =
+            registerBlock("solution_delivery_pipeline", () -> new SolutionDeliveryPipelineBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.METAL)
                     .noOcclusion()

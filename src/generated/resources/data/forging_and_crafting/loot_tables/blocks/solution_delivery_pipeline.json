@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "forging_and_crafting:primary_solution_delivery_pipeline"
+          "name": "forging_and_crafting:solution_delivery_pipeline"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "forging_and_crafting:blocks/primary_solution_delivery_pipeline"
+  "random_sequence": "forging_and_crafting:blocks/solution_delivery_pipeline"
 }

@@ -27,8 +27,8 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get(), "Gold Ore Granules");
         add(ForgingAndCraftingBlocks.CARRIER_DISH.get(), "Carrier Dish");
         add(ForgingAndCraftingBlocks.MELTING_POT.get(), "Melting Pot");
-        add(ForgingAndCraftingBlocks.PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(), "Primary Electric Energy Transmission Pipeline");
-        add(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get(), "Primary Solution Delivery Pipeline");
+        add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(), "Electric Energy Transmission Pipeline");
+        add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), "Solution Delivery Pipeline");
 
         add("itemGroup.forging_and_crafting_tab", "Forging And Crafting");
 

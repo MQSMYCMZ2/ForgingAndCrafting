@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "forging_and_crafting:primary_electric_energy_transmission_pipeline"
+          "name": "forging_and_crafting:electric_energy_transmission_pipeline"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "forging_and_crafting:blocks/primary_electric_energy_transmission_pipeline"
+  "random_sequence": "forging_and_crafting:blocks/electric_energy_transmission_pipeline"
 }

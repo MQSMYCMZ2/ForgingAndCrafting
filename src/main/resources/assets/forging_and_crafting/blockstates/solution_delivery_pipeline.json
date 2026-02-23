@@ -1,0 +1,52 @@
+{
+  "multipart": [
+    {
+      "when": { "connected": "false" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_joint"
+      }
+    },
+    {
+      "when": { "connected": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_joint_original"
+      }
+    },
+    {
+      "when": { "up": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_up"
+      }
+    },
+    {
+      "when": { "down": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_down"
+      }
+    },
+    {
+      "when": { "north": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_north"
+      }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_south"
+      }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_west"
+      }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/solution_delivery_pipeline/solution_delivery_pipeline_east"
+      }
+    }
+  ]
+}

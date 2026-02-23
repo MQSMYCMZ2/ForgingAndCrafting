@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
-public class PrimarySolutionDeliveryPipelineBlock extends Block {
+public class SolutionDeliveryPipelineBlock extends Block {
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty EAST = BlockStateProperties.EAST;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -125,7 +125,7 @@ public class PrimarySolutionDeliveryPipelineBlock extends Block {
 
     private static final Map<BlockState, VoxelShape> SHAPE_CACHE = new ConcurrentHashMap<>();
 
-    public PrimarySolutionDeliveryPipelineBlock(Properties pProperties) {
+    public SolutionDeliveryPipelineBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(getStateDefinition().any()
                 .setValue(CONNECTED, false)
@@ -268,7 +268,7 @@ public class PrimarySolutionDeliveryPipelineBlock extends Block {
         if (neighborState.is(Blocks.COMPOSTER))
             return true;
 
-        if (neighborState.getBlock() instanceof PrimarySolutionDeliveryPipelineBlock || neighborState.getBlock() instanceof PrimaryElectricEnergyTransmissionPipelineBlock)
+        if (neighborState.getBlock() instanceof SolutionDeliveryPipelineBlock || neighborState.getBlock() instanceof ElectricEnergyTransmissionPipelineBlock)
             return true;
 
         var blockEntity = world.getBlockEntity(pos);

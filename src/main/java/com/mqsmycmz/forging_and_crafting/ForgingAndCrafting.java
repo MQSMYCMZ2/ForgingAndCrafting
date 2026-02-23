@@ -94,7 +94,7 @@ public class ForgingAndCrafting
             MenuScreens.register(ForgingAndCraftingMenuTypes.ROCK_CRUSHER_MENU.get(), RockCrusherScreen::new);
             BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherGeoBlockEntityRenderer::new);
             BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), CarrierDishBlockEntityRenderer::new);
-            ItemBlockRenderTypes.setRenderLayer(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), RenderType.translucent());
         }
     }
 }

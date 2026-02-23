@@ -22,8 +22,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get());
         this.dropSelf(ForgingAndCraftingBlocks.CARRIER_DISH.get());
         this.dropSelf(ForgingAndCraftingBlocks.MELTING_POT.get());
-        this.dropSelf(ForgingAndCraftingBlocks.PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get());
-        this.dropSelf(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get());
+        this.dropSelf(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get());
+        this.dropSelf(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get());
     }
 
     @Override

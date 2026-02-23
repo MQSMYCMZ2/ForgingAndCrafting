@@ -43,11 +43,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(ForgingAndCraftingBlocks.MELTING_POT.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/melting_pot")));
 
-        simpleBlockItem(ForgingAndCraftingBlocks.PRIMARY_ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/primary_electric_energy_transmission_pipeline")));
+        simpleBlockItem(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/electric_energy_transmission_pipeline")));
 
-        simpleBlockItem(ForgingAndCraftingBlocks.PRIMARY_SOLUTION_DELIVERY_PIPELINE.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/primary_solution_delivery_pipeline")));
+        simpleBlockItem(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/solution_delivery_pipeline")));
     }
 
 //    public void horizontalBlock(Block block, ModelFile model) {
