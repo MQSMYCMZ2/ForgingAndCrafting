@@ -1,0 +1,52 @@
+{
+  "multipart": [
+    {
+      "when": { "connected": "false" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_joint"
+      }
+    },
+    {
+      "when": { "connected": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_joint_original"
+      }
+    },
+    {
+      "when": { "up": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_up"
+      }
+    },
+    {
+      "when": { "down": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_down"
+      }
+    },
+    {
+      "when": { "north": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_north"
+      }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_south"
+      }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_west"
+      }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": {
+        "model": "forging_and_crafting:block/information_transmission_cable/information_transmission_cable_without_transmitting_information_east"
+      }
+    }
+  ]
+}

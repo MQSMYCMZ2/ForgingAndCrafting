@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-23T16:39:46.504287	Block States: forging_and_crafting
+// 1.20.1	2026-02-23T20:55:34.193063	Block States: forging_and_crafting
 af09e240be2afb01ee56b68ddbd35f315af1c686 assets/forging_and_crafting/blockstates/carrier_dish.json
 0442fd93d5c0b433c5004a174080ed5c501bdf09 assets/forging_and_crafting/blockstates/clay_brick.json
 d0548492c7d1d0d18946cbf6abb60a38309966a8 assets/forging_and_crafting/blockstates/copper_ore_granules.json
@@ -11,6 +11,7 @@ a80c2bbf2eb65f9f9cb58739cdb81d3cd6ee8d44 assets/forging_and_crafting/models/item
 bd5d0b59244d229651b550056159b8f08ba872ce assets/forging_and_crafting/models/item/copper_ore_granules.json
 02afa99e98f2869beba91c1cc241f2fd75d31496 assets/forging_and_crafting/models/item/electric_energy_transmission_pipeline.json
 f7a2fffa44369cad622c3ce4da76af6f23a1ab99 assets/forging_and_crafting/models/item/gold_ore_granules.json
+7e558e78659b7dc3c9de83692a216e52d0bd2214 assets/forging_and_crafting/models/item/information_transmission_cable.json
 5556dfeaff443942749f802dbad2b9330e04ecc3 assets/forging_and_crafting/models/item/iron_ore_granules.json
 41c3e220f6a503929df27c9c5fc3b0531858126f assets/forging_and_crafting/models/item/melting_pot.json
 e1acc25b864e16ef91b76357f169b38c7f5312c6 assets/forging_and_crafting/models/item/solution_delivery_pipeline.json

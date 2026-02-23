@@ -234,7 +234,9 @@ public class ElectricEnergyTransmissionPipelineBlock extends Block {
         if (neighborState.is(Blocks.COMPOSTER))
             return true;
 
-        if (neighborState.getBlock() instanceof ElectricEnergyTransmissionPipelineBlock || neighborState.getBlock() instanceof SolutionDeliveryPipelineBlock)
+        if (neighborState.getBlock() instanceof SolutionDeliveryPipelineBlock ||
+                neighborState.getBlock() instanceof ElectricEnergyTransmissionPipelineBlock ||
+                neighborState.getBlock() instanceof InformationTransmissionCableBlock)
             return true;
 
         var blockEntity = world.getBlockEntity(pos);

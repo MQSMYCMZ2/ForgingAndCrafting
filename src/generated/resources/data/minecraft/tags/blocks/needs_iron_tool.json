@@ -4,6 +4,7 @@
     "forging_and_crafting:gold_ore_granules",
     "forging_and_crafting:melting_pot",
     "forging_and_crafting:electric_energy_transmission_pipeline",
-    "forging_and_crafting:solution_delivery_pipeline"
+    "forging_and_crafting:solution_delivery_pipeline",
+    "forging_and_crafting:information_transmission_cable"
   ]
 }

@@ -75,6 +75,14 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> INFORMATION_TRANSMISSION_CABLE =
+            registerBlock("information_transmission_cable", () -> new InformationTransmissionCableBlock(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.METAL)
+                    .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> ROCK_CRUSHER = BLOCKS.register("rock_crusher",
             () -> new RockCrusherBlock(BlockBehaviour.Properties.of().noOcclusion()));
 

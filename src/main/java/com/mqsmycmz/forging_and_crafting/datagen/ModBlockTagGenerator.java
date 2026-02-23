@@ -26,14 +26,16 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ForgingAndCraftingBlocks.CARRIER_DISH.get())
                 .add(ForgingAndCraftingBlocks.MELTING_POT.get())
                 .add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get())
-                .add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get());
+                .add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get())
+                .add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ForgingAndCraftingBlocks.CLAY_BRICK.get())
                 .add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get())
                 .add(ForgingAndCraftingBlocks.MELTING_POT.get())
                 .add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get())
-                .add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get());
+                .add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get())
+                .add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get())

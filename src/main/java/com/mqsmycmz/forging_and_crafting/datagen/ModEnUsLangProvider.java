@@ -29,6 +29,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingBlocks.MELTING_POT.get(), "Melting Pot");
         add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(), "Electric Energy Transmission Pipeline");
         add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), "Solution Delivery Pipeline");
+        add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get(), "Information Transmission Cable");
 
         add("itemGroup.forging_and_crafting_tab", "Forging And Crafting");
 

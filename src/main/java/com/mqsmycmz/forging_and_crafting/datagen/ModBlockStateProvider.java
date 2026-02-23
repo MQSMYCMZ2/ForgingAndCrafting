@@ -48,6 +48,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         simpleBlockItem(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/solution_delivery_pipeline")));
+
+        simpleBlockItem(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/information_transmission_cable")));
     }
 
 //    public void horizontalBlock(Block block, ModelFile model) {
