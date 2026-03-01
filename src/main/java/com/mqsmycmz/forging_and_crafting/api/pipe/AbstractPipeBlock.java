@@ -10,18 +10,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractPipeBlock extends Block implements IPipeBlock {
-    public final VoxelShape UNCONNECTED_SHAPE;
+    public final VoxelShape[] UNCONNECTED_SHAPE;
 
     public final PipeShapeCache shapeCache;
 
-    public AbstractPipeBlock(Properties properties, VoxelShape unconnectedShape) {
+    public AbstractPipeBlock(Properties properties, VoxelShape[] unconnectedShape) {
         super(properties);
-        this.shapeCache = new PipeShapeCache(this::createConnectedShape);
         this.UNCONNECTED_SHAPE = unconnectedShape;
+        this.shapeCache = new PipeShapeCache(this::createConnectedShape);
 
         this.registerDefaultState(getStateDefinition().any()
                 .setValue(CONNECTED, false)
@@ -35,6 +36,17 @@ public abstract class AbstractPipeBlock extends Block implements IPipeBlock {
 
     protected abstract VoxelShape createConnectedShape(BlockState state);
 
+    private VoxelShape mergeShapes(VoxelShape[] shapes) {
+        if (shapes == null || shapes.length == 0) {
+            return Shapes.empty();
+        }
+        VoxelShape result = shapes[0];
+        for (int i = 1; i < shapes.length; i++) {
+            result = Shapes.or(result, shapes[i]);
+        }
+        return result;
+    }
+
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return getCollisionShape(pState, pLevel, pPos, pContext);
@@ -42,12 +54,12 @@ public abstract class AbstractPipeBlock extends Block implements IPipeBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return !pState.getValue(CONNECTED) ? UNCONNECTED_SHAPE : shapeCache.get(pState);
+        return !pState.getValue(CONNECTED) ? mergeShapes(UNCONNECTED_SHAPE) : shapeCache.get(pState);
     }
 
     @Override
     public VoxelShape getInteractionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return !pState.getValue(CONNECTED) ? UNCONNECTED_SHAPE : shapeCache.get(pState);
+        return !pState.getValue(CONNECTED) ? mergeShapes(UNCONNECTED_SHAPE) : shapeCache.get(pState);
     }
 
     @Override

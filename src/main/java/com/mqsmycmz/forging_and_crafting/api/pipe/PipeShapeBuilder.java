@@ -1,5 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.api.pipe;
 
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -20,17 +21,27 @@ public class PipeShapeBuilder {
 
 
 
-    public PipeShapeBuilder(VoxelShape shape,
-                             VoxelShape[] northShape,VoxelShape[] southShape,
+    public PipeShapeBuilder(VoxelShape[] shape, VoxelShape[] northShape,VoxelShape[] southShape,
                             VoxelShape[] eastShape, VoxelShape[] westShape,
                             VoxelShape[] upShape, VoxelShape[] downShape)  {
-        this.shape = shape;
+        this.shape = mergeShapes(shape);
         this.northShape = northShape;
         this.southShape = southShape;
         this.eastShape = eastShape;
         this.westShape = westShape;
         this.upShape = upShape;
         this.downShape = downShape;
+    }
+
+    private VoxelShape mergeShapes(VoxelShape[] shapes) {
+        if (shapes == null || shapes.length == 0) {
+            return Shapes.empty();
+        }
+        VoxelShape result = shapes[0];
+        for (int i = 1; i < shapes.length; i++) {
+            result = Shapes.or(result, shapes[i]);
+        }
+        return result;
     }
 
     public PipeShapeBuilder addNorth() {
@@ -43,8 +54,24 @@ public class PipeShapeBuilder {
         return this;
     }
 
+    public PipeShapeBuilder addEast() {
+        addParts(eastShape);
+        return this;
+    }
+
+    public PipeShapeBuilder addWest() {
+        addParts(westShape);
+        return this;
+    }
+
+    public PipeShapeBuilder addUp() {
+        addParts(upShape);
+        return this;
+    }
+
     public PipeShapeBuilder addDown() {
-        return addParts(downShape);
+        addParts(downShape);
+        return this;
     }
 
     private PipeShapeBuilder addParts(VoxelShape[] voxelShapes) {

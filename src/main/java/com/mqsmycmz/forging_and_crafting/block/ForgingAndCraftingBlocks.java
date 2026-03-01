@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -66,14 +67,14 @@ public class ForgingAndCraftingBlocks {
                     .sound(SoundType.METAL)
                     .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops(), ElectricEnergyTransmissionPipelineBlock.shape));
 
     public static final RegistryObject<Block> SOLUTION_DELIVERY_PIPELINE =
             registerBlock("solution_delivery_pipeline", () -> new SolutionDeliveryPipelineBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.METAL)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops(), SolutionDeliveryPipelineBlock.shape));
 
     public static final RegistryObject<Block> INFORMATION_TRANSMISSION_CABLE =
             registerBlock("information_transmission_cable", () -> new InformationTransmissionCableBlock(BlockBehaviour.Properties.of()
@@ -81,7 +82,7 @@ public class ForgingAndCraftingBlocks {
                     .sound(SoundType.METAL)
                     .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops(), InformationTransmissionCableBlock.shape));
 
     public static final RegistryObject<Block> ROCK_CRUSHER = BLOCKS.register("rock_crusher",
             () -> new RockCrusherBlock(BlockBehaviour.Properties.of().noOcclusion()));

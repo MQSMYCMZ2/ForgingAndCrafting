@@ -14,7 +14,7 @@ public interface IPipeBlock {
     BooleanProperty WEST = BlockStateProperties.WEST;
     BooleanProperty UP = BlockStateProperties.UP;
     BooleanProperty DOWN = BlockStateProperties.DOWN;
-    BooleanProperty CONNECTED = BooleanProperty.create("boolean");
+    BooleanProperty CONNECTED = BooleanProperty.create("connected");
 
     static BooleanProperty getConnection(Direction direction) {
         return switch (direction) {
