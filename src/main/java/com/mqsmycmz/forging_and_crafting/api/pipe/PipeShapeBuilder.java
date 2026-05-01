@@ -1,6 +1,5 @@
 package com.mqsmycmz.forging_and_crafting.api.pipe;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
