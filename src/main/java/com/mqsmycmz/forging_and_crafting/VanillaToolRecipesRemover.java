@@ -1,5 +1,6 @@
 package com.mqsmycmz.forging_and_crafting;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +19,7 @@ import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = "forging_and_crafting", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class VanillaToolRecipesRemover {
-    private static final Set<Item> ITEM_SET = Set.of(
+    private static final Set<Item> SIMPLE_TOOL_RECIPES_SET = Set.of(
             Items.STONE_AXE,
             Items.STONE_HOE,
             Items.STONE_PICKAXE,
@@ -44,9 +45,19 @@ public class VanillaToolRecipesRemover {
             Items.DIAMOND_SWORD
     );
 
+    private static final Set<Item> NETHERITE_TOOL_RECIPES_SET = Set.of(
+            Items.NETHERITE_AXE,
+            Items.NETHERITE_HOE,
+            Items.NETHERITE_PICKAXE,
+            Items.NETHERITE_SHOVEL,
+            Items.NETHERITE_SWORD
+    );
+
     @SubscribeEvent
     public static void onServerAboutToStar(ServerAboutToStartEvent event) {
         RecipeManager recipeManager = event.getServer().getRecipeManager();
+        RegistryAccess registryAccess = event.getServer().registryAccess();
+
         try {
             Field recipesField = RecipeManager.class.getDeclaredField("recipes");
             recipesField.setAccessible(true);
@@ -55,30 +66,40 @@ public class VanillaToolRecipesRemover {
             Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> allRecipes =
                     (Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>>)recipesField.get(recipeManager);
 
-            if (allRecipes == null || !allRecipes.containsKey(RecipeType.CRAFTING)) return;
+            if (allRecipes == null) return;
 
-            Map<ResourceLocation, Recipe<?>> craftingRecipes = new HashMap<>(allRecipes.get(RecipeType.CRAFTING));
+            Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> mutableAllRecipes = new HashMap<>(allRecipes);
 
-            int removedCount = 0;
+            //删除石质-钻石质工具的合成配方
+            if (mutableAllRecipes.containsKey(RecipeType.CRAFTING)) {
+                Map<ResourceLocation, Recipe<?>> craftingRecipeMap = new HashMap<>(mutableAllRecipes.get(RecipeType.CRAFTING));
+                craftingRecipeMap.entrySet().removeIf(entry -> {
+                    Recipe<?> recipe = entry.getValue();
+                    ItemStack result = recipe.getResultItem(registryAccess);
+                    return !result.isEmpty() &&
+                            SIMPLE_TOOL_RECIPES_SET.contains(result.getItem()) &&
+                            "minecraft".equals(entry.getKey().getNamespace());
+                });
+                mutableAllRecipes.put(RecipeType.CRAFTING, craftingRecipeMap);
+            }
 
-            craftingRecipes.entrySet().removeIf(entry -> {
-                Recipe<?> recipe = entry.getValue();
-                ItemStack result =
-                        recipe.getResultItem(event.getServer().registryAccess());
+            //删除下界合金工具的合成配方
+            if (mutableAllRecipes.containsKey(RecipeType.SMITHING)) {
+                Map<ResourceLocation, Recipe<?>> smithingRecipes = new HashMap<>(mutableAllRecipes.get(RecipeType.SMITHING));
 
-                if (!result.isEmpty() && ITEM_SET.contains(result.getItem())) {
-                    return "minecraft".equals(entry.getKey().getNamespace());
-                }
-                return false;
-            });
-            removedCount = allRecipes.get(RecipeType.CRAFTING).size() - craftingRecipes.size();
+                smithingRecipes.entrySet().removeIf(entry -> {
+                   Recipe<?> recipe = entry.getValue();
+                   ItemStack result = recipe.getResultItem(registryAccess);
+                   return !result.isEmpty() &&
+                           NETHERITE_TOOL_RECIPES_SET.contains(result.getItem()) &&
+                           "minecraft".equals(entry.getKey().getNamespace());
+                });
 
-            Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> newAllRecipes = new HashMap<>(allRecipes);
-            newAllRecipes.put(RecipeType.CRAFTING, craftingRecipes);
-            recipesField.set(recipeManager, newAllRecipes);
+                mutableAllRecipes.put(RecipeType.SMITHING, smithingRecipes);
+            }
 
-            //testing
-            System.out.println("ForgingAndCrafting 成功删除" + removedCount + "个原版工具合成配方");
+            recipesField.set(recipeManager, mutableAllRecipes);
+
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
