@@ -4,8 +4,8 @@
 	"parent": "forging_and_crafting:block/information_transmission_cable_without_transmitting_information_down",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "forging_and_crafting:block/information_transmission_cable_without_transmitting_information",
-		"particle": "forging_and_crafting:block/information_transmission_cable_without_transmitting_information"
+		"0": "forging_and_crafting:block/information_transmission_cable_transmitting_information",
+		"particle": "forging_and_crafting:block/information_transmission_cable_transmitting_information"
 	},
 	"elements": [
 		{
