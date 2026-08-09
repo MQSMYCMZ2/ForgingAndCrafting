@@ -18,8 +18,8 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> GEAR = ITEMS.register("gear", () ->
             new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () ->
-            new ChiselItem(new Item.Properties()));
+    public static final RegistryObject<Item> SIMPLE_STONE_CHISEL = ITEMS.register("simple_stone_chisel", () ->
+            new SimpleStoneChiselItem(new Item.Properties()));
 
     public static final RegistryObject<Item> COPPER_ORE_POWDER_PARTICLES = ITEMS.register("copper_ore_powder_particles", () ->
             new Item(new Item.Properties()));

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ChiselItem extends Item {
+public class SimpleStoneChiselItem extends Item {
     public static final String NBT_SHARPNESS = "Sharpness";
 
     public static final int BASE_SHARPNESS = 30;
@@ -28,7 +28,7 @@ public class ChiselItem extends Item {
     // 每次凿矿消耗的耐久
     public static final int DURABILITY_COST_PER_CHISEL = 10;
 
-    public ChiselItem(Properties pProperties) {
+    public SimpleStoneChiselItem(Properties pProperties) {
         super(pProperties.stacksTo(1).durability(BASE_DURABILITY));
     }
 
@@ -111,7 +111,7 @@ public class ChiselItem extends Item {
                 .withStyle(net.minecraft.ChatFormatting.GREEN));
         tooltip.add(Component.translatable("tooltip.forging_and_crafting.chisel.granules_drop", dropCount)
                 .withStyle(net.minecraft.ChatFormatting.YELLOW));
-        tooltip.add(Component.translatable("tooltip.forging_and_crafting.chisel.auto_sharpen_hint")
+        tooltip.add(Component.translatable("tooltip.forging_and_crafting.simple_stone_chisel.auto_sharpen_hint")
                 .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
     }
 }

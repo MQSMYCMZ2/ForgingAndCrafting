@@ -33,7 +33,7 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingItems.DUST_PARTICLES.get());
                 pOutput.accept(ForgingAndCraftingItems.ROCK_CRUSHER_BLOCK_ITEM.get());
                 pOutput.accept(ForgingAndCraftingItems.GEAR.get());
-                pOutput.accept(ForgingAndCraftingItems.CHISEL.get());
+                pOutput.accept(ForgingAndCraftingItems.SIMPLE_STONE_CHISEL.get());
                 pOutput.accept(ForgingAndCraftingItems.COPPER_ORE_POWDER_PARTICLES.get());
                 pOutput.accept(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES.get());
                 pOutput.accept(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES.get());

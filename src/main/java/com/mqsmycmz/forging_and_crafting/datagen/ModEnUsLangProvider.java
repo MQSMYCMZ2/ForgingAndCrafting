@@ -15,7 +15,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
     protected void addTranslations() {
         add(ForgingAndCraftingItems.DUST_PARTICLES.get(), "Dust Particles");
         add(ForgingAndCraftingItems.GEAR.get(), "Gear");
-        add(ForgingAndCraftingItems.CHISEL.get(), "Chisel");
+        add(ForgingAndCraftingItems.SIMPLE_STONE_CHISEL.get(), "Simple Stone Chisel");
         add(ForgingAndCraftingItems.COPPER_ORE_POWDER_PARTICLES.get(), "Copper Ore Powder Particles");
         add(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES.get(), "Iron Ore Powder Particles");
         add(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES.get(), "Gold Ore Powder Particles");
@@ -37,12 +37,12 @@ public class ModEnUsLangProvider extends LanguageProvider {
 
         add("jei.forging_and_crafting.rock_crusher", "Rock Crusher");
         add("jei.forging_and_crafting.category.ore_processing", "Ore Chiseling");
-        add("jei.forging_and_crafting.ore_processing.hint", "Use Chisel on Carrier Dish");
+        add("jei.forging_and_crafting.ore_processing.hint", "Use Simple Stone Chisel on Carrier Dish");
 
         add("message.forging_and_crafting.chisel_sharpness", "§aChiseling successful! Current sharpness level:%d");
 
         add("tooltip.forging_and_crafting.chisel.sharpness", "§aSharpness:%d");
         add("tooltip.forging_and_crafting.chisel.granules_drop", "§eEach output: %d grains");
-        add("tooltip.forging_and_crafting.chisel.grind_hint", "§8 Sneak right-click Chisel (consumes 1 durability, +1 sharpness)");
+        add("tooltip.forging_and_crafting.simple_stone_chisel.auto_sharpen_hint", "§bSneak right-click Simple Stone Chisel (consumes 1 durability, +1 sharpness, the number of fragmented grains dropped increases with every 15 points of sharpness)");
     }
 }

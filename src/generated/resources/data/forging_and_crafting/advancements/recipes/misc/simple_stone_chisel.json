@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "forging_and_crafting:chisel"
+        "recipe": "forging_and_crafting:simple_stone_chisel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "forging_and_crafting:chisel"
+      "forging_and_crafting:simple_stone_chisel"
     ]
   },
   "sends_telemetry_event": false

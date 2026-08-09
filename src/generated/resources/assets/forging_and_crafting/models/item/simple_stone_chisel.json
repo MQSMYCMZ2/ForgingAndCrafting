@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "forging_and_crafting:item/chisel"
+    "layer0": "forging_and_crafting:item/simple_stone_chisel"
   }
 }

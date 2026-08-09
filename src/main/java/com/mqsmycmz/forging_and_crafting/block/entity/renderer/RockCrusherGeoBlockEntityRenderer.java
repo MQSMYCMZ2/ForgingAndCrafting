@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -55,29 +54,6 @@ public class RockCrusherGeoBlockEntityRenderer extends GeoBlockRenderer<RockCrus
                 red, green, blue, alpha);
 
         if (this.level == null) return;
-
-        ItemStack inputStack = animatable.itemStackHandler.getStackInSlot(0);
-            Direction left = facing.getClockWise();
-            Direction right = facing.getCounterClockWise();
-
-            boolean isBlockItem = inputStack.getItem() instanceof BlockItem;
-            float baseOffset = isBlockItem ? 0.35f : 0.5f;
-
-            poseStack.pushPose();
-            poseStack.translate(0, 0.5f, 0);
-
-            poseStack.pushPose();
-            offsetToFace(poseStack, left, baseOffset);
-            renderItem(inputStack, poseStack, bufferSource, level, packedLight, packedOverlay);
-            poseStack.popPose();
-
-            poseStack.pushPose();
-            offsetToFace(poseStack, right,baseOffset);
-            renderItem(inputStack, poseStack, bufferSource, level, packedLight, packedOverlay);
-            poseStack.popPose();
-
-            poseStack.popPose();
-
         ItemStack recipeResultStack = animatable.getResultItemForDisplay();
         if (!recipeResultStack.isEmpty()) {
             poseStack.pushPose();
@@ -88,18 +64,6 @@ public class RockCrusherGeoBlockEntityRenderer extends GeoBlockRenderer<RockCrus
 
             poseStack.popPose();
         }
-    }
-
-    private void renderItem(ItemStack stack, PoseStack poseStack,
-                            MultiBufferSource bufferSource, Level level, int light, int overlay) {
-        float scale = 14 / 16f;
-        poseStack.scale(scale, scale, scale);
-
-        poseStack.mulPose(Axis.XP.rotationDegrees(180));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(180));
-
-        itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED,
-                light, overlay, poseStack, bufferSource, level, 0);
     }
 
     private void renderRecipeResultItem(ItemStack stack, PoseStack poseStack,
@@ -115,29 +79,6 @@ public class RockCrusherGeoBlockEntityRenderer extends GeoBlockRenderer<RockCrus
 
         itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED,
                 light, overlay, poseStack, bufferSource, level, 0);
-    }
-
-    private static void offsetToFace(PoseStack poseStack, Direction face, float baseOffset) {
-        switch (face) {
-            case EAST  -> {
-                poseStack.translate( baseOffset, 0, 0);
-                poseStack.mulPose(Axis.YP.rotationDegrees(90));
-            }
-            case WEST  -> {
-                poseStack.translate(-baseOffset, 0, 0);
-                poseStack.mulPose(Axis.YP.rotationDegrees( 270));
-            }
-            case SOUTH -> {
-                poseStack.translate(0, 0,  baseOffset);
-                poseStack.mulPose(Axis.YP.rotationDegrees(180));
-            }
-            case NORTH -> {
-                poseStack.translate(0, 0, -baseOffset);
-            }
-            default    -> {
-
-            }
-        }
     }
 
     private static void offsetToTop(PoseStack ms, Direction facing) {

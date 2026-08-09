@@ -1,7 +1,7 @@
 package com.mqsmycmz.forging_and_crafting.block.entity;
 
 import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
-import com.mqsmycmz.forging_and_crafting.item.ChiselItem;
+import com.mqsmycmz.forging_and_crafting.item.SimpleStoneChiselItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -40,7 +40,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
     private Direction playerDirection = Direction.NORTH;
 
     // 当前使用的凿子尖锐程度
-    private int currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
+    private int currentChiselSharpness = SimpleStoneChiselItem.BASE_SHARPNESS;
 
     // 当前使用凿子的玩家UUID和手持槽位（用于消耗耐久和增加尖锐程度）
     private UUID chiselingPlayerUUID = null;
@@ -64,8 +64,8 @@ public class GrindingTableBlockEntity extends BlockEntity {
         this.chiselProgress = 0;
         this.isChiseling = false;
         this.playerDirection = Direction.NORTH;
-        this.currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
-        this.granulesPerChisel = ChiselItem.BASE_GRANULES_DROP;
+        this.currentChiselSharpness = SimpleStoneChiselItem.BASE_SHARPNESS;
+        this.granulesPerChisel = SimpleStoneChiselItem.BASE_GRANULES_DROP;
         this.chiselingPlayerUUID = null;
         this.chiselingHand = InteractionHand.MAIN_HAND;
         this.setChanged();
@@ -78,8 +78,8 @@ public class GrindingTableBlockEntity extends BlockEntity {
         this.chiselProgress = 0;
         this.isChiseling = false;
         this.playerDirection = Direction.NORTH;
-        this.currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
-        this.granulesPerChisel = ChiselItem.BASE_GRANULES_DROP;
+        this.currentChiselSharpness = SimpleStoneChiselItem.BASE_SHARPNESS;
+        this.granulesPerChisel = SimpleStoneChiselItem.BASE_GRANULES_DROP;
         this.chiselingPlayerUUID = null;
         this.chiselingHand = InteractionHand.MAIN_HAND;
         this.setChanged();
@@ -127,7 +127,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
 
         // 设置凿子尖锐程度和对应的产出数量
         this.currentChiselSharpness = sharpness;
-        this.granulesPerChisel = ChiselItem.calculateGranulesDrop(sharpness);
+        this.granulesPerChisel = SimpleStoneChiselItem.calculateGranulesDrop(sharpness);
 
         // 保存玩家信息以便后续处理
         this.chiselingPlayerUUID = player.getUUID();
@@ -292,12 +292,12 @@ public class GrindingTableBlockEntity extends BlockEntity {
         }
 
         ItemStack chiselStack = player.getItemInHand(chiselingHand);
-        if (chiselStack.isEmpty() || !(chiselStack.getItem() instanceof ChiselItem)) {
+        if (chiselStack.isEmpty() || !(chiselStack.getItem() instanceof SimpleStoneChiselItem)) {
             return;
         }
 
         // 先增加尖锐程度（必须在消耗耐久之前，防止耐久耗尽破坏后无法增加）
-        int newSharpness = ChiselItem.increaseSharpness(chiselStack);
+        int newSharpness = SimpleStoneChiselItem.increaseSharpness(chiselStack);
 
         // 播放磨凿音效
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -313,7 +313,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
         int currentDamage = chiselStack.getDamageValue();
         int maxDamage = chiselStack.getMaxDamage();
 
-        if (currentDamage + ChiselItem.DURABILITY_COST_PER_CHISEL >= maxDamage) {
+        if (currentDamage + SimpleStoneChiselItem.DURABILITY_COST_PER_CHISEL >= maxDamage) {
             // 耐久耗尽，破坏凿子
             chiselStack.shrink(1);
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -321,7 +321,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
                     net.minecraft.sounds.SoundSource.PLAYERS,
                     0.8f, 0.8f + level.random.nextFloat() * 0.4f);
         } else {
-            chiselStack.setDamageValue(currentDamage + ChiselItem.DURABILITY_COST_PER_CHISEL);
+            chiselStack.setDamageValue(currentDamage + SimpleStoneChiselItem.DURABILITY_COST_PER_CHISEL);
         }
     }
 
@@ -383,9 +383,9 @@ public class GrindingTableBlockEntity extends BlockEntity {
         isChiseling = tag.getBoolean("IsChiseling");
         playerDirection = Direction.from2DDataValue(tag.getInt("PlayerDirection"));
         currentChiselSharpness = tag.getInt("ChiselSharpness");
-        if (currentChiselSharpness == 0) currentChiselSharpness = ChiselItem.BASE_SHARPNESS;
+        if (currentChiselSharpness == 0) currentChiselSharpness = SimpleStoneChiselItem.BASE_SHARPNESS;
         granulesPerChisel = tag.getInt("GranulesPerChisel");
-        if (granulesPerChisel == 0) granulesPerChisel = ChiselItem.BASE_GRANULES_DROP;
+        if (granulesPerChisel == 0) granulesPerChisel = SimpleStoneChiselItem.BASE_GRANULES_DROP;
         if (tag.hasUUID("ChiselingPlayer")) {
             chiselingPlayerUUID = tag.getUUID("ChiselingPlayer");
         }

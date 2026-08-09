@@ -30,28 +30,6 @@ public class RockCrusherBlockEntityRenderer implements BlockEntityRenderer<RockC
 
         Direction facing = pBlockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
 
-        // 渲染输入物品（左右两侧）
-        ItemStack inputStack = pBlockEntity.itemStackHandler.getStackInSlot(0);
-        if (!inputStack.isEmpty()) {
-            Direction left = facing.getClockWise();
-            Direction right = facing.getCounterClockWise();
-
-            pPoseStack.pushPose();
-            pPoseStack.translate(0.5f, 0.5f, 0.5f);
-
-            pPoseStack.pushPose();
-            offsetToFace(pPoseStack, left, true);
-            renderItem(inputStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
-            pPoseStack.popPose();
-
-            pPoseStack.pushPose();
-            offsetToFace(pPoseStack, right, false);
-            renderItem(inputStack, pPoseStack, pBuffer, level, pPackedLight, pPackedOverlay);
-            pPoseStack.popPose();
-
-            pPoseStack.popPose();
-        }
-
         ItemStack recipeResultStack = pBlockEntity.getResultItemForDisplay();
         if (!recipeResultStack.isEmpty()) {
             pPoseStack.pushPose();
@@ -62,18 +40,6 @@ public class RockCrusherBlockEntityRenderer implements BlockEntityRenderer<RockC
 
             pPoseStack.popPose();
         }
-    }
-
-    private void renderItem(ItemStack stack, PoseStack poseStack,
-                            MultiBufferSource bufferSource, Level level, int light, int overlay) {
-        float scale = 14 / 16f;
-        poseStack.scale(scale, scale, scale);
-
-        poseStack.mulPose(Axis.XP.rotationDegrees(180));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(180));
-
-        itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED,
-                light, overlay, poseStack, bufferSource, level, 0);
     }
 
     private void renderRecipeResultItem(ItemStack stack, PoseStack poseStack,
@@ -89,30 +55,6 @@ public class RockCrusherBlockEntityRenderer implements BlockEntityRenderer<RockC
 
         itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED,
                 light, overlay, poseStack, bufferSource, level, 0);
-    }
-
-    private static void offsetToFace(PoseStack poseStack, Direction face, boolean isLeft) {
-        float baseOffset = 0.35f;
-        switch (face) {
-            case EAST  -> {
-                poseStack.translate( baseOffset, 0, 0);
-                poseStack.mulPose(Axis.YP.rotationDegrees(90));
-            }
-            case WEST  -> {
-                poseStack.translate(-baseOffset, 0, 0);
-                poseStack.mulPose(Axis.YP.rotationDegrees( 270));
-            }
-            case SOUTH -> {
-                poseStack.translate(0, 0,  baseOffset);
-                poseStack.mulPose(Axis.YP.rotationDegrees(180));
-            }
-            case NORTH -> {
-                poseStack.translate(0, 0, -baseOffset);
-            }
-            default    -> {
-
-            }
-        }
     }
 
     private static void offsetToTop(PoseStack ms, Direction facing) {

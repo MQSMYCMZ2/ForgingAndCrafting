@@ -1,7 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.datagen;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
-import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +19,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         simpleItem(ForgingAndCraftingItems.DUST_PARTICLES);
         simpleItem(ForgingAndCraftingItems.GEAR);
-        simpleItem(ForgingAndCraftingItems.CHISEL);
+        simpleItem(ForgingAndCraftingItems.SIMPLE_STONE_CHISEL);
         simpleItem(ForgingAndCraftingItems.COPPER_ORE_POWDER_PARTICLES);
         simpleItem(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES);
         simpleItem(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES);

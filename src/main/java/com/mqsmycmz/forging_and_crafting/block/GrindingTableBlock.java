@@ -3,6 +3,7 @@ package com.mqsmycmz.forging_and_crafting.block;
 import com.mqsmycmz.forging_and_crafting.block.entity.GrindingTableBlockEntity;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
+import com.mqsmycmz.forging_and_crafting.item.SimpleStoneChiselItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -123,7 +124,7 @@ public class GrindingTableBlock extends BaseEntityBlock {
         ItemStack heldItem = player.getItemInHand(hand);
 
         // 如果是凿子，交给凿子处理
-        if (heldItem.getItem() instanceof com.mqsmycmz.forging_and_crafting.item.ChiselItem) {
+        if (heldItem.getItem() instanceof SimpleStoneChiselItem) {
             return InteractionResult.PASS; // 让凿子的useOn处理
         }
 

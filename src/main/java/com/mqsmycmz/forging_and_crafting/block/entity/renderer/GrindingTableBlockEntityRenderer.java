@@ -17,7 +17,7 @@ public class GrindingTableBlockEntityRenderer implements BlockEntityRenderer<Gri
 
     // 凿子物品（用于渲染）
     private static final ItemStack CHISEL_STACK = new ItemStack(
-            com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems.CHISEL.get()
+            com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems.SIMPLE_STONE_CHISEL.get()
     );
 
     public GrindingTableBlockEntityRenderer(BlockEntityRendererProvider.Context context) {

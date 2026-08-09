@@ -43,7 +43,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE))
                 .save(pWriter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgingAndCraftingItems.CHISEL.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ForgingAndCraftingItems.SIMPLE_STONE_CHISEL.get())
                 .pattern(" X ")
                 .pattern(" Y ")
                 .pattern(" Z ")
