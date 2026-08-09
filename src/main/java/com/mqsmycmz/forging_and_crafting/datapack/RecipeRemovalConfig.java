@@ -66,11 +66,6 @@ public class RecipeRemovalConfig {
             JsonObject defaultConfig = new JsonObject();
 
             JsonArray crafting = new JsonArray();
-            crafting.add("minecraft:stone_axe");
-            crafting.add("minecraft:stone_hoe");
-            crafting.add("minecraft:stone_pickaxe");
-            crafting.add("minecraft:stone_shovel");
-            crafting.add("minecraft:stone_sword");
 
             crafting.add("minecraft:iron_axe");
             crafting.add("minecraft:iron_hoe");
