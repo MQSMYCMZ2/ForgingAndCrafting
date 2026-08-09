@@ -71,21 +71,39 @@ public class RecipeRemovalConfig {
             crafting.add("minecraft:stone_pickaxe");
             crafting.add("minecraft:stone_shovel");
             crafting.add("minecraft:stone_sword");
+
             crafting.add("minecraft:iron_axe");
             crafting.add("minecraft:iron_hoe");
             crafting.add("minecraft:iron_pickaxe");
             crafting.add("minecraft:iron_shovel");
             crafting.add("minecraft:iron_sword");
+            crafting.add("minecraft:iron_horse_armor");
+            crafting.add("minecraft:iron_helmet");
+            crafting.add("minecraft:iron_chestplate");
+            crafting.add("minecraft:iron_leggings");
+            crafting.add("minecraft:iron_boots");
+
             crafting.add("minecraft:golden_axe");
             crafting.add("minecraft:golden_hoe");
             crafting.add("minecraft:golden_pickaxe");
             crafting.add("minecraft:golden_shovel");
             crafting.add("minecraft:golden_sword");
+            crafting.add("minecraft:golden_horse_armor");
+            crafting.add("minecraft:golden_helmet");
+            crafting.add("minecraft:golden_chestplate");
+            crafting.add("minecraft:golden_leggings");
+            crafting.add("minecraft:golden_boots");
+
             crafting.add("minecraft:diamond_axe");
             crafting.add("minecraft:diamond_hoe");
             crafting.add("minecraft:diamond_pickaxe");
             crafting.add("minecraft:diamond_shovel");
             crafting.add("minecraft:diamond_sword");
+            crafting.add("minecraft:diamond_horse_armor");
+            crafting.add("minecraft:diamond_helmet");
+            crafting.add("minecraft:diamond_chestplate");
+            crafting.add("minecraft:diamond_leggings");
+            crafting.add("minecraft:diamond_boots");
 
             JsonArray smithing = new JsonArray();
             smithing.add("minecraft:netherite_axe");
@@ -93,6 +111,11 @@ public class RecipeRemovalConfig {
             smithing.add("minecraft:netherite_pickaxe");
             smithing.add("minecraft:netherite_shovel");
             smithing.add("minecraft:netherite_sword");
+            smithing.add("minecraft:netherite_horse_armor");
+            smithing.add("minecraft:netherite_helmet");
+            smithing.add("minecraft:netherite_chestplate");
+            smithing.add("minecraft:netherite_leggings");
+            smithing.add("minecraft:netherite_boots");
 
             defaultConfig.add("crafting", crafting);
             defaultConfig.add("smithing", smithing);
