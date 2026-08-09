@@ -31,8 +31,8 @@ public class ForgingAndCraftingItems {
             new Item(new Item.Properties()));
 
     // 在 ForgingAndCraftingItems.java 中添加：
-    public static final RegistryObject<Item> CARRIER_DISH_ANIMATED = ITEMS.register("carrier_dish_animated",
-            () -> new CarrierDishAnimatedItem(new Item.Properties()));
+    public static final RegistryObject<Item> GRINDING_TABLE_ANIMATED = ITEMS.register("grinding_table_animated",
+            () -> new GrindingTableAnimatedItem(new Item.Properties()));
 
     public static final RegistryObject<Item> ROCK_CRUSHER_BLOCK_ITEM = ITEMS.register("rock_crusher", () ->
             new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties()));

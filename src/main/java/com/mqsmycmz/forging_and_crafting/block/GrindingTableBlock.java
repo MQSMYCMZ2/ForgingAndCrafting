@@ -1,6 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.block;
 
-import com.mqsmycmz.forging_and_crafting.block.entity.CarrierDishBlockEntity;
+import com.mqsmycmz.forging_and_crafting.block.entity.GrindingTableBlockEntity;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
 import net.minecraft.core.BlockPos;
@@ -12,7 +12,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -40,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class CarrierDishBlock extends BaseEntityBlock {
+public class GrindingTableBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     // 注意：VALID_ORES 硬编码列表已移除，现在使用 OreProcessingDataLoader.isValidOre()
@@ -105,7 +104,7 @@ public class CarrierDishBlock extends BaseEntityBlock {
         return result;
     }
 
-    public CarrierDishBlock(Properties pProperties) {
+    public GrindingTableBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
@@ -117,7 +116,7 @@ public class CarrierDishBlock extends BaseEntityBlock {
         }
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof CarrierDishBlockEntity dishEntity)) {
+        if (!(blockEntity instanceof GrindingTableBlockEntity dishEntity)) {
             return InteractionResult.PASS;
         }
 
@@ -191,7 +190,7 @@ public class CarrierDishBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new CarrierDishBlockEntity(pos, state);
+        return new GrindingTableBlockEntity(pos, state);
     }
 
     // 添加Ticker支持
@@ -199,7 +198,7 @@ public class CarrierDishBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTickerHelper(type, ForgingAndCraftingBlockEntities.CARRIER_DISH.get(),
-                CarrierDishBlockEntity::tick);
+                GrindingTableBlockEntity::tick);
     }
 
     @Override
@@ -211,10 +210,10 @@ public class CarrierDishBlock extends BaseEntityBlock {
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof CarrierDishBlockEntity dishEntity) {
+            if (blockEntity instanceof GrindingTableBlockEntity dishEntity) {
                 if (dishEntity.hasItem()) {
                     // 检查是否是可以凿的矿石
-                    if (dishEntity.hasChiselerOre() && dishEntity.getRemainingHeight() < CarrierDishBlockEntity.MAX_HEIGHT) {
+                    if (dishEntity.hasChiselerOre() && dishEntity.getRemainingHeight() < GrindingTableBlockEntity.MAX_HEIGHT) {
                         // 已经凿过，掉落粗矿物品
                         int dropCount = dishEntity.getRemainingRawOreCount();
                         Item rawOreItem = dishEntity.getRawOreItem();
@@ -236,7 +235,7 @@ public class CarrierDishBlock extends BaseEntityBlock {
 
     private void dropBlock(ServerLevel level, BlockPos pos, BlockState state) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof CarrierDishBlockEntity dishEntity && dishEntity.hasItem()) {
+        if (blockEntity instanceof GrindingTableBlockEntity dishEntity && dishEntity.hasItem()) {
             dropDisplayedItem(level, pos, dishEntity.getDisplayedItem());
             dishEntity.clearItem();
         }

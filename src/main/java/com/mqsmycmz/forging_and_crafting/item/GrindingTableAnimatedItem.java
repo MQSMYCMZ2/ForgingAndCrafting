@@ -14,7 +14,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class CarrierDishAnimatedItem extends Item implements GeoItem {
+public class GrindingTableAnimatedItem extends Item implements GeoItem {
 
     // 动画定义：旋转+浮动动画
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin()
@@ -22,7 +22,7 @@ public class CarrierDishAnimatedItem extends Item implements GeoItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public CarrierDishAnimatedItem(Properties properties) {
+    public GrindingTableAnimatedItem(Properties properties) {
         super(properties);
     }
 

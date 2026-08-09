@@ -21,10 +21,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
 import java.util.UUID;
 
-public class CarrierDishBlockEntity extends BlockEntity {
+public class GrindingTableBlockEntity extends BlockEntity {
     private ItemStack displayedItem = ItemStack.EMPTY;
 
     // 凿矿相关数据
@@ -49,7 +48,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
 
     // 注意：硬编码映射已移除，现在使用 OreProcessingDataLoader 中的数据
 
-    public CarrierDishBlockEntity(BlockPos pos, BlockState state) {
+    public GrindingTableBlockEntity(BlockPos pos, BlockState state) {
         super(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), pos, state);
     }
 
@@ -188,7 +187,7 @@ public class CarrierDishBlockEntity extends BlockEntity {
     }
 
     // 每tick调用（需要在Block中注册Ticker）
-    public static void tick(Level level, BlockPos pos, BlockState state, CarrierDishBlockEntity be) {
+    public static void tick(Level level, BlockPos pos, BlockState state, GrindingTableBlockEntity be) {
         if (level.isClientSide) {
             be.clientTick();
         } else {

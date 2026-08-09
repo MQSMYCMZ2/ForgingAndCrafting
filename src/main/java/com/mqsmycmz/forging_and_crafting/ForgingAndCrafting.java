@@ -3,7 +3,7 @@ package com.mqsmycmz.forging_and_crafting;
 import com.mojang.logging.LogUtils;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
-import com.mqsmycmz.forging_and_crafting.block.entity.renderer.CarrierDishBlockEntityRenderer;
+import com.mqsmycmz.forging_and_crafting.block.entity.renderer.GrindingTableBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.block.entity.renderer.RockCrusherGeoBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.ForgingAndCraftingRecipes;
@@ -11,8 +11,6 @@ import com.mqsmycmz.forging_and_crafting.tab.ForgingAndCraftingCreativeModeTabs;
 import com.mqsmycmz.forging_and_crafting.world.menu.ForgingAndCraftingMenuTypes;
 import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -93,7 +91,7 @@ public class ForgingAndCrafting
         {
             MenuScreens.register(ForgingAndCraftingMenuTypes.ROCK_CRUSHER_MENU.get(), RockCrusherScreen::new);
             BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherGeoBlockEntityRenderer::new);
-            BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), CarrierDishBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), GrindingTableBlockEntityRenderer::new);
 //            ItemBlockRenderTypes.setRenderLayer(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), RenderType.translucent());
         }
     }

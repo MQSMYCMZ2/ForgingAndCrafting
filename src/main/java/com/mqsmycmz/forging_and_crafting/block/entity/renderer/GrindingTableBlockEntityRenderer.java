@@ -2,7 +2,7 @@ package com.mqsmycmz.forging_and_crafting.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.mqsmycmz.forging_and_crafting.block.entity.CarrierDishBlockEntity;
+import com.mqsmycmz.forging_and_crafting.block.entity.GrindingTableBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -13,18 +13,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class CarrierDishBlockEntityRenderer implements BlockEntityRenderer<CarrierDishBlockEntity> {
+public class GrindingTableBlockEntityRenderer implements BlockEntityRenderer<GrindingTableBlockEntity> {
 
     // 凿子物品（用于渲染）
     private static final ItemStack CHISEL_STACK = new ItemStack(
             com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems.CHISEL.get()
     );
 
-    public CarrierDishBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
+    public GrindingTableBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
-    public void render(CarrierDishBlockEntity pBlockEntity,
+    public void render(GrindingTableBlockEntity pBlockEntity,
                        float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer,
                        int pPackedLight, int pPackedOverlay) {
         if (pBlockEntity.isRemoved()) {
@@ -46,7 +46,7 @@ public class CarrierDishBlockEntityRenderer implements BlockEntityRenderer<Carri
         }
     }
 
-    private void renderOreBlock(CarrierDishBlockEntity pBlockEntity, ItemStack displayedItem,
+    private void renderOreBlock(GrindingTableBlockEntity pBlockEntity, ItemStack displayedItem,
                                 PoseStack pPoseStack, MultiBufferSource pBuffer,
                                 int pPackedLight, int pPackedOverlay) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -75,7 +75,7 @@ public class CarrierDishBlockEntityRenderer implements BlockEntityRenderer<Carri
         pPoseStack.popPose();
     }
 
-    private void renderChiselAnimation(CarrierDishBlockEntity pBlockEntity,
+    private void renderChiselAnimation(GrindingTableBlockEntity pBlockEntity,
                                        PoseStack pPoseStack, MultiBufferSource pBuffer,
                                        int pPackedLight, int pPackedOverlay, float pPartialTick) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();

@@ -1,6 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.item;
 
-import com.mqsmycmz.forging_and_crafting.block.entity.CarrierDishBlockEntity;
+import com.mqsmycmz.forging_and_crafting.block.entity.GrindingTableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -68,7 +68,7 @@ public class ChiselItem extends Item {
 
         BlockEntity entity = level.getBlockEntity(pos);
 
-        if (!(entity instanceof CarrierDishBlockEntity dishBlockEntity)) {
+        if (!(entity instanceof GrindingTableBlockEntity dishBlockEntity)) {
             return InteractionResult.PASS;
         }
 

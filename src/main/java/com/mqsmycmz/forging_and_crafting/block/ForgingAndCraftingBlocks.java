@@ -7,7 +7,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -47,8 +46,8 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
-    public static final RegistryObject<Block> CARRIER_DISH =
-            registerBlock("carrier_dish", () -> new CarrierDishBlock(BlockBehaviour.Properties.of()
+    public static final RegistryObject<Block> GRINDING_TABLE =
+            registerBlock("grinding_table", () -> new GrindingTableBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
