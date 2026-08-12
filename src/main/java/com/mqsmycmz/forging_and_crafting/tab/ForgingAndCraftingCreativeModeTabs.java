@@ -27,6 +27,7 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingBlocks.GRINDING_TABLE.get());
                 pOutput.accept(ForgingAndCraftingBlocks.MELTING_POT.get());
                 pOutput.accept(ForgingAndCraftingBlocks.GRAPHITE_ORE.get());
+                pOutput.accept(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get());
 //                pOutput.accept(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get());
 //                pOutput.accept(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get());
 //                pOutput.accept(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());

@@ -32,6 +32,13 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> DEEPSLATE_GRAPHITE_ORE =
+            registerBlock("deepslate_graphite_ore", () -> new Block(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> IRON_ORE_GRANULES =
             registerBlock("iron_ore_granules", () -> new IronOreGranulesItem(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)

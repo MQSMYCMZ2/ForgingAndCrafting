@@ -25,7 +25,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ForgingAndCraftingBlocks.GOLD_ORE_GRANULES.get())
                 .add(ForgingAndCraftingBlocks.GRINDING_TABLE.get())
                 .add(ForgingAndCraftingBlocks.MELTING_POT.get())
-                .add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get());
+                .add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get())
+                .add(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get());
 //                .add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get())
 //                .add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get())
 //                .add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());
@@ -42,6 +43,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get())
                 .add(ForgingAndCraftingBlocks.COPPER_ORE_GRANULES.get())
                 .add(ForgingAndCraftingBlocks.GRINDING_TABLE.get())
-                .add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get());
+                .add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get())
+                .add(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get());
     }
 }

@@ -18,6 +18,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         simpleBlockWithItem(ForgingAndCraftingBlocks.CLAY_BRICK.get(), cubeAll(ForgingAndCraftingBlocks.CLAY_BRICK.get()));
         simpleBlockWithItem(ForgingAndCraftingBlocks.GRAPHITE_ORE.get(), cubeAll(ForgingAndCraftingBlocks.GRAPHITE_ORE.get()));
+        simpleBlockWithItem(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get(), cubeAll(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get()));
 
         horizontalBlock(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/iron_ore_granules")));
