@@ -2,6 +2,7 @@
   "values": [
     "forging_and_crafting:iron_ore_granules",
     "forging_and_crafting:copper_ore_granules",
-    "forging_and_crafting:grinding_table"
+    "forging_and_crafting:grinding_table",
+    "forging_and_crafting:graphite_ore"
   ]
 }

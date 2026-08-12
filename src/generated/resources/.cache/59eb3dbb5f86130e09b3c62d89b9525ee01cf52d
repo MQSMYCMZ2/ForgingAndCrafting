@@ -1,7 +1,8 @@
-// 1.20.1	2026-08-09T10:22:40.092627	Loot Tables
+// 1.20.1	2026-08-09T12:35:05.906257	Loot Tables
 ff0f3c50acbfe0f103b4b0c8b20fba859e01bdda data/forging_and_crafting/loot_tables/blocks/clay_brick.json
 9fee97acd8967592d542ed393306c00217d22b5e data/forging_and_crafting/loot_tables/blocks/copper_ore_granules.json
 8b870a46847b0c56071d58c80e2cc932e0714de5 data/forging_and_crafting/loot_tables/blocks/gold_ore_granules.json
+c197b5d7fea669d9966cfeb5cd32e3dd986ce2ba data/forging_and_crafting/loot_tables/blocks/graphite_ore.json
 3a0e43e3b1346d845aeaabfba0322f7cd4cc2330 data/forging_and_crafting/loot_tables/blocks/grinding_table.json
 08a106f0b9712f296b386784fbd09c57e00c1184 data/forging_and_crafting/loot_tables/blocks/iron_ore_granules.json
 a1a5b760b5ccea52d047eb153c644c96b0c14fe0 data/forging_and_crafting/loot_tables/blocks/melting_pot.json

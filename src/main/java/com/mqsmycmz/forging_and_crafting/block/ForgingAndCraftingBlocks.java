@@ -25,6 +25,13 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> GRAPHITE_ORE =
+            registerBlock("graphite_ore", () -> new Block(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> IRON_ORE_GRANULES =
             registerBlock("iron_ore_granules", () -> new IronOreGranulesItem(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
@@ -87,7 +94,8 @@ public class ForgingAndCraftingBlocks {
             () -> new RockCrusherBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
-                    .noOcclusion()));
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ForgingAndCraftingItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
