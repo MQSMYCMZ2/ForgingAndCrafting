@@ -41,7 +41,6 @@ public class RecipeRemovalPackGenerator {
 
                 JsonObject recipe = new JsonObject();
                 addForgeFalseCondition(recipe);
-                // type 字段在 forge:false 下不会被读取，但为了让 JSON 语法上像配方，保留一个占位
                 recipe.addProperty("type", "minecraft:crafting_shaped");
 
                 Files.writeString(recipesPath.resolve(id.getPath() + ".json"), gson.toJson(recipe));
@@ -58,6 +57,20 @@ public class RecipeRemovalPackGenerator {
                 recipe.addProperty("type", "minecraft:smithing_transform");
 
                 Files.writeString(recipesPath.resolve(recipeName + ".json"), gson.toJson(recipe));
+            }
+
+            for (ResourceLocation id : RecipeRemovalConfig.SMELTING_RECIPES_SET) {
+                JsonObject recipe = new JsonObject();
+                addForgeFalseCondition(recipe);
+                recipe.addProperty("type", "minecraft:smelting");
+                Files.writeString(recipesPath.resolve(id.getPath() + ".json"), gson.toJson(recipe));
+            }
+
+            for (ResourceLocation id : RecipeRemovalConfig.BLASTING_RECIPES_SET) {
+                JsonObject recipe = new JsonObject();
+                addForgeFalseCondition(recipe);
+                recipe.addProperty("type", "minecraft:blasting");
+                Files.writeString(recipesPath.resolve(id.getPath() + ".json"), gson.toJson(recipe));
             }
 
             return GENERATED_PATH;

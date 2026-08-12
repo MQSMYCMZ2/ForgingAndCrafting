@@ -18,6 +18,8 @@ import java.util.Set;
 public class RecipeRemovalConfig {
     public static final Set<Item> SIMPLE_TOOL_RECIPES_SET = new HashSet<>();
     public static final Set<Item> SMITHING_TOOL_RECIPES_SET = new HashSet<>();
+    public static final Set<ResourceLocation> SMELTING_RECIPES_SET = new HashSet<>();
+    public static final Set<ResourceLocation> BLASTING_RECIPES_SET = new HashSet<>();
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final Path config_dir = FMLPaths.CONFIGDIR.get().resolve("forging_and_crafting");
@@ -26,10 +28,17 @@ public class RecipeRemovalConfig {
     public static void load() {
         SIMPLE_TOOL_RECIPES_SET.clear();
         SMITHING_TOOL_RECIPES_SET.clear();
+        SMELTING_RECIPES_SET.clear();
+        BLASTING_RECIPES_SET.clear();
 
-        if (!Files.exists(config_file)) {
-            createDefaultConfig();
+        try {
+            if (!Files.exists(config_file)) {
+                Files.delete(config_file);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        createDefaultConfig();
 
         try (Reader reader = Files.newBufferedReader(config_file)) {
             JsonObject json = gson.fromJson(reader, JsonObject.class);
@@ -42,8 +51,23 @@ public class RecipeRemovalConfig {
             if (json.has("smithing") && json.get("smithing").isJsonArray()) {
                 parseArray(json.getAsJsonArray("smithing"), SMITHING_TOOL_RECIPES_SET);
             }
+
+            if (json.has("smelting") && json.get("smelting").isJsonArray()) {
+                parseRecipeIdArray(json.getAsJsonArray("smelting"), SMELTING_RECIPES_SET);
+            }
+
+            if (json.has("blasting") && json.get("blasting").isJsonArray()) {
+                parseRecipeIdArray(json.getAsJsonArray("blasting"), BLASTING_RECIPES_SET);
+            }
         } catch (IOException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    private static void parseRecipeIdArray(JsonArray array, Set<ResourceLocation> set) {
+        for (JsonElement element : array) {
+            String recipeId = element.getAsString();
+            set.add(new ResourceLocation(recipeId));
         }
     }
 
@@ -112,8 +136,45 @@ public class RecipeRemovalConfig {
             smithing.add("minecraft:netherite_leggings");
             smithing.add("minecraft:netherite_boots");
 
+            JsonArray smelting = new JsonArray();
+            smelting.add("minecraft:iron_ingot_from_smelting_raw_iron");
+            smelting.add("minecraft:iron_ingot_from_smelting_deepslate_iron_ore");
+            smelting.add("minecraft:iron_ingot_from_smelting_iron_ore");
+            smelting.add("minecraft:iron_nugget_from_smelting");
+            smelting.add("minecraft:gold_ingot_from_smelting_gold_ore");
+            smelting.add("minecraft:gold_ingot_from_smelting_deepslate_gold_ore");
+            smelting.add("minecraft:gold_ingot_from_smelting_raw_gold");
+            smelting.add("minecraft:gold_ingot_from_smelting_nether_gold_ore");
+            smelting.add("minecraft:gold_nugget_from_smelting");
+            smelting.add("minecraft:copper_ingot_from_smelting_copper_ore");
+            smelting.add("minecraft:copper_ingot_from_smelting_deepslate_copper_ore");
+            smelting.add("minecraft:copper_ingot_from_smelting_raw_copper");
+            smelting.add("minecraft:netherite_scrap");
+            smelting.add("minecraft:emerald_from_smelting_emerald_ore");
+            smelting.add("minecraft:emerald_from_smelting_deepslate_emerald_ore");
+
+            JsonArray blasting = new JsonArray();
+            blasting.add("minecraft:iron_ingot_from_blasting_raw_iron");
+            blasting.add("minecraft:iron_ingot_from_blasting_iron_ore");
+            blasting.add("minecraft:iron_ingot_from_blasting_deepslate_iron_ore");
+            blasting.add("minecraft:iron_nugget_from_blasting");
+            blasting.add("minecraft:gold_ingot_from_blasting_gold_ore");
+            blasting.add("minecraft:gold_ingot_from_blasting_deepslate_gold_ore");
+            blasting.add("minecraft:gold_ingot_from_blasting_raw_gold");
+            blasting.add("minecraft:gold_ingot_from_blasting_nether_gold_ore");
+            blasting.add("minecraft:gold_nugget_from_blasting");
+            blasting.add("minecraft:copper_ingot_from_blasting_copper_ore");
+            blasting.add("minecraft:copper_ingot_from_blasting_deepslate_copper_ore");
+            blasting.add("minecraft:copper_ingot_from_blasting_raw_copper");
+            blasting.add("minecraft:netherite_scrap_from_blasting");
+            blasting.add("minecraft:emerald_from_blasting_emerald_ore");
+            blasting.add("minecraft:emerald_from_blasting_deepslate_emerald_ore");
+
+
             defaultConfig.add("crafting", crafting);
             defaultConfig.add("smithing", smithing);
+            defaultConfig.add("smelting", smelting);
+            defaultConfig.add("blasting", blasting);
 
             try (Writer writer = Files.newBufferedWriter(config_file)) {
                 gson.toJson(defaultConfig, writer);
