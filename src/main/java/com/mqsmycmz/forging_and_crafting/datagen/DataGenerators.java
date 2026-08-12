@@ -2,6 +2,7 @@ package com.mqsmycmz.forging_and_crafting.datagen;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
 import com.mqsmycmz.forging_and_crafting.datagen.loot.ModBlockLootTables;
+import com.mqsmycmz.forging_and_crafting.worldgen.ForgingAndCraftingWorldGenProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -40,5 +41,6 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModEnUsLangProvider(output));
         generator.addProvider(event.includeClient(), new ModZhCnLangProvider(output));
+        generator.addProvider(event.includeServer(), new ForgingAndCraftingWorldGenProvider(output, lookupProvider));
     }
 }

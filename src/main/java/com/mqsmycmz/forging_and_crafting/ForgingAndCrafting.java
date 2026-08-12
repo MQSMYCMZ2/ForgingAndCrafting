@@ -5,16 +5,22 @@ import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
 import com.mqsmycmz.forging_and_crafting.block.entity.renderer.GrindingTableBlockEntityRenderer;
 import com.mqsmycmz.forging_and_crafting.block.entity.renderer.RockCrusherGeoBlockEntityRenderer;
+import com.mqsmycmz.forging_and_crafting.datagen.ModBlockTagGenerator;
 import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import com.mqsmycmz.forging_and_crafting.recipe.ForgingAndCraftingRecipes;
 import com.mqsmycmz.forging_and_crafting.tab.ForgingAndCraftingCreativeModeTabs;
 import com.mqsmycmz.forging_and_crafting.world.menu.ForgingAndCraftingMenuTypes;
 import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
+import com.mqsmycmz.forging_and_crafting.worldgen.ForgingAndCraftingWorldGenProvider;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,6 +33,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 import software.bernie.geckolib.GeckoLib;
+
+import java.util.concurrent.CompletableFuture;
 
 @Mod(ForgingAndCrafting.MOD_ID)
 public class ForgingAndCrafting

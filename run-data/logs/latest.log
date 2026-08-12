@@ -1,40 +1,42 @@
-[128月2026 12:57:30.862] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, /Users/mqsmy_cmz2/.gradle/caches/forge_gradle/assets, --gameDir, ., --fml.forgeVersion, 47.4.10, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, forging_and_crafting, --all, --output, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/generated/resources, --existing, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources, --mixin.config, forging_and_crafting.mixins.json]
-[128月2026 12:57:30.865] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.15 by Oracle Corporation; OS Mac OS X arch aarch64 version 15.1.1
-[128月2026 12:57:30.919] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[128月2026 12:57:30.941] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23121!/ Service=ModLauncher Env=CLIENT
-[128月2026 12:57:31.105] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.4.10/ccc533c7dd67e0983217197d7549c8b49e7ab453/javafmllanguage-1.20.1-47.4.10.jar is missing mods.toml file
-[128月2026 12:57:31.106] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.4.10/e9a2879fe3612ea34b9728ec2633304a1e67d480/lowcodelanguage-1.20.1-47.4.10.jar is missing mods.toml file
-[128月2026 12:57:31.107] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.4.10/ec5cefbbc65c67302b8fac317010faab85fa14b9/mclanguage-1.20.1-47.4.10.jar is missing mods.toml file
-[128月2026 12:57:31.107] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.4.10/94dae566be650566ea9115a1414ab76bfcf5a804/fmlcore-1.20.1-47.4.10.jar is missing mods.toml file
-[128月2026 12:57:31.181] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
-[128月2026 12:57:31.901] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[128月2026 12:57:31.906] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, /Users/mqsmy_cmz2/.gradle/caches/forge_gradle/assets, --assetIndex, 5, --mod, forging_and_crafting, --all, --output, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/generated/resources, --existing, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources]
-[128月2026 12:57:32.054] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/build/createSrgToMcp/output.srg
-[128月2026 12:57:32.191] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [forging_and_crafting]
-[128月2026 12:57:34.213] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.10, for MC 1.20.1 with MCP 20230612.114412
-[128月2026 12:57:34.215] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.10 Initialized
-[128月2026 12:57:34.258] [modloading-worker-0/WARN] [software.bernie.geckolib.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners
-[128月2026 12:57:34.307] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[128月2026 12:57:34.310] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 1.130 ms
-[128月2026 12:57:35.301] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/Users/mqsmy_cmz2/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23184!/assets/.mcassetsroot' uses unexpected schema
-[128月2026 12:57:35.301] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/Users/mqsmy_cmz2/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23184!/data/.mcassetsroot' uses unexpected schema
-[128月2026 12:57:35.308] [main/WARN] [net.minecraft.server.packs.PathPackResources/]: Ignored non-lowercase namespace: .DS_Store in /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources
-[128月2026 12:57:35.315] [main/WARN] [net.minecraft.server.packs.PathPackResources/]: Ignored non-lowercase namespace: .DS_Store in /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources
-[128月2026 12:57:35.384] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[128月2026 12:57:35.401] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 16 ms
-[128月2026 12:57:35.401] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
-[128月2026 12:57:35.416] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 14 ms
-[128月2026 12:57:35.417] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id forging_and_crafting
-[128月2026 12:57:35.471] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id forging_and_crafting finished after 53 ms
-[128月2026 12:57:35.471] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id forging_and_crafting
-[128月2026 12:57:35.471] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id forging_and_crafting finished after 0 ms
-[128月2026 12:57:35.471] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: forging_and_crafting
-[128月2026 12:57:35.479] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: forging_and_crafting finished after 8 ms
-[128月2026 12:57:35.480] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: forging_and_crafting
-[128月2026 12:57:35.481] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: forging_and_crafting finished after 0 ms
-[128月2026 12:57:35.481] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us
-[128月2026 12:57:35.481] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us finished after 0 ms
-[128月2026 12:57:35.481] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: zh_cn
-[128月2026 12:57:35.481] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: zh_cn finished after 0 ms
-[128月2026 12:57:35.481] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 97 ms
-[128月2026 12:57:35.484] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 51, old count: 51, new count: 52, removed stale: 0, written: 1
+[128月2026 13:39:53.111] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, /Users/mqsmy_cmz2/.gradle/caches/forge_gradle/assets, --gameDir, ., --fml.forgeVersion, 47.4.10, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, forging_and_crafting, --all, --output, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/generated/resources, --existing, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources, --mixin.config, forging_and_crafting.mixins.json]
+[128月2026 13:39:53.114] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.15 by Oracle Corporation; OS Mac OS X arch aarch64 version 15.1.1
+[128月2026 13:39:53.168] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[128月2026 13:39:53.193] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23121!/ Service=ModLauncher Env=CLIENT
+[128月2026 13:39:53.359] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.4.10/ccc533c7dd67e0983217197d7549c8b49e7ab453/javafmllanguage-1.20.1-47.4.10.jar is missing mods.toml file
+[128月2026 13:39:53.360] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.4.10/e9a2879fe3612ea34b9728ec2633304a1e67d480/lowcodelanguage-1.20.1-47.4.10.jar is missing mods.toml file
+[128月2026 13:39:53.361] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.4.10/ec5cefbbc65c67302b8fac317010faab85fa14b9/mclanguage-1.20.1-47.4.10.jar is missing mods.toml file
+[128月2026 13:39:53.362] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /Users/mqsmy_cmz2/.gradle/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.4.10/94dae566be650566ea9115a1414ab76bfcf5a804/fmlcore-1.20.1-47.4.10.jar is missing mods.toml file
+[128月2026 13:39:53.442] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[128月2026 13:39:54.197] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[128月2026 13:39:54.202] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, /Users/mqsmy_cmz2/.gradle/caches/forge_gradle/assets, --assetIndex, 5, --mod, forging_and_crafting, --all, --output, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/generated/resources, --existing, /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources]
+[128月2026 13:39:54.355] [main/INFO] [mixin/]: Remapping refMap geckolib.refmap.json using /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/build/createSrgToMcp/output.srg
+[128月2026 13:39:54.506] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [forging_and_crafting]
+[128月2026 13:39:56.595] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.10, for MC 1.20.1 with MCP 20230612.114412
+[128月2026 13:39:56.596] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.10 Initialized
+[128月2026 13:39:56.629] [modloading-worker-0/WARN] [software.bernie.geckolib.GeckoLib/]: Minecraft.getInstance() was null, could not register reload listeners
+[128月2026 13:39:56.698] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[128月2026 13:39:56.701] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 1.304 ms
+[128月2026 13:39:57.693] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/Users/mqsmy_cmz2/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23184!/assets/.mcassetsroot' uses unexpected schema
+[128月2026 13:39:57.694] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/Users/mqsmy_cmz2/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.4.10_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23184!/data/.mcassetsroot' uses unexpected schema
+[128月2026 13:39:57.699] [main/WARN] [net.minecraft.server.packs.PathPackResources/]: Ignored non-lowercase namespace: .DS_Store in /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources
+[128月2026 13:39:57.707] [main/WARN] [net.minecraft.server.packs.PathPackResources/]: Ignored non-lowercase namespace: .DS_Store in /Users/mqsmy_cmz2/Desktop/ForgingAndCrafting/src/main/resources
+[128月2026 13:39:57.784] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[128月2026 13:39:57.799] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 14 ms
+[128月2026 13:39:57.800] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[128月2026 13:39:57.815] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 15 ms
+[128月2026 13:39:57.816] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id forging_and_crafting
+[128月2026 13:39:57.887] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id forging_and_crafting finished after 70 ms
+[128月2026 13:39:57.887] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id forging_and_crafting
+[128月2026 13:39:57.887] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id forging_and_crafting finished after 0 ms
+[128月2026 13:39:57.887] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: forging_and_crafting
+[128月2026 13:39:57.897] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: forging_and_crafting finished after 9 ms
+[128月2026 13:39:57.897] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: forging_and_crafting
+[128月2026 13:39:57.898] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: forging_and_crafting finished after 1 ms
+[128月2026 13:39:57.898] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us
+[128月2026 13:39:57.899] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us finished after 0 ms
+[128月2026 13:39:57.899] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: zh_cn
+[128月2026 13:39:57.899] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: zh_cn finished after 0 ms
+[128月2026 13:39:57.899] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
+[128月2026 13:39:57.904] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 4 ms
+[128月2026 13:39:57.904] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 119 ms
+[128月2026 13:39:57.908] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 53, old count: 53, new count: 54, removed stale: 0, written: 1
