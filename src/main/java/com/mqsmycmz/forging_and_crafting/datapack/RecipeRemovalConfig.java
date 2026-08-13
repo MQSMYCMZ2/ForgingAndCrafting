@@ -32,7 +32,7 @@ public class RecipeRemovalConfig {
         BLASTING_RECIPES_SET.clear();
 
         try {
-            if (!Files.exists(config_file)) {
+            if (Files.exists(config_file)) {
                 Files.delete(config_file);
             }
         } catch (IOException e) {

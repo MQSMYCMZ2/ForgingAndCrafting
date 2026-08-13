@@ -19,6 +19,16 @@ public class RecipeRemovalPackGenerator {
             .resolve("forging_and_crafting")
             .resolve("generated_pack");
 
+    private static final JsonObject UNOBTAINABLE_ITEM = new JsonObject();
+    static {
+        UNOBTAINABLE_ITEM.addProperty("item", "minecraft:barrier");
+    }
+
+    private static final JsonObject AIR_RESULT = new JsonObject();
+    static {
+        AIR_RESULT.addProperty("item", "minecraft:air");
+    }
+
     public static Path generate() {
         try {
             if (Files.exists(GENERATED_PATH)) {
@@ -40,8 +50,16 @@ public class RecipeRemovalPackGenerator {
                 if (id == null) continue;
 
                 JsonObject recipe = new JsonObject();
-                addForgeFalseCondition(recipe);
                 recipe.addProperty("type", "minecraft:crafting_shaped");
+
+                JsonArray pattern = new JsonArray();
+                pattern.add("X");
+                recipe.add("pattern", pattern);
+
+                JsonObject key = new JsonObject();
+                key.add("X", UNOBTAINABLE_ITEM);
+                recipe.add("key", key);
+                recipe.add("result", AIR_RESULT);
 
                 Files.writeString(recipesPath.resolve(id.getPath() + ".json"), gson.toJson(recipe));
             }
@@ -63,6 +81,12 @@ public class RecipeRemovalPackGenerator {
                 JsonObject recipe = new JsonObject();
                 addForgeFalseCondition(recipe);
                 recipe.addProperty("type", "minecraft:smelting");
+                JsonObject ingredient = new JsonObject();
+                ingredient.addProperty("item", "minecraft:barrier");
+                recipe.add("ingredient", ingredient);
+                recipe.addProperty("result", "minecraft:air");
+                recipe.addProperty("experience", 0.0);
+                recipe.addProperty("cookingtime", 200);
                 Files.writeString(recipesPath.resolve(id.getPath() + ".json"), gson.toJson(recipe));
             }
 
@@ -70,6 +94,12 @@ public class RecipeRemovalPackGenerator {
                 JsonObject recipe = new JsonObject();
                 addForgeFalseCondition(recipe);
                 recipe.addProperty("type", "minecraft:blasting");
+                JsonObject ingredient = new JsonObject();
+                ingredient.addProperty("item", "minecraft:barrier");
+                recipe.add("ingredient", ingredient);
+                recipe.addProperty("result", "minecraft:air");
+                recipe.addProperty("experience", 0.0);
+                recipe.addProperty("cookingtime", 100);
                 Files.writeString(recipesPath.resolve(id.getPath() + ".json"), gson.toJson(recipe));
             }
 
