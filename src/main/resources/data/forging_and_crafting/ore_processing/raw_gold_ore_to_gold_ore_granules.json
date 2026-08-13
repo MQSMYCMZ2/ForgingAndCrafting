@@ -1,5 +1,7 @@
 {
   "input": "minecraft:raw_gold_block",
-  "output_granules": "forging_and_crafting:gold_ore_granules",
-  "output_raw_ore": "minecraft:raw_gold"
+  "output_item": "forging_and_crafting:gold_ore_granules",
+  "remaining_dropped_item": "minecraft:raw_gold",
+  "remaining_max_dropped_item": 8,
+  "remaining_min_dropped_item": 0
 }

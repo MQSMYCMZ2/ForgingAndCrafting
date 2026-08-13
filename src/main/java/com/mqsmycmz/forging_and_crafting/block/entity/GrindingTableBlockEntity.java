@@ -326,7 +326,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
     }
 
     // 获取应该掉落的粗矿数量（根据剩余高度计算）
-    public int getRemainingRawOreCount() {
+    public int getRemainingDroppedOreCount() {
         // 从数据加载器获取粗矿映射
         Item rawOreItem = OreProcessingDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
         if (rawOreItem == null) {
@@ -338,9 +338,25 @@ public class GrindingTableBlockEntity extends BlockEntity {
             return -1; // 特殊标记：返回原物品
         }
 
+        OreProcessingDataLoader.OreProcessingEntry entry =
+                OreProcessingDataLoader.getInstance().getEntry(displayedItem.getItem());
         // 计算剩余粗矿数量：8 - (remainingHeight / 2)
         int maxDrop = 8 - (remainingHeight / 2);
-        return level != null ? level.random.nextInt(maxDrop + 1) : 0;
+        int minDrop = 0;
+
+        if (entry != null) {
+            maxDrop = entry.remainingMaxDroppedItem() - (remainingHeight / 2);
+            minDrop = entry.remainingMinDroppedItem();
+        }
+
+        if (maxDrop < minDrop) maxDrop = minDrop;
+        if (maxDrop < 0) maxDrop = 0;
+
+        if (level != null) {
+            return minDrop + level.random.nextInt(maxDrop - minDrop + 1);
+        }
+
+        return minDrop;
     }
 
     // 获取对应的粗矿物品类型

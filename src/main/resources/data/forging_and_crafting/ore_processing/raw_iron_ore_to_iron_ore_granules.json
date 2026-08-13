@@ -1,5 +1,7 @@
 {
   "input": "minecraft:raw_iron_block",
-  "output_granules": "forging_and_crafting:iron_ore_granules",
-  "output_raw_ore": "minecraft:raw_iron"
+  "output_item": "forging_and_crafting:iron_ore_granules",
+  "remaining_dropped_item": "minecraft:raw_iron",
+  "remaining_max_dropped_item": 8,
+  "remaining_min_dropped_item": 0
 }

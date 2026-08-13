@@ -216,7 +216,7 @@ public class GrindingTableBlock extends BaseEntityBlock {
                     // 检查是否是可以凿的矿石
                     if (dishEntity.hasChiselerOre() && dishEntity.getRemainingHeight() < GrindingTableBlockEntity.MAX_HEIGHT) {
                         // 已经凿过，掉落粗矿物品
-                        int dropCount = dishEntity.getRemainingRawOreCount();
+                        int dropCount = dishEntity.getRemainingDroppedOreCount();
                         Item rawOreItem = dishEntity.getRawOreItem();
 
                         if (rawOreItem != null && dropCount > 0) {

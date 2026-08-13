@@ -30,10 +30,10 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     // 单例实例
     private static final OreProcessingDataLoader INSTANCE = new OreProcessingDataLoader();
 
-    // 矿石到碎粒的映射
-    private Map<Item, Item> oreToGranules = new HashMap<>();
-    // 粗矿块到粗矿的映射
-    private Map<Item, Item> oreBlockToRawOre = new HashMap<>();
+    // 粗矿块到矿物碎粒的映射
+    private Map<Item, Item> oreBlockToOreGranules = new HashMap<>();
+    // 剩余粗矿块到粗矿的映射（用于处理未定义的粗矿输出）
+    private Map<Item, Item> remainingCoarseOreBlocksToCoarseOre = new HashMap<>();
     // 完整条目映射（用于JEI）
     private Map<Item, OreProcessingEntry> processingEntries = new HashMap<>();
 
@@ -47,8 +47,8 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> pObject, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
-        oreToGranules.clear();
-        oreBlockToRawOre.clear();
+        oreBlockToOreGranules.clear();
+        remainingCoarseOreBlocksToCoarseOre.clear();
         processingEntries.clear();
 
         ForgingAndCrafting.LOGGER.info("Loading ore processing recipes...");
@@ -74,28 +74,42 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
         Item inputItem = parseItem(json.get("input").getAsString(), "input");
 
         // 解析输出碎粒
-        if (!json.has("output_granules")) {
-            throw new IllegalArgumentException("Missing 'output_granules' field");
+        if (!json.has("output_item")) {
+            throw new IllegalArgumentException("Missing 'output_item' field");
         }
-        Item granulesItem = parseItem(json.get("output_granules").getAsString(), "output_granules");
+        Item granulesItem = parseItem(json.get("output_item").getAsString(), "output_item");
 
         // 解析输出粗矿（可选，默认为原矿物品）
         Item rawOreItem = null;
-        if (json.has("output_raw_ore")) {
-            rawOreItem = parseItem(json.get("output_raw_ore").getAsString(), "output_raw_ore");
+        if (json.has("remaining_dropped_item")) {
+            rawOreItem = parseItem(json.get("remaining_dropped_item").getAsString(), "remaining_dropped_item");
         } else {
             // 尝试自动推断
             rawOreItem = inferRawOre(inputItem);
         }
 
+        int remainingMaxDroppedItem = 8;
+        int remainingMinDroppedItem = 0;
+        if (json.has("remaining_max_dropped_item")) {
+            remainingMaxDroppedItem = json.get("remaining_max_dropped_item").getAsInt();
+        }
+
+        if (json.has("remaining_min_dropped_item")) {
+            remainingMinDroppedItem = json.get("remaining_min_dropped_item").getAsInt();
+        }
+
         // 注册映射
-        oreToGranules.put(inputItem, granulesItem);
+        oreBlockToOreGranules.put(inputItem, granulesItem);
         if (rawOreItem != null) {
-            oreBlockToRawOre.put(inputItem, rawOreItem);
+            remainingCoarseOreBlocksToCoarseOre.put(inputItem, rawOreItem);
         }
 
         // 保存完整条目
-        OreProcessingEntry entry = new OreProcessingEntry(inputItem, granulesItem, rawOreItem);
+        OreProcessingEntry entry = new OreProcessingEntry(inputItem,
+                granulesItem,
+                rawOreItem,
+                remainingMaxDroppedItem,
+                remainingMaxDroppedItem);
         processingEntries.put(inputItem, entry);
 
         ForgingAndCrafting.LOGGER.debug("Registered ore processing: {} -> {} (raw: {})",
@@ -132,23 +146,23 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     // ========== 查询方法 ==========
 
     public Map<Item, Item> getOreToGranulesMap() {
-        return new HashMap<>(oreToGranules);
+        return new HashMap<>(oreBlockToOreGranules);
     }
 
     public Map<Item, Item> getOreBlockToRawOreMap() {
-        return new HashMap<>(oreBlockToRawOre);
+        return new HashMap<>(remainingCoarseOreBlocksToCoarseOre);
     }
 
     public boolean isValidOre(Item item) {
-        return oreToGranules.containsKey(item);
+        return oreBlockToOreGranules.containsKey(item);
     }
 
     public Item getGranulesForOre(Item ore) {
-        return oreToGranules.get(ore);
+        return oreBlockToOreGranules.get(ore);
     }
 
     public Item getRawOreForBlock(Item oreBlock) {
-        return oreBlockToRawOre.get(oreBlock);
+        return remainingCoarseOreBlocksToCoarseOre.get(oreBlock);
     }
 
     public OreProcessingEntry getEntry(Item input) {
@@ -171,7 +185,15 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
 
     // ========== 数据条目类 ==========
 
-    public record OreProcessingEntry(Item input, Item outputGranules, Item outputRawOre) {
+    public record OreProcessingEntry(Item input,
+                                     Item outputGranules,
+                                     Item outputRawOre,
+                                     int remainingMaxDroppedItem,
+                                     int remainingMinDroppedItem) {
+
+        public OreProcessingEntry(Item input, Item outputGranules, Item outputRawOre) {
+            this(input, outputGranules, outputRawOre, 8, 0);
+        }
 
         /**
          * 获取输入物品的堆叠
