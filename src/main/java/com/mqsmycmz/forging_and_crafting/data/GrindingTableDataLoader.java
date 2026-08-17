@@ -23,12 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = ForgingAndCrafting.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
+public class GrindingTableDataLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final String FOLDER = "ore_processing";
+    private static final String FOLDER = "grinding_table_data_loader";
 
     // 单例实例
-    private static final OreProcessingDataLoader INSTANCE = new OreProcessingDataLoader();
+    private static final GrindingTableDataLoader INSTANCE = new GrindingTableDataLoader();
 
     // 粗矿块到矿物碎粒的映射
     private Map<Item, Item> oreBlockToOreGranules = new HashMap<>();
@@ -37,11 +37,11 @@ public class OreProcessingDataLoader extends SimpleJsonResourceReloadListener {
     // 完整条目映射（用于JEI）
     private Map<Item, OreProcessingEntry> processingEntries = new HashMap<>();
 
-    public OreProcessingDataLoader() {
+    public GrindingTableDataLoader() {
         super(GSON, FOLDER);
     }
 
-    public static OreProcessingDataLoader getInstance() {
+    public static GrindingTableDataLoader getInstance() {
         return INSTANCE;
     }
 

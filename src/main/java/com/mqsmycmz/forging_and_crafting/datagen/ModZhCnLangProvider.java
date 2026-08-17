@@ -40,6 +40,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add("jei.forging_and_crafting.rock_crusher", "碎石机");
         add("jei.forging_and_crafting.ore_processing.hint", "使用简易石凿在承物盘上处理");
         add("jei.forging_and_crafting.category.ore_processing", "矿石凿刻处理");
+        add("jei.forging_and_crafting.grinding_table", "载物皿");
 
         add("message.forging_and_crafting.chisel_sharpness", "§a磨凿成功！当前尖锐程度：%d");
 

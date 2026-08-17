@@ -17,6 +17,7 @@
   "item.forging_and_crafting.simple_stone_chisel": "Simple Stone Chisel",
   "itemGroup.forging_and_crafting_tab": "Forging And Crafting",
   "jei.forging_and_crafting.category.ore_processing": "Ore Chiseling",
+  "jei.forging_and_crafting.grinding_table": "Grinding Table",
   "jei.forging_and_crafting.ore_processing.hint": "Use Simple Stone Chisel on Carrier Dish",
   "jei.forging_and_crafting.rock_crusher": "Rock Crusher",
   "message.forging_and_crafting.chisel_sharpness": "§aChiseling successful! Current sharpness level:%d",

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 public class RockCrusherCategory implements IRecipeCategory<RockCrusherRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(ForgingAndCrafting.MOD_ID, "rock_crusher");
     public static final ResourceLocation TEXTURE = new ResourceLocation(ForgingAndCrafting.MOD_ID,
-            "textures/gui/rock_crusher_for_jei.png");
+            "textures/gui/rock_crusher_for_recipes.png");
 
     public static final RecipeType<RockCrusherRecipe> ROCK_CRUSHER_TYPE =
             new RecipeType<>(UID, RockCrusherRecipe.class);
@@ -53,7 +53,9 @@ public class RockCrusherCategory implements IRecipeCategory<RockCrusherRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RockCrusherRecipe rockCrusherRecipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder,
+                          RockCrusherRecipe rockCrusherRecipe,
+                          IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 10, 42).addIngredients(rockCrusherRecipe.getIngredients().get(0));
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 171, 42).addItemStack(rockCrusherRecipe.getResultItem(null));

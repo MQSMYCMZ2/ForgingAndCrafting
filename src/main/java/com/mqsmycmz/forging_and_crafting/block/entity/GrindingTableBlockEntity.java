@@ -1,6 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.block.entity;
 
-import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
+import com.mqsmycmz.forging_and_crafting.data.GrindingTableDataLoader;
 import com.mqsmycmz.forging_and_crafting.item.SimpleStoneChiselItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -97,7 +97,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
      * 现在从 OreProcessingDataLoader 获取数据
      */
     public boolean hasChiselerOre() {
-        return hasItem() && OreProcessingDataLoader.getInstance().isValidOre(displayedItem.getItem());
+        return hasItem() && GrindingTableDataLoader.getInstance().isValidOre(displayedItem.getItem());
     }
 
     public boolean isChiseling() {
@@ -231,7 +231,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
         processChiselAfterComplete();
 
         // 从数据加载器获取对应的碎粒物品
-        Item granuleItem = OreProcessingDataLoader.getInstance().getGranulesForOre(displayedItem.getItem());
+        Item granuleItem = GrindingTableDataLoader.getInstance().getGranulesForOre(displayedItem.getItem());
         if (granuleItem != null) {
             // 使用根据凿子尖锐程度计算的产出数量
             ItemStack output = new ItemStack(granuleItem, granulesPerChisel);
@@ -328,7 +328,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
     // 获取应该掉落的粗矿数量（根据剩余高度计算）
     public int getRemainingDroppedOreCount() {
         // 从数据加载器获取粗矿映射
-        Item rawOreItem = OreProcessingDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
+        Item rawOreItem = GrindingTableDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
         if (rawOreItem == null) {
             return 0;
         }
@@ -338,8 +338,8 @@ public class GrindingTableBlockEntity extends BlockEntity {
             return -1; // 特殊标记：返回原物品
         }
 
-        OreProcessingDataLoader.OreProcessingEntry entry =
-                OreProcessingDataLoader.getInstance().getEntry(displayedItem.getItem());
+        GrindingTableDataLoader.OreProcessingEntry entry =
+                GrindingTableDataLoader.getInstance().getEntry(displayedItem.getItem());
         // 计算剩余粗矿数量：8 - (remainingHeight / 2)
         int maxDrop = 8 - (remainingHeight / 2);
         int minDrop = 0;
@@ -362,7 +362,7 @@ public class GrindingTableBlockEntity extends BlockEntity {
     // 获取对应的粗矿物品类型
     public Item getRawOreItem() {
         if (!hasItem()) return null;
-        return OreProcessingDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
+        return GrindingTableDataLoader.getInstance().getRawOreForBlock(displayedItem.getItem());
     }
 
     // ========== 数据同步 ==========

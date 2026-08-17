@@ -2,7 +2,7 @@ package com.mqsmycmz.forging_and_crafting.block;
 
 import com.mqsmycmz.forging_and_crafting.block.entity.GrindingTableBlockEntity;
 import com.mqsmycmz.forging_and_crafting.block.entity.ForgingAndCraftingBlockEntities;
-import com.mqsmycmz.forging_and_crafting.data.OreProcessingDataLoader;
+import com.mqsmycmz.forging_and_crafting.data.GrindingTableDataLoader;
 import com.mqsmycmz.forging_and_crafting.item.SimpleStoneChiselItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -129,7 +129,7 @@ public class GrindingTableBlock extends BaseEntityBlock {
         }
 
         // 放置矿石 - 使用数据加载器检查是否是有效矿石
-        if (OreProcessingDataLoader.getInstance().isValidOre(heldItem.getItem())) {
+        if (GrindingTableDataLoader.getInstance().isValidOre(heldItem.getItem())) {
             // 如果正在凿，不能更换
             if (dishEntity.isChiseling()) {
                 return InteractionResult.PASS;
