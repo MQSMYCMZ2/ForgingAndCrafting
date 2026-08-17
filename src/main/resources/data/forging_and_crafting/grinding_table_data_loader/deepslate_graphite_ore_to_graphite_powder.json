@@ -1,0 +1,7 @@
+{
+  "input": "forging_and_crafting:deepslate_graphite_ore",
+  "output_item": "forging_and_crafting:graphite_powder",
+  "remaining_dropped_item": "forging_and_crafting:graphite_ore",
+  "remaining_max_dropped_item": 0,
+  "remaining_min_dropped_item": 0
+}

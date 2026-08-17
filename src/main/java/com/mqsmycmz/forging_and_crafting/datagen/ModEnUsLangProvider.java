@@ -19,6 +19,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingItems.COPPER_ORE_POWDER_PARTICLES.get(), "Copper Ore Powder Particles");
         add(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES.get(), "Iron Ore Powder Particles");
         add(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES.get(), "Gold Ore Powder Particles");
+        add(ForgingAndCraftingItems.GRAPHITE_POWDER.get(), "Graphite Powder");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "Rock Crusher");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "Clay Brick");

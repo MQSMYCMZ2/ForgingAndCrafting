@@ -30,6 +30,9 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> GOLD_ORE_POWDER_PARTICLES = ITEMS.register("gold_ore_powder_particles", () ->
             new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> GRAPHITE_POWDER = ITEMS.register("graphite_powder", () ->
+            new Item(new Item.Properties()));
+
     // 在 ForgingAndCraftingItems.java 中添加：
     public static final RegistryObject<Item> GRINDING_TABLE_ANIMATED = ITEMS.register("grinding_table_animated",
             () -> new GrindingTableAnimatedItem(new Item.Properties()));

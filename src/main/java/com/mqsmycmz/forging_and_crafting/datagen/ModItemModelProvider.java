@@ -23,6 +23,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ForgingAndCraftingItems.COPPER_ORE_POWDER_PARTICLES);
         simpleItem(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES);
         simpleItem(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES);
+        simpleItem(ForgingAndCraftingItems.GRAPHITE_POWDER);
     }
 
     @SuppressWarnings("removal")
