@@ -23,9 +23,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlock(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/water_wooden_bucket")));
 
-        horizontalBlock(ForgingAndCraftingBlocks.WOODEN_BUCKET.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/wooden_bucket")));
-
         horizontalBlock(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/iron_ore_granules")));
         simpleBlockItem(ForgingAndCraftingBlocks.IRON_ORE_GRANULES.get(),
