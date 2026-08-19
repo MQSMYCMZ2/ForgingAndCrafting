@@ -1,6 +1,7 @@
 package com.mqsmycmz.forging_and_crafting.datagen.loot;
 
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +28,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 //        this.dropSelf(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get());
 //        this.dropSelf(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get());
 //        this.dropSelf(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());
+
+        this.dropOther(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(), ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get());
+        this.dropOther(ForgingAndCraftingBlocks.WOODEN_BUCKET.get(), ForgingAndCraftingItems.WOODEN_BUCKET_ITEM.get());
     }
 
     @Override

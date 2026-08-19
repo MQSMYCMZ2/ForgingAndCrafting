@@ -24,7 +24,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class GrindingTableCategory implements IRecipeCategory<GrindingTableDataLoader.OreProcessingEntry> {
-    public static final ResourceLocation UID = new ResourceLocation(ForgingAndCrafting.MOD_ID, "grinding_table");
+    public static final ResourceLocation UID =  new ResourceLocation(ForgingAndCrafting.MOD_ID, "grinding_table");
     public static final ResourceLocation TEXTURE = new ResourceLocation(ForgingAndCrafting.MOD_ID,
             "textures/gui/grinding_table_for_recipes.png");
 

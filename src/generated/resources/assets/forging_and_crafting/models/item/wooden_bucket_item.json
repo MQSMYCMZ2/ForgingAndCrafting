@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "forging_and_crafting:item/wooden_bucket"
+    "layer0": "forging_and_crafting:item/wooden_bucket_item"
   }
 }

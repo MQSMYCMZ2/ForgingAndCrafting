@@ -24,7 +24,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ForgingAndCraftingItems.IRON_ORE_POWDER_PARTICLES);
         simpleItem(ForgingAndCraftingItems.GOLD_ORE_POWDER_PARTICLES);
         simpleItem(ForgingAndCraftingItems.GRAPHITE_POWDER);
-        simpleItem(ForgingAndCraftingItems.WOODEN_BUCKET);
+        simpleItem(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM);
+        simpleItem(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM);
     }
 
     @SuppressWarnings("removal")

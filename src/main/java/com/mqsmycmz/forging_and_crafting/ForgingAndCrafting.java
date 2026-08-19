@@ -13,6 +13,8 @@ import com.mqsmycmz.forging_and_crafting.world.menu.ForgingAndCraftingMenuTypes;
 import com.mqsmycmz.forging_and_crafting.world.screen.RockCrusherScreen;
 import com.mqsmycmz.forging_and_crafting.worldgen.ForgingAndCraftingWorldGenProvider;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -101,6 +103,13 @@ public class ForgingAndCrafting
             BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.ROCK_CRUSHER_BLOCK_ENTITY.get(), RockCrusherGeoBlockEntityRenderer::new);
             BlockEntityRenderers.register(ForgingAndCraftingBlockEntities.CARRIER_DISH.get(), GrindingTableBlockEntityRenderer::new);
 //            ItemBlockRenderTypes.setRenderLayer(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), RenderType.translucent());
+
+            event.enqueueWork(() -> {
+            ItemBlockRenderTypes.setRenderLayer(
+                    ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(),
+                    RenderType.translucent()
+            );
+        });
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mqsmycmz.forging_and_crafting.item;
 
 import com.mqsmycmz.forging_and_crafting.ForgingAndCrafting;
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -33,8 +34,11 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> GRAPHITE_POWDER = ITEMS.register("graphite_powder", () ->
             new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> WOODEN_BUCKET = ITEMS.register("wooden_bucket", () ->
-            new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WOODEN_BUCKET_ITEM = ITEMS.register("wooden_bucket_item", () ->
+            new WoodenBucketItem(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> WATER_WOODEN_BUCKET_ITEM = ITEMS.register("water_wooden_bucket_item", () ->
+            new WaterWoodenBucketItem(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(), new Item.Properties().stacksTo(1)));
 
     // 在 ForgingAndCraftingItems.java 中添加：
     public static final RegistryObject<Item> GRINDING_TABLE_ANIMATED = ITEMS.register("grinding_table_animated",
