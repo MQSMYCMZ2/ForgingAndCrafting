@@ -1,5 +1,6 @@
 package com.mqsmycmz.forging_and_crafting.item;
 
+import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -29,6 +30,32 @@ public class WaterWoodenBucketItem extends BlockItem {
 
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
+        Level level = pContext.getLevel();
+        BlockPos pos = pContext.getClickedPos();
+        BlockState state = level.getBlockState(pos);
+        Player player = pContext.getPlayer();
+        ItemStack stack = pContext.getItemInHand();
+
+        if (state.is(ForgingAndCraftingBlocks.WOODEN_BUCKET.get())) {
+            if (!level.isClientSide) {
+                level.setBlock(pos, ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get().defaultBlockState(), 11);
+                level.playSound(null, pos, SoundEvents.BUCKET_EMPTY,
+                        SoundSource.BLOCKS, 1.0F, 1.0F);
+
+                if (player != null && !player.getAbilities().instabuild) {
+                    stack.shrink(1);
+                    ItemStack emptyBucket = new ItemStack(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM.get());
+                    if (stack.isEmpty()) {
+                        player.setItemInHand(pContext.getHand(), emptyBucket);
+                    } else {
+                        if (!player.addItem(emptyBucket)) {
+                            player.drop(emptyBucket, false);
+                        }
+                    }
+                }
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
         return InteractionResult.PASS;
     }
 
