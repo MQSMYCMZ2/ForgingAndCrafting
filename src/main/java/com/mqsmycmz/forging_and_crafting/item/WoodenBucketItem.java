@@ -4,21 +4,31 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-public class WoodenBucketItem extends Item {
-    public WoodenBucketItem(Properties pProperties) {
-        super(pProperties);
+public class WoodenBucketItem extends BlockItem {
+    public WoodenBucketItem(Block block, Properties pProperties) {
+        super(block, pProperties);
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext pContext) {
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -29,6 +39,10 @@ public class WoodenBucketItem extends Item {
 
         if (hitResult.getType() != HitResult.Type.BLOCK) {
             return InteractionResultHolder.pass(stack);
+        }
+
+        if (player.isShiftKeyDown()) {
+            return placeWoodenBucketBlock(level, player, pUsedHand, stack, hitResult);
         }
 
         BlockPos pos = hitResult.getBlockPos();
@@ -46,5 +60,34 @@ public class WoodenBucketItem extends Item {
             return InteractionResultHolder.sidedSuccess(filled, level.isClientSide);
         }
         return InteractionResultHolder.pass(stack);
+    }
+
+    private InteractionResultHolder<ItemStack> placeWoodenBucketBlock(Level level, Player player,
+                                                                      InteractionHand hand,
+                                                                      ItemStack stack, BlockHitResult hitResult) {
+        BlockPlaceContext placeContext = new BlockPlaceContext(level, player, hand, stack, hitResult);
+        BlockPos placePos = placeContext.getClickedPos();
+
+        if (!level.isEmptyBlock(placePos) && !level.getBlockState(placePos).canBeReplaced(placeContext)) {
+            return InteractionResultHolder.fail(stack);
+        }
+
+        if (!level.isClientSide) {
+            BlockState placeState = this.getBlock().getStateForPlacement(placeContext);
+            if (placeState == null) {
+                placeState = this.getBlock().defaultBlockState();
+            }
+
+            if (!placeBlock(placeContext, placeState)) {
+                return InteractionResultHolder.fail(stack);
+            }
+
+            level.playSound(null, placePos, placeState.getSoundType().getPlaceSound(),
+                    SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
+        if (player.getAbilities().instabuild) {
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+        }
+        return InteractionResultHolder.sidedSuccess(ItemStack.EMPTY, level.isClientSide);
     }
 }

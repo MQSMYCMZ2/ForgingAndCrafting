@@ -78,7 +78,8 @@ public class WoodenBucketBlock extends Block {
     public WoodenBucketBlock(Properties pProperties) {
         super(pProperties);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH));
     }
 
     @Override

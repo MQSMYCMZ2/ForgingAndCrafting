@@ -1,10 +1,11 @@
-// 1.20.1	2026-08-18T17:26:02.932537	Item Models: forging_and_crafting
+// 1.20.1	2026-08-19T22:43:06.524357	Item Models: forging_and_crafting
 d62ca6518000963ce315ce7266a102da49ed5461 assets/forging_and_crafting/models/item/copper_ore_powder_particles.json
 d539b8050bf89196b6fe50898753f3d8d27c4c43 assets/forging_and_crafting/models/item/dust_particles.json
 c1cf5721537132dd9431d7322b0be4084a1ad429 assets/forging_and_crafting/models/item/gear.json
 0715678ac738dd1861a94e333d038b1583dcf0cc assets/forging_and_crafting/models/item/gold_ore_powder_particles.json
 13df95924607197dcdbb6043cc9de4ad80a038c8 assets/forging_and_crafting/models/item/graphite_powder.json
 f73c59f10609f437e8c5b67f28ebceb480db9ce9 assets/forging_and_crafting/models/item/iron_ore_powder_particles.json
+c181dbbcba6c48271bd01af384a9348ba13d59a5 assets/forging_and_crafting/models/item/pure_graphite_powder.json
 72d9e8b0b1e9f956b5dea45218f9484417f47598 assets/forging_and_crafting/models/item/simple_stone_chisel.json
 c97594afcf8d11e91609a770f97b668996f5c94e assets/forging_and_crafting/models/item/water_wooden_bucket_item.json
 6e2f8269599b59e2f723d229b8e4420ece3fd07a assets/forging_and_crafting/models/item/wooden_bucket_item.json

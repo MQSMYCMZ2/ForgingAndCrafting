@@ -22,6 +22,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add(ForgingAndCraftingItems.GRAPHITE_POWDER.get(), "石墨粉");
         add(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM.get(), "木质水桶");
         add(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get(), "装有水的木桶");
+        add(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get(), "纯净的石墨粉");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "碎石机");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "耐火砖块");

@@ -32,10 +32,13 @@ public class ForgingAndCraftingItems {
             new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> GRAPHITE_POWDER = ITEMS.register("graphite_powder", () ->
-            new Item(new Item.Properties()));
+            new GraphitePowderItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> PURE_GRAPHITE_POWDER = ITEMS.register("pure_graphite_powder", () ->
+            new PureGraphitePowderItem(new Item.Properties()));
 
     public static final RegistryObject<Item> WOODEN_BUCKET_ITEM = ITEMS.register("wooden_bucket_item", () ->
-            new WoodenBucketItem(new Item.Properties().stacksTo(1)));
+            new WoodenBucketItem(ForgingAndCraftingBlocks.WOODEN_BUCKET.get(), new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> WATER_WOODEN_BUCKET_ITEM = ITEMS.register("water_wooden_bucket_item", () ->
             new WaterWoodenBucketItem(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(), new Item.Properties().stacksTo(1)));

@@ -39,6 +39,13 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> WOODEN_BUCKET =
+            registerBlock("wooden_bucket", () -> new WoodenBucketBlock(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> WATER_WOODEN_BUCKET =
             registerBlock("water_wooden_bucket", () -> new WaterWoodenBucketBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)

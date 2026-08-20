@@ -32,6 +32,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 //                .add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());
 
         tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(ForgingAndCraftingBlocks.WOODEN_BUCKET.get())
                 .add(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
@@ -48,6 +49,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ForgingAndCraftingBlocks.GRINDING_TABLE.get())
                 .add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get())
                 .add(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get())
+                .add(ForgingAndCraftingBlocks.WOODEN_BUCKET.get())
                 .add(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get());
     }
 }

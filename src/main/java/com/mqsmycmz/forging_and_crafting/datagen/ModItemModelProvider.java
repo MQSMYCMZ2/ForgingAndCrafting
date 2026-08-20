@@ -26,6 +26,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ForgingAndCraftingItems.GRAPHITE_POWDER);
         simpleItem(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM);
         simpleItem(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM);
+        simpleItem(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER);
     }
 
     @SuppressWarnings("removal")
