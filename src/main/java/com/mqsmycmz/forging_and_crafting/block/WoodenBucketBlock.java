@@ -30,11 +30,11 @@ public class WoodenBucketBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public static final VoxelShape SHAPE_BASE = Stream.of(
-            Block.box(3, 0.5, 2.5, 14, 13.5, 3),
-            Block.box(2.5, 0.5, 3, 3, 13.5, 13),
-            Block.box(3, 0.5, 13, 14, 13.5, 13.5),
-            Block.box(3, 0, 3, 14, 0.5, 13),
-            Block.box(14, 0.5, 3, 14.5, 13.5, 13)
+            Block.box(3, 0.5, 2, 14, 13.5, 2.5),
+            Block.box(2.5, 0.5, 2.5, 3, 13.5, 13.5),
+            Block.box(3, 0.5, 13.5, 14, 13.5, 14),
+            Block.box(3, 0, 2.5, 14, 0.5, 13.5),
+            Block.box(14, 0.5, 2.5, 14.5, 13.5, 13.5)
     ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
     public static final Map<Direction, VoxelShape> SHAPES = new EnumMap<>(Direction.class);

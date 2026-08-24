@@ -1,7 +1,9 @@
 package com.mqsmycmz.forging_and_crafting.item;
 
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.block.WaterWoodenBucketBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -36,19 +38,21 @@ public class WoodenBucketItem extends BlockItem {
         ItemStack stack = pContext.getItemInHand();
 
         if (state.is(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get())) {
-            if (!level.isClientSide) {
-                level.setBlock(pos, ForgingAndCraftingBlocks.WOODEN_BUCKET.get().defaultBlockState(), 11);
-                level.playSound(null, pos, SoundEvents.BUCKET_EMPTY,
-                        SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (state.getValue(WaterWoodenBucketBlock.STAGE) == 0) {
+                if (!level.isClientSide) {
+                    level.setBlock(pos, ForgingAndCraftingBlocks.WOODEN_BUCKET.get().defaultBlockState(), 11);
+                    level.playSound(null, pos, SoundEvents.BUCKET_EMPTY,
+                            SoundSource.BLOCKS, 1.0F, 1.0F);
 
-                if (player != null && !player.getAbilities().instabuild) {
-                    stack.shrink(1);
-                    ItemStack emptyBucket = new ItemStack(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get());
-                    if (stack.isEmpty()) {
-                        player.setItemInHand(pContext.getHand(), emptyBucket);
-                    } else {
-                        if (!player.addItem(emptyBucket)) {
-                            player.drop(emptyBucket, false);
+                    if (player != null && !player.getAbilities().instabuild) {
+                        stack.shrink(1);
+                        ItemStack emptyBucket = new ItemStack(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get());
+                        if (stack.isEmpty()) {
+                            player.setItemInHand(pContext.getHand(), emptyBucket);
+                        } else {
+                            if (!player.addItem(emptyBucket)) {
+                                player.drop(emptyBucket, false);
+                            }
                         }
                     }
                 }
