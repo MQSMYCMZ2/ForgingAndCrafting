@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "forging_and_crafting:block/water_wooden_bucket_body",
-		"1": "forging_and_crafting:block/water_wooden_bucket_water",
+		"1": "forging_and_crafting:block/water_wooden_bucket_water_2",
 		"particle": "forging_and_crafting:block/water_wooden_bucket_body"
 	},
 	"elements": [

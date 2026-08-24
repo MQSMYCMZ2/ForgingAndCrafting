@@ -47,6 +47,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add("jei.forging_and_crafting.grinding_table", "载物皿");
 
         add("message.forging_and_crafting.chisel_sharpness", "§a磨凿成功！当前尖锐程度：%d");
+        add("message.forging_and_crafting.water_wooden_bucket_stage_5", "§c水过于浑浊，无法继续提纯！");
 
         add("tooltip.forging_and_crafting.chisel.sharpness", "§a尖锐程度：%d");
         add("tooltip.forging_and_crafting.chisel.granules_drop", "§e每次产出：%d 个碎粒");

@@ -1,9 +1,17 @@
 package com.mqsmycmz.forging_and_crafting.block;
 
+import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
+import com.mqsmycmz.forging_and_crafting.item.GraphitePowderItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -11,11 +19,11 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -32,14 +40,17 @@ public class WaterWoodenBucketBlock extends Block {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
+    public static final IntegerProperty CLICKS = IntegerProperty.create("clicks", 0, 9);
+
+    public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 5);
+
     public static final VoxelShape SHAPE_BASE = Shapes.join(Stream.of(
-            Block.box(3, 0.5, 2.5, 14, 13.5, 3),
-            Block.box(2.5, 0.5, 3, 3, 13.5, 13),
-            Block.box(3, 0.5, 13, 14, 13.5, 13.5),
-            Block.box(3, 0, 3, 14, 0.5, 13),
-            Block.box(14, 0.5, 3, 14.5, 13.5, 13)
-    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get(),
-            Block.box(3, 0.5, 3, 14, 12.5, 13), BooleanOp.OR);
+            Block.box(3, 0.5, 2, 14, 13.5, 2.5),
+            Block.box(2.5, 0.5, 2.5, 3, 13.5, 13.5),
+            Block.box(3, 0.5, 13.5, 14, 13.5, 14),
+            Block.box(3, 0, 2.5, 14, 0.5, 13.5),
+            Block.box(14, 0.5, 2.5, 14.5, 13.5, 13.5)
+    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get(), Block.box(3, 0.5, 2.5, 14, 12.5, 13.5), BooleanOp.OR);
 
     public static final Map<Direction, VoxelShape> SHAPES = new EnumMap<>(Direction.class);
 
@@ -83,7 +94,9 @@ public class WaterWoodenBucketBlock extends Block {
         super(pProperties);
 
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(FACING, Direction.NORTH));
+                .setValue(FACING, Direction.NORTH)
+                .setValue(STAGE, 0)
+                .setValue(CLICKS, 0));
     }
 
     @Override
@@ -99,22 +112,22 @@ public class WaterWoodenBucketBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, STAGE, CLICKS);
     }
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPES.getOrDefault(pState.getValue(FACING), SHAPE_BASE);
+        return SHAPE_BASE;
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return SHAPES.getOrDefault(pState.getValue(FACING), SHAPE_BASE);
+        return SHAPE_BASE;
     }
 
     @Override
     public VoxelShape getInteractionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return SHAPES.getOrDefault(pState.getValue(FACING), SHAPE_BASE);
+        return SHAPE_BASE;
     }
 
     @Override
@@ -130,5 +143,59 @@ public class WaterWoodenBucketBlock extends Block {
     @Override
     public boolean propagatesSkylightDown(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return true;
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        ItemStack handItem = pPlayer.getItemInHand(pHand);
+
+        if (handItem.getItem() instanceof GraphitePowderItem) {
+            if (!pLevel.isClientSide) {
+                int stage = pState.getValue(STAGE);
+                if (stage < 5) {
+
+                    if (!pPlayer.getAbilities().instabuild) {
+                        handItem.shrink(1);
+                        if (handItem.isEmpty()) {
+                            pPlayer.setItemInHand(pHand, ItemStack.EMPTY);
+                        }
+                    }
+
+                    ItemStack pureGraphite = new ItemStack(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get());
+                    if (!pPlayer.addItem(pureGraphite)) {
+                        pPlayer.drop(pureGraphite, false);
+                    }
+
+                    int clicks = pState.getValue(CLICKS);
+
+                    clicks++;
+                    if (clicks >= 10) {
+                        clicks = 0;
+                        if (stage < 5) {
+                            stage++;
+                        }
+                    }
+                    BlockState newState = pState.setValue(STAGE, stage).setValue(CLICKS, clicks);
+                    pLevel.setBlock(pPos, newState, Block.UPDATE_ALL);
+                } else {
+                    pPlayer.displayClientMessage(Component.translatable("message.forging_and_crafting.water_wooden_bucket_stage_5"),
+                            true);
+                }
+            }
+            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+        }
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pParams) {
+        List<ItemStack> drops = new ArrayList<>();
+        int stage = pState.getValue(STAGE);
+        if (stage > 0) {
+            drops.add(new ItemStack(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM.get()));
+        } else {
+            drops.add(new ItemStack(this));
+        }
+        return drops;
     }
 }

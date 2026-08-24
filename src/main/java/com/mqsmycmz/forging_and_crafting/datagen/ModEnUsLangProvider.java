@@ -47,6 +47,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add("jei.forging_and_crafting.grinding_table", "Grinding Table");
 
         add("message.forging_and_crafting.chisel_sharpness", "§aChiseling successful! Current sharpness level:%d");
+        add("message.forging_and_crafting.water_wooden_bucket_stage_5", "§cThe water is too turbid to continue purification!");
 
         add("tooltip.forging_and_crafting.chisel.sharpness", "§aSharpness:%d");
         add("tooltip.forging_and_crafting.chisel.granules_drop", "§eEach output: %d grains");

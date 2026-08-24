@@ -1,6 +1,7 @@
 package com.mqsmycmz.forging_and_crafting.item;
 
 import com.mqsmycmz.forging_and_crafting.block.ForgingAndCraftingBlocks;
+import com.mqsmycmz.forging_and_crafting.block.WaterWoodenBucketBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
@@ -25,43 +26,49 @@ public class GraphitePowderItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
 
-        // 射线检测玩家看向的方块/流体
         HitResult hitResult = pPlayer.pick(5.0D, 0.0F, true);
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockHit = (BlockHitResult) hitResult;
             BlockPos pos = blockHit.getBlockPos();
             BlockState state = pLevel.getBlockState(pos);
 
-            // 检测：水方块 / 流动水 / 含水方块
-            boolean isWater = state.getFluidState().is(FluidTags.WATER);
-            boolean isWaterWoodenBucket = state.is(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get());
+            // 如果是水木桶，跳过（交给方块处理）
+            if (state.getBlock() instanceof WaterWoodenBucketBlock) {
+                return InteractionResultHolder.pass(stack);
+            }
 
-            if ((isWater || isWaterWoodenBucket) && !pLevel.isClientSide) {
+            // 检测水方块
+            boolean isWater = state.getFluidState().is(FluidTags.WATER);
+
+            if (isWater && !pLevel.isClientSide) {
                 if (!pPlayer.getAbilities().instabuild) {
                     stack.shrink(1);
                 }
-
                 ItemStack pureGraphite = new ItemStack(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get());
                 if (!pPlayer.addItem(pureGraphite)) {
                     pPlayer.drop(pureGraphite, false);
                 }
-
                 return InteractionResultHolder.success(stack);
             }
         }
-
         return super.use(pLevel, pPlayer, pHand);
     }
 
+    // 右键点击方块（主要入口）
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
-        // useOn 保留做后备，但主要逻辑已在 use 中
         Level level = pContext.getLevel();
         BlockPos pos = pContext.getClickedPos();
         BlockState state = level.getBlockState(pos);
         Player player = pContext.getPlayer();
         ItemStack stack = pContext.getItemInHand();
 
+        // 如果是水木桶，直接放行，让方块自己的 use 处理
+        if (state.getBlock() instanceof WaterWoodenBucketBlock) {
+            return InteractionResult.PASS;
+        }
+
+        // 检测水（流体水或含水方块）
         boolean isWater = state.getFluidState().is(FluidTags.WATER);
         boolean isWaterlogged = state.hasProperty(BlockStateProperties.WATERLOGGED)
                 && state.getValue(BlockStateProperties.WATERLOGGED);
@@ -74,7 +81,6 @@ public class GraphitePowderItem extends Item {
                         player.setItemInHand(pContext.getHand(), ItemStack.EMPTY);
                     }
                 }
-
                 ItemStack pureGraphite = new ItemStack(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get());
                 if (!player.addItem(pureGraphite)) {
                     player.drop(pureGraphite, false);

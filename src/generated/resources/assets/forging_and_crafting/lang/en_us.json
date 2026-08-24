@@ -25,6 +25,7 @@
   "jei.forging_and_crafting.ore_processing.hint": "Use Simple Stone Chisel on Carrier Dish",
   "jei.forging_and_crafting.rock_crusher": "Rock Crusher",
   "message.forging_and_crafting.chisel_sharpness": "§aChiseling successful! Current sharpness level:%d",
+  "message.forging_and_crafting.water_wooden_bucket_stage_5": "§cThe water is too turbid to continue purification!",
   "tooltip.forging_and_crafting.chisel.granules_drop": "§eEach output: %d grains",
   "tooltip.forging_and_crafting.chisel.sharpness": "§aSharpness:%d",
   "tooltip.forging_and_crafting.simple_stone_chisel.auto_sharpen_hint": "§bSneak right-click Simple Stone Chisel (consumes 1 durability, +1 sharpness, the number of fragmented grains dropped increases with every 15 points of sharpness)"

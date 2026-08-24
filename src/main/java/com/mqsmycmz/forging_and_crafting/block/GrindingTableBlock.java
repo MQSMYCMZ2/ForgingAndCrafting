@@ -43,8 +43,6 @@ import java.util.stream.Stream;
 public class GrindingTableBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    // 注意：VALID_ORES 硬编码列表已移除，现在使用 OreProcessingDataLoader.isValidOre()
-
     public static final VoxelShape SHAPE_BASE = Stream.of(
             Block.box(2.25, 0.5, 2.25, 14.25, 1.25, 14.25),
             Block.box(2.25, 1.25, 2.25, 13.25, 2.25, 3.25),
