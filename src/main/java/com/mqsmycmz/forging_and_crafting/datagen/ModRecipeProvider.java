@@ -5,6 +5,7 @@ import com.mqsmycmz.forging_and_crafting.item.ForgingAndCraftingItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.function.Consumer;
@@ -66,6 +67,30 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('X', Items.IRON_INGOT).define('Y', Items.CAULDRON)
                 .unlockedBy(getHasName(Items.CAULDRON), has(Items.CAULDRON))
                 .save(pWriter);
+
+        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()),
+                RecipeCategory.MISC,
+                ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(),
+                0.35F,
+                100)
+                .unlockedBy("has_pure_graphite_powder_campfire", has(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()))
+                .save(pWriter, "pure_graphite_powder_to_dry_by_campfire");
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()),
+                RecipeCategory.MISC,
+                ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(),
+                0.35F,
+                100)
+                .unlockedBy("has_pure_graphite_powder_smelting", has(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()))
+                .save(pWriter, "pure_graphite_powder_to_dry_by_smelting");
+
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()),
+                RecipeCategory.MISC,
+                ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(),
+                0.35F,
+                50)
+                .unlockedBy("has_pure_graphite_powder_to_dry_by_blasting", has(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()))
+                .save(pWriter, "pure_graphite_powder_to_dry_by_blasting");
 
         //熔炉：
         //oreSmelting(pWriter, CLAY_BRICK, RecipeCategory.MISC, ForgingAndCraftingBlocks.CLAY_BRICK.get(), 0.25F, 200, "clay_brick");

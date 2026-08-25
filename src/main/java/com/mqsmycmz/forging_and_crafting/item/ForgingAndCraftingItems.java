@@ -37,6 +37,9 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> PURE_GRAPHITE_POWDER = ITEMS.register("pure_graphite_powder", () ->
             new PureGraphitePowderItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> DRY_PURE_GRAPHITE_POWDER = ITEMS.register("dry_pure_graphite_powder", () ->
+            new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> WOODEN_BUCKET_ITEM = ITEMS.register("wooden_bucket_item", () ->
             new WoodenBucketItem(ForgingAndCraftingBlocks.WOODEN_BUCKET.get(), new Item.Properties().stacksTo(1)));
 

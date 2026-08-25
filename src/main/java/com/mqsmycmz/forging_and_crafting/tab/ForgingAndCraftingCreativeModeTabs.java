@@ -43,6 +43,7 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM.get());
                 pOutput.accept(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get());
                 pOutput.accept(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get());
+                pOutput.accept(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get());
     }).build());
 
     public static void register(IEventBus bus) {

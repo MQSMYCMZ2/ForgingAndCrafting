@@ -23,6 +23,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingItems.WOODEN_BUCKET_ITEM.get(), "Wooden Bucket");
         add(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get(), "Wooden Bucket fill with Water");
         add(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get(), "Pure Graphite Powder");
+        add(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(), "Dry and Pure Graphite Powder");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "Rock Crusher");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "Clay Brick");
