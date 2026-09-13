@@ -17,6 +17,9 @@ public class ForgingAndCraftingMenuTypes {
     public static final RegistryObject<MenuType<RockCrusherMenu>> ROCK_CRUSHER_MENU =
             registerMenuTypes("rock_crusher_menu", RockCrusherMenu::new);
 
+    public static final RegistryObject<MenuType<ShapingTableMenu>> SHAPING_TABLE =
+            registerMenuTypes("shaping_table_menu", ShapingTableMenu::new);
+
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuTypes(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }

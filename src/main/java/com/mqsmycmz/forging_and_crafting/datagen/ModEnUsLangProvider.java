@@ -24,6 +24,8 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get(), "Wooden Bucket fill with Water");
         add(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get(), "Pure Graphite Powder");
         add(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(), "Dry and Pure Graphite Powder");
+        add(ForgingAndCraftingItems.CHARCOAL_POWDER.get(), "Charcoal Powder");
+        add(ForgingAndCraftingItems.BRICK_POWDER.get(), "Brick Powder");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "Rock Crusher");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "Clay Brick");
@@ -34,6 +36,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingBlocks.MELTING_POT.get(), "Melting Pot");
         add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get(), "Graphite Ore");
         add(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get(), "Deepslate Graphite Ore");
+        add(ForgingAndCraftingBlocks.SHAPING_TABLE.get(), "Shaping Table");
 //        add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(), "Electric Energy Transmission Pipeline");
 //        add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), "Solution Delivery Pipeline");
 //        add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get(), "Information Transmission Cable");
@@ -41,6 +44,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add("itemGroup.forging_and_crafting_tab", "Forging And Crafting");
 
         add("entity.forging_and_crafting.rock_crusher", "Rock Crusher");
+        add("entity.forging_and_crafting.shaping_table", "Shaping Table");
 
         add("jei.forging_and_crafting.rock_crusher", "Rock Crusher");
         add("jei.forging_and_crafting.category.ore_processing", "Ore Chiseling");
@@ -53,5 +57,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add("tooltip.forging_and_crafting.chisel.sharpness", "§aSharpness:%d");
         add("tooltip.forging_and_crafting.chisel.granules_drop", "§eEach output: %d grains");
         add("tooltip.forging_and_crafting.simple_stone_chisel.auto_sharpen_hint", "§bSneak right-click Simple Stone Chisel (consumes 1 durability, +1 sharpness, the number of fragmented grains dropped increases with every 15 points of sharpness)");
+
+        add("container.shaping_table.start", "Start Crafting");
     }
 }

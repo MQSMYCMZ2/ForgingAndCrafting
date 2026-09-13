@@ -28,6 +28,7 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingBlocks.MELTING_POT.get());
                 pOutput.accept(ForgingAndCraftingBlocks.GRAPHITE_ORE.get());
                 pOutput.accept(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get());
+                pOutput.accept(ForgingAndCraftingBlocks.SHAPING_TABLE.get());
 //                pOutput.accept(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get());
 //                pOutput.accept(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get());
 //                pOutput.accept(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get());
@@ -44,6 +45,8 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get());
                 pOutput.accept(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get());
                 pOutput.accept(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get());
+                pOutput.accept(ForgingAndCraftingItems.CHARCOAL_POWDER.get());
+                pOutput.accept(ForgingAndCraftingItems.BRICK_POWDER.get());
     }).build());
 
     public static void register(IEventBus bus) {

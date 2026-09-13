@@ -14,6 +14,9 @@ public class ForgingAndCraftingRecipes {
     public static final RegistryObject<RecipeSerializer<RockCrusherRecipe>> ROCK_CRUSHER_SERIALIZERS =
             SERIALIZERS.register("rock_crusher", () -> RockCrusherRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<ShapingTableRecipe>> SHAPING_TABLE =
+            SERIALIZERS.register("shaping_table", () -> ShapingTableRecipe.ShapingTableRecipeSerializer.INSTANCE);
+
     public static void register(IEventBus bus) {
         SERIALIZERS.register(bus);
     }

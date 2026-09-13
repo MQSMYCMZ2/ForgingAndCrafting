@@ -22,6 +22,11 @@ public class ForgingAndCraftingBlockEntities {
                     BlockEntityType.Builder.of(GrindingTableBlockEntity::new,
                             ForgingAndCraftingBlocks.GRINDING_TABLE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ShapingTableBlockEntity>> SHAPING_TABLE =
+            BLOCK_ENTITIES.register("shaping_table", () ->
+                    BlockEntityType.Builder.of(ShapingTableBlockEntity::new,
+                            ForgingAndCraftingBlocks.SHAPING_TABLE.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);
     }

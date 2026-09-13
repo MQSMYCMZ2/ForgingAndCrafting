@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-21T16:32:54.059275	Block States: forging_and_crafting
+// 1.20.1	2026-08-26T16:43:15.012942	Block States: forging_and_crafting
 0442fd93d5c0b433c5004a174080ed5c501bdf09 assets/forging_and_crafting/blockstates/clay_brick.json
 d0548492c7d1d0d18946cbf6abb60a38309966a8 assets/forging_and_crafting/blockstates/copper_ore_granules.json
 5ad3abf4c0d875c166e242b32d2d508e4997e20f assets/forging_and_crafting/blockstates/deepslate_graphite_ore.json
@@ -7,6 +7,7 @@ ef0efb7a934e13a02e28d5699ed9da5970d997f1 assets/forging_and_crafting/blockstates
 5baae2e8168f5536a8e9a4cb573574a44ef04ea4 assets/forging_and_crafting/blockstates/grinding_table.json
 3924c9bff871d53b01bd019ca0d9b7b4e00b6b67 assets/forging_and_crafting/blockstates/iron_ore_granules.json
 cf0918aa80409601203505d430ac9efefd74bdb8 assets/forging_and_crafting/blockstates/melting_pot.json
+4f6b72f2fbfe9a060fb25e3b2dca5ee1b2c3d27a assets/forging_and_crafting/blockstates/shaping_table.json
 aafcc8fa8e8fc1df38ea2496f9d617384d553037 assets/forging_and_crafting/blockstates/wooden_bucket.json
 04dfad3f5a117abe330abb97234e59bcd519c1d3 assets/forging_and_crafting/models/block/clay_brick.json
 98ec3cefeeb009c899794fd7a628fbeb133ad293 assets/forging_and_crafting/models/block/deepslate_graphite_ore.json
@@ -19,3 +20,4 @@ d63eaa5ec0c9d20b121ec99cf543f38decb91baa assets/forging_and_crafting/models/item
 0ac7ad6b2edcbedd926d1dcb7481f1f392f5eedb assets/forging_and_crafting/models/item/grinding_table.json
 5556dfeaff443942749f802dbad2b9330e04ecc3 assets/forging_and_crafting/models/item/iron_ore_granules.json
 41c3e220f6a503929df27c9c5fc3b0531858126f assets/forging_and_crafting/models/item/melting_pot.json
+ccb3f0263b8651edb886bd4f57d164bfe370ae90 assets/forging_and_crafting/models/item/shaping_table.json

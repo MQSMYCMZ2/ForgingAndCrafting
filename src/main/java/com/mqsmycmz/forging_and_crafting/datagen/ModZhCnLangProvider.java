@@ -24,6 +24,8 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add(ForgingAndCraftingItems.WATER_WOODEN_BUCKET_ITEM.get(), "装有水的木桶");
         add(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get(), "纯净的石墨粉");
         add(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(), "干燥的纯净石墨粉末");
+        add(ForgingAndCraftingItems.CHARCOAL_POWDER.get(), "木炭粉末");
+        add(ForgingAndCraftingItems.BRICK_POWDER.get(), "陶瓷粉末");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "碎石机");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "耐火砖块");
@@ -34,6 +36,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add(ForgingAndCraftingBlocks.MELTING_POT.get(), "熔炼锅");
         add(ForgingAndCraftingBlocks.GRAPHITE_ORE.get(), "石墨原矿");
         add(ForgingAndCraftingBlocks.DEEPSLATE_GRAPHITE_ORE.get(), "深板岩石墨原矿");
+        add(ForgingAndCraftingBlocks.SHAPING_TABLE.get(), "塑形台");
 //        add(ForgingAndCraftingBlocks.ELECTRIC_ENERGY_TRANSMISSION_PIPELINE.get(), "电能传输管道");
 //        add(ForgingAndCraftingBlocks.SOLUTION_DELIVERY_PIPELINE.get(), "溶液输送管道");
 //        add(ForgingAndCraftingBlocks.INFORMATION_TRANSMISSION_CABLE.get(), "信息传输电缆");
@@ -41,6 +44,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add("itemGroup.forging_and_crafting_tab", "锻造和创造");
 
         add("entity.forging_and_crafting.rock_crusher", "碎石机");
+        add("entity.forging_and_crafting.shaping_table", "塑形台");
 
         add("jei.forging_and_crafting.rock_crusher", "碎石机");
         add("jei.forging_and_crafting.ore_processing.hint", "使用简易石凿在承物盘上处理");
@@ -53,5 +57,7 @@ public class ModZhCnLangProvider extends LanguageProvider {
         add("tooltip.forging_and_crafting.chisel.sharpness", "§a尖锐程度：%d");
         add("tooltip.forging_and_crafting.chisel.granules_drop", "§e每次产出：%d 个碎粒");
         add("tooltip.forging_and_crafting.simple_stone_chisel.auto_sharpen_hint", "§b潜行右键简易石凿（消耗1耐久，+1尖锐程度，每15点尖锐程度增加掉落的碎粒数量）");
+
+        add("container.shaping_table.start", "开始制作");
     }
 }

@@ -1,0 +1,12 @@
+{
+  "type": "forging_and_crafting:shaping_table",
+  "ingredient": {
+    "item": "forging_and_crafting:dry_pure_graphite_powder"
+  },
+  "result": {
+    "item": "forging_and_crafting:melting_pot",
+    "count": 1
+  },
+  "crafting_time": 100,
+  "consumption_quantity": 4
+}

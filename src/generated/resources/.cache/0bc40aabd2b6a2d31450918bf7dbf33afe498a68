@@ -1,5 +1,5 @@
-// 1.20.1	2026-08-20T18:26:56.965391	Tags for minecraft:block mod id forging_and_crafting
-d734b536e2e49c04c76f249581c812aff9a58a05 data/minecraft/tags/blocks/mineable/axe.json
-76ffb757a0b18b5efd7a4f79de13439892955e8b data/minecraft/tags/blocks/mineable/pickaxe.json
-b23e41d01663e2c414d43a3d8d3b3f445a34fa19 data/minecraft/tags/blocks/needs_iron_tool.json
+// 1.20.1	2026-08-26T16:39:54.070402	Tags for minecraft:block mod id forging_and_crafting
+2d425e16e596fa827798801cb86b12ef47a43c85 data/minecraft/tags/blocks/mineable/axe.json
+b457c54a3eb0f49690c13e7275dd95c0a355b186 data/minecraft/tags/blocks/mineable/pickaxe.json
+44b362909edaff939c689d6214efecb83c8f0ae7 data/minecraft/tags/blocks/needs_iron_tool.json
 9ec21574b163df5290583ad2bb432b35a2c52e4e data/minecraft/tags/blocks/needs_stone_tool.json

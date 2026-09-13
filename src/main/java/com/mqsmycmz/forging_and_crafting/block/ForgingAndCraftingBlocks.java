@@ -88,6 +88,13 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> SHAPING_TABLE=
+            registerBlock("shaping_table", () -> new ShapingTableBlock(BlockBehaviour.Properties.of()
+                    .strength(1f, 10f)
+                    .sound(SoundType.STONE)
+                    .noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
 //    public static final RegistryObject<Block> ELECTRIC_ENERGY_TRANSMISSION_PIPELINE =
 //            registerBlock("electric_energy_transmission_pipeline", () -> new ElectricEnergyTransmissionPipelineBlock(BlockBehaviour.Properties.of()
 //                    .strength(1f, 10f)
