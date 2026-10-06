@@ -23,100 +23,88 @@ public class ForgingAndCraftingBlocks {
                     .strength(0.8f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(64));
 
     public static final RegistryObject<Block> GRAPHITE_ORE =
             registerBlock("graphite_ore", () -> new Block(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(64));
 
     public static final RegistryObject<Block> DEEPSLATE_GRAPHITE_ORE =
             registerBlock("deepslate_graphite_ore", () -> new Block(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(64));
 
     public static final RegistryObject<Block> WOODEN_BUCKET =
             registerBlock("wooden_bucket", () -> new WoodenBucketBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(1));
 
     public static final RegistryObject<Block> WATER_WOODEN_BUCKET =
             registerBlock("water_wooden_bucket", () -> new WaterWoodenBucketBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(1));
 
     public static final RegistryObject<Block> IRON_ORE_GRANULES =
             registerBlock("iron_ore_granules", () -> new IronOreGranulesItem(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(64));
 
     public static final RegistryObject<Block> COPPER_ORE_GRANULES =
             registerBlock("copper_ore_granules", () -> new CopperOreGranules(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(64));
 
     public static final RegistryObject<Block> GOLD_ORE_GRANULES =
             registerBlock("gold_ore_granules", () -> new GoldOreGranulesItem(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(64));
 
     public static final RegistryObject<Block> GRINDING_TABLE =
             registerBlock("grinding_table", () -> new GrindingTableBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(1));
 
     public static final RegistryObject<Block> MELTING_POT =
             registerBlock("melting_pot", () -> new MeltingPotBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(1));
 
     public static final RegistryObject<Block> SHAPING_TABLE=
             registerBlock("shaping_table", () -> new ShapingTableBlock(BlockBehaviour.Properties.of()
                     .strength(1f, 10f)
                     .sound(SoundType.STONE)
                     .noOcclusion()
-                    .requiresCorrectToolForDrops()));
-
-//    public static final RegistryObject<Block> ELECTRIC_ENERGY_TRANSMISSION_PIPELINE =
-//            registerBlock("electric_energy_transmission_pipeline", () -> new ElectricEnergyTransmissionPipelineBlock(BlockBehaviour.Properties.of()
-//                    .strength(1f, 10f)
-//                    .sound(SoundType.METAL)
-//                    .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
-//                    .noOcclusion()
-//                    .requiresCorrectToolForDrops(), ElectricEnergyTransmissionPipelineBlock.shape));
-//
-//    public static final RegistryObject<Block> SOLUTION_DELIVERY_PIPELINE =
-//            registerBlock("solution_delivery_pipeline", () -> new SolutionDeliveryPipelineBlock(BlockBehaviour.Properties.of()
-//                    .strength(1f, 10f)
-//                    .sound(SoundType.METAL)
-//                    .noOcclusion()
-//                    .requiresCorrectToolForDrops(), SolutionDeliveryPipelineBlock.shape));
-//
-//    public static final RegistryObject<Block> INFORMATION_TRANSMISSION_CABLE =
-//            registerBlock("information_transmission_cable", () -> new InformationTransmissionCableBlock(BlockBehaviour.Properties.of()
-//                    .strength(1f, 10f)
-//                    .sound(SoundType.METAL)
-//                    .isValidSpawn(((pState, pLevel, pPos, pValue) -> false))
-//                    .noOcclusion()
-//                    .requiresCorrectToolForDrops(), InformationTransmissionCableBlock.shape));
+                    .requiresCorrectToolForDrops()),
+                    new Item.Properties().stacksTo(1));
 
     public static final RegistryObject<Block> ROCK_CRUSHER = BLOCKS.register("rock_crusher",
             () -> new RockCrusherBlock(BlockBehaviour.Properties.of()
@@ -125,13 +113,13 @@ public class ForgingAndCraftingBlocks {
                     .noOcclusion()
                     .requiresCorrectToolForDrops()));
 
-    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ForgingAndCraftingItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block, Item.Properties properties) {
+        ForgingAndCraftingItems.ITEMS.register(name, () -> new BlockItem(block.get(), properties));
     }
 
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
+    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, Item.Properties properties) {
         RegistryObject<T> blocks = BLOCKS.register(name, block);
-        registerBlockItem(name, blocks);
+        registerBlockItem(name, blocks, properties);
         return blocks;
     }
 

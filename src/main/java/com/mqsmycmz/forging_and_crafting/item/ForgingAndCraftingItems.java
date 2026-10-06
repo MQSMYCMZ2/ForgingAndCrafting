@@ -53,14 +53,14 @@ public class ForgingAndCraftingItems {
             new WaterWoodenBucketItem(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(), new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> WET_MELTING_POT_ITEM = ITEMS.register("wet_melting_pot", () ->
-            new Item(new Item.Properties()));
+            new Item(new Item.Properties().stacksTo(1)));
 
     // 在 ForgingAndCraftingItems.java 中添加：
     public static final RegistryObject<Item> GRINDING_TABLE_ANIMATED = ITEMS.register("grinding_table_animated",
             () -> new GrindingTableAnimatedItem(new Item.Properties()));
 
     public static final RegistryObject<Item> ROCK_CRUSHER_BLOCK_ITEM = ITEMS.register("rock_crusher", () ->
-            new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties()));
+            new RockCrusherBlockItem(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), new Item.Properties().stacksTo(1)));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);

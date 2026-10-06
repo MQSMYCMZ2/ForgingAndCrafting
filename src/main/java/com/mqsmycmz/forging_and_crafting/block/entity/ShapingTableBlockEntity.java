@@ -30,12 +30,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 public class ShapingTableBlockEntity extends BlockEntity implements MenuProvider {
     public static final int INPUT_SLOT = 0;
-    public static final int OUTPUT_SLOT = 1;
-    public static final int SLOT_COUNT = 2;
+    public static final int INPUT_SLOT_1 = 1;
+    public static final int INPUT_SLOT_2 = 2;
+    public static final int OUTPUT_SLOT = 3;
+    public static final int SLOT_COUNT = 4;
 
     // 防止在制作完成处理过程中触发输入槽变化重置
     private boolean isProcessingCraftComplete = false;
@@ -300,36 +300,6 @@ public class ShapingTableBlockEntity extends BlockEntity implements MenuProvider
         setChanged();
     }
 
-//    public void selectRecipe(@Nullable ResourceLocation recipeId) {
-//        if (level == null || level.isClientSide()) return;
-//
-//        // 如果 recipeId 为 null，则取消选择
-//        if (recipeId == null) {
-//            resetSelectionInternal();
-//            sync(); // 取消选中也需同步状态
-//            return;
-//        }
-//
-//        ShapingTableRecipe recipe = level.getRecipeManager().byKey(recipeId)
-//                .filter(r -> r instanceof ShapingTableRecipe)
-//                .map(r -> (ShapingTableRecipe) r)
-//                .orElse(null);
-//        if (recipe == null || !recipe.matches(getInventoryWrapper(), level)) {
-//            // 不匹配，取消选择
-//            resetSelectionInternal();
-//            sync();
-//            return;
-//        }
-//
-//        selectedRecipeId = recipeId;
-//        ItemStack preview = recipe.getResultItem(level.registryAccess()).copy();
-//        itemStackHandler.setStackInSlot(OUTPUT_SLOT, preview);
-//        craftProgress = 0;
-//        totalCraftTime = recipe.getCraftingTime();
-//        craftFinished = false;
-//        sync(); // 同步选中状态到客户端
-//    }
-
     private boolean isSelectionValid() {
         ShapingTableRecipe recipe = findSelectedRecipe();
         if (recipe == null) return false;
@@ -376,10 +346,6 @@ public class ShapingTableBlockEntity extends BlockEntity implements MenuProvider
     @Nullable
     public ResourceLocation getSelectedRecipeId() {
         return selectedRecipeId;
-    }
-
-    public int getRequestedCount() {
-        return requestedCount;
     }
 
     // ---------- 数据同步辅助 ----------

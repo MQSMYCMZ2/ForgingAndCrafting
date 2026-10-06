@@ -47,6 +47,9 @@ public class ShapingTableMenu extends AbstractContainerMenu {
                 }
             });
 
+            this.addSlot(new SlotItemHandler(handler, ShapingTableBlockEntity.INPUT_SLOT_1, 102, 15));
+            this.addSlot(new SlotItemHandler(handler, ShapingTableBlockEntity.INPUT_SLOT_2, 102, 71));
+
             this.addSlot(new SlotItemHandler(handler, ShapingTableBlockEntity.OUTPUT_SLOT, 172, 42) {
                 @Override
                 public boolean mayPlace(@NotNull ItemStack stack) {
@@ -109,12 +112,12 @@ public class ShapingTableMenu extends AbstractContainerMenu {
         ItemStack stack = slot.getItem();
         ItemStack copy = stack.copy();
 
-        if (index < 2) {
-            if (!this.moveItemStackTo(stack, 2, this.slots.size(), true)) {
+        if (index < 4) {
+            if (!this.moveItemStackTo(stack, 4, this.slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!this.moveItemStackTo(stack, 0, 1, false)) {
+            if (!this.moveItemStackTo(stack, 0, 3, false)) {
                 return ItemStack.EMPTY;
             }
         }
