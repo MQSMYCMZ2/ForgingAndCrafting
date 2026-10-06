@@ -47,6 +47,7 @@ public class ForgingAndCraftingCreativeModeTabs {
                 pOutput.accept(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get());
                 pOutput.accept(ForgingAndCraftingItems.CHARCOAL_POWDER.get());
                 pOutput.accept(ForgingAndCraftingItems.BRICK_POWDER.get());
+                pOutput.accept(ForgingAndCraftingItems.WET_MELTING_POT_ITEM.get());
     }).build());
 
     public static void register(IEventBus bus) {

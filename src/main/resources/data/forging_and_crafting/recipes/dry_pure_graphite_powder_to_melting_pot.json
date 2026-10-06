@@ -4,7 +4,7 @@
     "item": "forging_and_crafting:dry_pure_graphite_powder"
   },
   "result": {
-    "item": "forging_and_crafting:melting_pot",
+    "item": "forging_and_crafting:wet_melting_pot",
     "count": 1
   },
   "crafting_time": 100,

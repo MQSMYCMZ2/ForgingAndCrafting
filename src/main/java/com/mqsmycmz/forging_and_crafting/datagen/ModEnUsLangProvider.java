@@ -26,6 +26,7 @@ public class ModEnUsLangProvider extends LanguageProvider {
         add(ForgingAndCraftingItems.DRY_PURE_GRAPHITE_POWDER.get(), "Dry and Pure Graphite Powder");
         add(ForgingAndCraftingItems.CHARCOAL_POWDER.get(), "Charcoal Powder");
         add(ForgingAndCraftingItems.BRICK_POWDER.get(), "Brick Powder");
+        add(ForgingAndCraftingItems.WET_MELTING_POT_ITEM.get(), "Wet Melting Pot");
 
         add(ForgingAndCraftingBlocks.ROCK_CRUSHER.get(), "Rock Crusher");
         add(ForgingAndCraftingBlocks.CLAY_BRICK.get(), "Clay Brick");

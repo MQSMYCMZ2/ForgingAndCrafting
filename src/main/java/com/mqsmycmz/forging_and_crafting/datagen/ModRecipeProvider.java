@@ -92,6 +92,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_pure_graphite_powder_to_dry_by_blasting", has(ForgingAndCraftingItems.PURE_GRAPHITE_POWDER.get()))
                 .save(pWriter, "pure_graphite_powder_to_dry_by_blasting");
 
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ForgingAndCraftingItems.WET_MELTING_POT_ITEM.get()),
+                RecipeCategory.MISC,
+                ForgingAndCraftingBlocks.MELTING_POT.get(),
+                0.35F,
+                100)
+                .unlockedBy("has_granules_smelting", has(ForgingAndCraftingItems.WET_MELTING_POT_ITEM.get()))
+                .save(pWriter, "granules_to_dry_by_smelting");
         //熔炉：
         //oreSmelting(pWriter, CLAY_BRICK, RecipeCategory.MISC, ForgingAndCraftingBlocks.CLAY_BRICK.get(), 0.25F, 200, "clay_brick");
         //高炉：

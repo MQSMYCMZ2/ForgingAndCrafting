@@ -52,6 +52,9 @@ public class ForgingAndCraftingItems {
     public static final RegistryObject<Item> WATER_WOODEN_BUCKET_ITEM = ITEMS.register("water_wooden_bucket_item", () ->
             new WaterWoodenBucketItem(ForgingAndCraftingBlocks.WATER_WOODEN_BUCKET.get(), new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> WET_MELTING_POT_ITEM = ITEMS.register("wet_melting_pot", () ->
+            new Item(new Item.Properties()));
+
     // 在 ForgingAndCraftingItems.java 中添加：
     public static final RegistryObject<Item> GRINDING_TABLE_ANIMATED = ITEMS.register("grinding_table_animated",
             () -> new GrindingTableAnimatedItem(new Item.Properties()));
